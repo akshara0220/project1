@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGHALAYA FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MEGHALAYA FOOD</h1>
+    </header>
+
+    <section>
+        <h2>WANGALA FESTIVAL:JADOH</h2>
+        </P>Jadoh is a traditional dish enjoyed during the Wangala festival, a harvest festival celebrated by the Garo tribe in Meghalaya. Wangala typically takes place in November and is a joyous occasion to give thanks for a bountiful harvest.Jadoh is a flavorful rice dish cooked with meat, usually pork or chicken, and a blend of aromatic spices. The rice is often infused with turmeric, giving it a vibrant yellow color and a subtle earthy flavor.The meat is marinated with spices such as ginger, garlic, black pepper, and bay leaves before being cooked together with the rice, imparting its rich flavor and tenderness to the dish.
+        Jadoh is typically garnished with fresh cilantro and served with a side of spicy chutney made from ingredients like red chilies, garlic, and lime juice, adding an extra layer of flavor and heat.
+        This dish is not only a delicious culinary treat but also holds cultural significance during the Wangala festival, symbolizing the unity and prosperity of the Garo community. Enjoying Jadoh with loved ones is a cherished tradition, strengthening bonds and fostering a sense of togetherness during this festive occasion.
+            </p>
+            <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </section>
+
+    <section>
+        <h2>JADOH DISH, WANGALA FESTIVAL</h2>
+        <div class="gallery">
+            <img src="https://gayathriscookspot.com/wp-content/uploads/2018/11/Khasi-Pulao-2.jpg" alt="photo 1">
+            <img src="https://localbitesonline.com/wp-content/uploads/2023/03/Jadoh.jpg"alt="photo 2">
+            <img src="https://meghalaya.gov.in/sites/default/files/inline-images/wangala-dance.jpg" alt="Photo 3">
+            <img src="https://d18x2uyjeekruj.cloudfront.net/wp-content/uploads/2022/11/wangala.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/nxlOYPSdnSg?si=xIXtUAoqm16Q8Znv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section>  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+        background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+            <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+        </div>
+    </div>
+   <script>
+// Base data for 100g
+const baseNutritionData ={
+        "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [400, 15, 35, 20, 2] },
+        "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [400, 15, 35, 20, 2] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+    
+    </body>
+    </html>
+    
+<section>
+    <h2>Explore Meghalaya During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <div class="festival-block" data-type="place">
+            <h3>Wangala Festival, Tura</h3>
+            <p>Harvest festival of the Garo tribe celebrated with drumbeats, dances, and thanksgiving rituals.</p>
+            <a href="https://www.google.com/maps?q=Tura,+Meghalaya" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Shillong Autumn Festival</h3>
+            <p>Cultural event held near Umiam Lake with music, food, and traditional performances in Meghalaya's capital.</p>
+            <a href="https://www.google.com/maps?q=Umiam+Lake,+Shillong" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Jadoh</h3>
+            <p>Traditional Khasi/Garo rice dish with meat and spices, garnished with herbs — a highlight during Wangala festival.</p>
+            <img src="data:image/jpeg;base64,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" alt="Jadoh" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Dohneiiong</h3>
+            <p>Pork cooked with black sesame seeds — a beloved Meghalayan delicacy served during many cultural events.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQRzNpkdKyFSsxvNwjdmNuxejEd4mTQu1qjA&s" alt="Dohneiiong" width="300">
+        </div>
+
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+

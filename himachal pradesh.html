@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HIMACHAL PRADESH FOOD</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .videos {
+      margin-top: 20px;
+    }
+
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      margin-bottom: 20px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>HIMACHAL PRADESH FOOD</h1>
+  </header>
+  <a href="mppppppppppppppppp-2.html">back</a>
+
+  <section>
+    <h2>DASARA FESTIVAL: SIDU DISH</h2>
+    <p>
+      Siddu is a traditional dish from Himachal Pradesh, especially popular in regions like Kullu, Manali, Shimla, and Mandi, and holds special cultural significance during festivals such as Dussehra. Made from wheat flour dough that is fermented for several hours using yeast, Siddu is typically stuffed with a savory mixture of ingredients like walnuts, poppy seeds, urad dal, green chilies, ginger, garlic, and sometimes peas or paneer. The dough is shaped into buns or half-moons, filled, sealed, and then steamed until soft and fluffy. During the grand Kullu Dussehra celebrations, Siddu is an essential part of the festive cuisine, served hot with desi ghee, lentil broth (dal), or mint chutney. It is not only delicious and nourishing but also ideal for the chilly weather of the Himalayan region. More than just a food item, Siddu symbolizes community warmth, celebration, and the rich culinary heritage of Himachal Pradesh, making it a beloved dish shared among families and communities during auspicious occasions like Dasara.
+    </p>
+    <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+  </section>
+
+  <section>
+    <h2>SIDHU DISH, DASARA FESTIVAL</h2>
+    <div class="gallery">
+      <img src="https://images.news18.com/ibnkhabar/uploads/2021/09/Siddu.jpg" alt="photo 1">
+      <img src="https://media-cdn.tripadvisor.com/media/photo-s/13/77/f9/c6/siddu-local-himachali.jpg" alt="photo 2">
+      <img src="https://media.assettype.com/outlooktraveller%2Fimport%2Fpublic%2Fuploads%2Ffilemanager%2Fimages%2Fshutterstock_2175191227.jpg" alt="photo 3">
+      <img src="https://im.hunt.in/cg/Kullu/City-Guide/kullu-dussehra1.jpg" alt="photo 4">
+    </div>
+  </section>
+
+  <section class="videos">
+    <h2>Videos</h2>
+    <div class="video-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/l8BQ-SryCgM?si=rmpAS-fqvp8IrlZ6" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- Chart Modal -->
+  <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+      <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+      <canvas id="nutritionChart"></canvas>
+      <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+    </div>
+  </div>
+
+  <script>
+// Base data for 100g
+const baseNutritionData ={
+      "photo 1": {
+        labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"],
+        data: [290, 7, 50, 9, 5]
+      },
+      "photo 2": {
+        labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"],
+        data: [290, 7, 50, 9, 5]
+      }
+    };
+
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+ 
+
+</body>
+</html>
+<section>
+    <h2>Explore Himachal Pradesh During Festivals</h2>
+    <label for="festivalFilterHP"><strong>Filter by:</strong></label>
+    <select id="festivalFilterHP" onchange="filterFestival('HP')">
+      <option value="all">-- Show All --</option>
+      <option value="place">Famous Places</option>
+      <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContentHP">
+      <!-- Places -->
+      <div class="festival-block" data-type="place">
+        <h3>Kullu Dussehra Grounds</h3>
+        <p>Witness the majestic procession of Lord Raghunath with folk dances and local traditions.</p>
+        <a href="https://www.google.com/maps?q=Kullu" target="_blank">View on Google Maps</a>
+      </div>
+      <div class="festival-block" data-type="place">
+        <h3>Temple Fairs in Mandi & Manali</h3>
+        <p>Devotional performances and cultural rituals during Dasara celebrations.</p>
+      </div>
+
+      <!-- Foods -->
+      <div class="festival-block" data-type="food">
+        <h3>Chana Madra</h3>
+        <p>A yogurt-based chickpea curry served during festive meals.</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvVGM_BWD2L0ox61Jt3HlQav3pXgbVl1TQ9Q&s" alt="Chana Madra" width="300">
+      </div>
+      <div class="festival-block" data-type="food">
+        <h3>Babru</h3>
+        <p>Stuffed deep-fried bread often paired with tamarind chutney during festivals.</p>
+        <img src="data:image/jpeg;base64,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" alt="Babru" width="300">
+      </div>
+    </div>
+  </section>
+  <script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+
+  <section>
+    <h2>Festival Info</h2>
+    <p><strong>Festival:</strong> Dasara (Dussehra)</p>
+    <p><strong>Date:</strong> October 2, 2025 (Thursday)</p>
+  </section>
+
+  <a href="order-food.html">
+    <button>🥟 Order Himachali Sidu</button>
+  </a>
+
+</body>
+</html>

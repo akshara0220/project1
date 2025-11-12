@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>India Culture Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://i.ytimg.com/vi/5d9zF22P6E4/maxresdefault.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+      z-index: -1;
+      animation: bgmove 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes bgmove {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 100% 100%;
+      }
+    }
+
+    header {
+      font-family: 'Kaushan Script', cursive;
+      font-size: 2.5rem;
+      text-align: center;
+      padding: 30px 20px;
+      color: #fff;
+      background: linear-gradient(to right, #2e86de, #4b0082);
+      text-shadow: 2px 2px 6px #000;
+      letter-spacing: 2px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      padding: 50px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      padding: 25px;
+      transition: all 0.4s ease-in-out;
+      color: #fff;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #2e86de, 0 0 30px #1b4f9c;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #f5f5f5;
+    }
+
+    .card a {
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #2e86de;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: background 0.3s ease;
+    }
+
+    .card a:hover {
+      background-color: #1b4f9c;
+    }
+
+    #topBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2e86de;
+      border: none;
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      display: none;
+      transition: background 0.3s ease;
+    }
+
+    #topBtn:hover {
+      background-color: #1b4f9c;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #ccc;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    @media screen and (max-width: 600px) {
+      header {
+        font-size: 1.8rem;
+        padding: 20px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    FESTIVAL FOODS OF INDIA
+  </header>
+
+  <div class="dashboard">
+    <div class="card">
+      <h2>🗺️ India Map</h2>
+      <a href="mppppppppppppppppp-2.html">Open Map</a>
+    </div>
+    <div class="card">
+      <h2>📝 Quiz</h2>
+      <a href="quiz.html">Start Quiz</a>
+    </div>
+    
+    <div class="card">
+      <h2>📅 Festival Calendar</h2>
+      <a href="date.html">See Festivals</a>
+    </div>
+    <div class="card">
+      <h2>🖼️ Project Showcase</h2>
+      <a href="background.html">See Work</a>
+    </div>
+    <div class="card">
+      <h2>🔍 Search</h2>
+      <a href="searchbar.html">Find Festivals</a>
+    </div>
+    
+    <div class="card">
+      <h2>🧍 Personal Details</h2>
+      <a href="persoanldetails.html">Info</a>
+    </div>
+    <div class="card">
+      <h2>🍽️ Food Delivery</h2>
+      <a href="order-food.html">Order Food</a>
+    </div>
+    <div class="card">
+      <h2>🍽️ Ingredients Delivery</h2>
+      <a href="ingredient.html">Order Ingredients</a>
+    </div>
+    <div class="card">
+      <h2>📍Maps</h2>
+      <a href="maps.html">Visit places</a>
+  </div>
+
+  <div class="card">
+  <h2>🤖 Chatbot</h2>
+  <a href="chatbot.html">Chatbot</a>
+</div>
+<div class="card">
+  <h2>Table chart</h2>
+  <a href="table.html">Table chart</a>
+</div>
+
+
+  <!-- Scroll to Top Button -->
+  <button onclick="scrollToTop()" id="topBtn" title="Go to top">↑</button>
+
+  <script>
+    const topBtn = document.getElementById("topBtn");
+    window.onscroll = () => {
+      topBtn.style.display = (window.scrollY > 100) ? "block" : "none";
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+
+</html>

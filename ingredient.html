@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Festival Ingredient Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f0e3;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #bf360c;
+    }
+    .centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    select, input {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      max-width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 16px;
+      background: #ff7043;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e64a19;
+    }
+    ul {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 0;
+      list-style: none;
+    }
+    .ingredient {
+      background: white;
+      margin: 8px 0;
+      padding: 12px 16px;
+      border-left: 5px solid #ffa000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ingredient a {
+      text-decoration: none;
+      color: #2e7d32;
+      font-weight: bold;
+    }
+    .total {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #4e342e;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🛒 Festival Ingredient Assistant</h1>
+
+<div class="centered">
+  <input type="text" id="searchBox" placeholder="🔍 Search Dish..." onkeyup="searchFestival()">
+  <select id="festivalSelect" onchange="showIngredients()">
+    <option value="">-- Select a Festival Dish --</option>
+    <option value="andhra">Andhra - Pulihora</option>
+    <option value="arunachal">Arunachal - Thukpa</option>
+    <option value="assam">Assam - Pitha</option>
+    <option value="bihar">Bihar - Litti Chokha</option>
+    <option value="chhattisgarh">Chhattisgarh - Chana Samosa</option>
+    <option value="goa">Goa - Bebinca</option>
+    <option value="gujarat">Gujarat - Dhokla</option>
+    <option value="haryana">Haryana - Bajra Khichdi</option>
+    <option value="himachal">Himachal - Siddu</option>
+    <option value="jharkhand">Jharkhand - Thekua</option>
+    <option value="karnataka">Karnataka - Bisi Bele Bath</option>
+    <option value="kerala">Kerala - Onam Sadhya</option>
+    <option value="madhya">Madhya Pradesh - Poha</option>
+    <option value="maharashtra">Maharashtra - Puran Poli</option>
+    <option value="manipur">Manipur - Chamthong</option>
+    <option value="meghalaya">Meghalaya - Jadoh</option>
+    <option value="mizoram">Mizoram - Bamboo Curry</option>
+    <option value="nagaland">Nagaland - Smoked Pork</option>
+    <option value="odisha">Odisha - Dalma</option>
+    <option value="punjab">Punjab - Sarson da Saag</option>
+    <option value="rajasthan">Rajasthan - Dal Baati Churma</option>
+    <option value="sikkim">Sikkim - Phagshapa</option>
+    <option value="tamilnadu">Tamil Nadu - Pongal</option>
+    <option value="telangana">Telangana - Sakinalu</option>
+    <option value="tripura">Tripura - Mui Borok</option>
+    <option value="uttarpradesh">Uttar Pradesh - Gujia</option>
+    <option value="uttarakhand">Uttarakhand - Bhatt ki Churkani</option>
+    <option value="westbengal">West Bengal - Rasgulla</option>
+  </select>
+  <button onclick="startVoice()">🎙️ Speak Festival Name</button>
+</div>
+
+<ul id="ingredientList"></ul>
+
+<script>
+const data = {
+  andhra: [
+    { item: "Rice", price: 50, link: "https://www.amazon.in/s?k=rice" },
+    { item: "Tamarind Paste", price: 35, link: "https://www.amazon.in/s?k=tamarind+paste" },
+    { item: "Green Chillies", price: 20, link: "https://www.amazon.in/s?k=green+chillies" },
+    { item: "Curry Leaves", price: 10, link: "https://www.amazon.in/s?k=curry+leaves" }
+  ],
+  arunachal: [
+    { item: "Thukpa Noodles", price: 45, link: "https://www.amazon.in/s?k=thukpa+noodles" },
+    { item: "Ginger", price: 20, link: "https://www.amazon.in/s?k=ginger" },
+    { item: "Garlic", price: 15, link: "https://www.amazon.in/s?k=garlic" }
+  ],
+  assam: [
+    { item: "Sticky Rice", price: 50, link: "https://www.amazon.in/s?k=sticky+rice" },
+    { item: "Jaggery", price: 40, link: "https://www.amazon.in/s?k=jaggery" },
+    { item: "Sesame Seeds", price: 30, link: "https://www.amazon.in/s?k=sesame+seeds" }
+  ],
+  bihar: [
+    { item: "Wheat Flour", price: 40, link: "https://www.amazon.in/s?k=wheat+flour" },
+    { item: "Sattu", price: 45, link: "https://www.amazon.in/s?k=sattu" },
+    { item: "Mustard Oil", price: 50, link: "https://www.amazon.in/s?k=mustard+oil" }
+  ],
+  chhattisgarh: [
+    { item: "Rice Flour", price: 35, link: "https://www.amazon.in/s?k=rice+flour" },
+    { item: "Chana Dal", price: 40, link: "https://www.amazon.in/s?k=chana+dal" }
+  ],
+  goa: [
+    { item: "Coconut Milk", price: 40, link: "https://www.amazon.in/s?k=coconut+milk" },
+    { item: "Eggs", price: 60, link: "https://www.amazon.in/s?k=eggs" },
+    { item: "Refined Flour", price: 30, link: "https://www.amazon.in/s?k=maida" }
+  ],
+  gujarat: [
+    { item: "Besan", price: 30, link: "https://www.amazon.in/s?k=besan" },
+    { item: "Eno", price: 10, link: "https://www.amazon.in/s?k=eno" },
+    { item: "Mustard Seeds", price: 20, link: "https://www.amazon.in/s?k=mustard+seeds" }
+  ],
+  haryana: [
+    { item: "Bajra", price: 40, link: "https://www.amazon.in/s?k=bajra" },
+    { item: "Ghee", price: 60, link: "https://www.amazon.in/s?k=ghee" }
+  ],
+  himachal: [
+    { item: "Wheat Flour", price: 40, link: "https://www.amazon.in/s?k=wheat+flour" },
+    { item: "Yeast", price: 20, link: "https://www.amazon.in/s?k=yeast" }
+  ],
+  jharkhand: [
+    { item: "Wheat Flour", price: 40, link: "https://www.amazon.in/s?k=wheat+flour" },
+    { item: "Jaggery", price: 40, link: "https://www.amazon.in/s?k=jaggery" },
+    { item: "Coconut", price: 35, link: "https://www.amazon.in/s?k=coconut" }
+  ],
+  karnataka: [
+    { item: "Rice", price: 50, link: "https://www.amazon.in/s?k=rice" },
+    { item: "Tamarind", price: 30, link: "https://www.amazon.in/s?k=tamarind" },
+    { item: "Vegetables", price: 60, link: "https://www.amazon.in/s?k=mixed+vegetables" }
+  ],
+  kerala: [
+    { item: "Matta Rice", price: 55, link: "https://www.amazon.in/s?k=matta+rice" },
+    { item: "Bananas", price: 25, link: "https://www.bigbasket.com/ps/?q=banana" },
+    { item: "Coconut", price: 35, link: "https://www.amazon.in/s?k=coconut" },
+    { item: "Jaggery", price: 40, link: "https://www.amazon.in/s?k=jaggery" }
+  ],
+  madhya: [
+    { item: "Poha", price: 35, link: "https://www.amazon.in/s?k=poha" },
+    { item: "Sev", price: 25, link: "https://www.amazon.in/s?k=sev" },
+    { item: "Jalebi", price: 45, link: "https://www.amazon.in/s?k=jalebi" }
+  ],
+  maharashtra: [
+    { item: "Chana Dal", price: 50, link: "https://www.amazon.in/s?k=chana+dal" },
+    { item: "Jaggery", price: 40, link: "https://www.amazon.in/s?k=jaggery" },
+    { item: "Cardamom", price: 50, link: "https://www.amazon.in/s?k=cardamom" },
+    { item: "Wheat Flour", price: 45, link: "https://www.amazon.in/s?k=wheat+flour" }
+  ],
+  manipur: [
+    { item: "Green Veggies", price: 40, link: "https://www.amazon.in/s?k=green+vegetables" },
+    { item: "Rice", price: 50, link: "https://www.amazon.in/s?k=rice" }
+  ],
+  meghalaya: [
+    { item: "Rice", price: 50, link: "https://www.amazon.in/s?k=rice" },
+    { item: "Pork", price: 100, link: "https://www.amazon.in/s?k=pork" }
+  ],
+  mizoram: [
+    { item: "Bamboo Shoots", price: 40, link: "https://www.amazon.in/s?k=bamboo+shoots" },
+    { item: "Mustard", price: 20, link: "https://www.amazon.in/s?k=mustard" }
+  ],
+  nagaland: [
+    { item: "Smoked Pork", price: 120, link: "https://www.amazon.in/s?k=smoked+pork" },
+    { item: "Naga Chilies", price: 40, link: "https://www.amazon.in/s?k=naga+chilli" }
+  ],
+  odisha: [
+    { item: "Split Moong Dal", price: 45, link: "https://www.amazon.in/s?k=moong+dal" },
+    { item: "Raw Banana", price: 30, link: "https://www.amazon.in/s?k=raw+banana" }
+  ],
+  punjab: [
+    { item: "Mustard Leaves", price: 60, link: "https://www.amazon.in/s?k=mustard+leaves" },
+    { item: "Maize Flour", price: 40, link: "https://www.amazon.in/s?k=maize+flour" },
+    { item: "Ghee", price: 60, link: "https://www.amazon.in/s?k=ghee" }
+  ],
+  rajasthan: [
+    { item: "Wheat Flour", price: 40, link: "https://www.amazon.in/s?k=wheat+flour" },
+    { item: "Toor Dal", price: 45, link: "https://www.amazon.in/s?k=toor+dal" },
+    { item: "Ghee", price: 60, link: "https://www.amazon.in/s?k=ghee" }
+  ],
+  sikkim: [
+    { item: "Pork", price: 90, link: "https://www.amazon.in/s?k=pork" },
+    { item: "Radish", price: 20, link: "https://www.amazon.in/s?k=radish" }
+  ],
+  tamilnadu: [
+    { item: "Raw Rice", price: 50, link: "https://www.amazon.in/s?k=raw+rice" },
+    { item: "Moong Dal", price: 40, link: "https://www.amazon.in/s?k=moong+dal" },
+    { item: "Jaggery", price: 40, link: "https://www.amazon.in/s?k=jaggery" },
+    { item: "Cashews", price: 90, link: "https://www.amazon.in/s?k=cashews" }
+  ],
+  telangana: [
+    { item: "Rice Flour", price: 35, link: "https://www.amazon.in/s?k=rice+flour" },
+    { item: "Til (Sesame)", price: 25, link: "https://www.amazon.in/s?k=til+seeds" },
+    { item: "Ghee", price: 60, link: "https://www.amazon.in/s?k=ghee" }
+  ],
+  tripura: [
+    { item: "Fermented Fish", price: 60, link: "https://www.amazon.in/s?k=fermented+fish" },
+    { item: "Green Chilli", price: 15, link: "https://www.amazon.in/s?k=green+chilli" }
+  ],
+  uttarpradesh: [
+    { item: "Mawa", price: 80, link: "https://www.amazon.in/s?k=mawa" },
+    { item: "Sugar", price: 30, link: "https://www.amazon.in/s?k=sugar" },
+    { item: "Dry Fruits", price: 90, link: "https://www.amazon.in/s?k=dry+fruits" }
+  ],
+  uttarakhand: [
+    { item: "Bhatt Dal", price: 45, link: "https://www.amazon.in/s?k=bhatt+dal" },
+    { item: "Mustard Oil", price: 40, link: "https://www.amazon.in/s?k=mustard+oil" }
+  ],
+  westbengal: [
+    { item: "Chenna", price: 50, link: "https://www.amazon.in/s?k=chenna" },
+    { item: "Sugar", price: 30, link: "https://www.amazon.in/s?k=sugar" },
+    { item: "Rose Water", price: 20, link: "https://www.amazon.in/s?k=rose+water" }
+  ]
+};
+
+function showIngredients() {
+  const festival = document.getElementById("festivalSelect").value;
+  const list = document.getElementById("ingredientList");
+  list.innerHTML = "";
+  let total = 0;
+
+  if (festival && data[festival]) {
+    data[festival].forEach(ing => {
+      total += ing.price;
+      const li = document.createElement("li");
+      li.className = "ingredient";
+      li.innerHTML = `${ing.item} - ₹${ing.price} <a href="${ing.link}" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>`;
+      list.appendChild(li);
+    });
+    const totalLine = document.createElement("div");
+    totalLine.className = "total";
+    totalLine.textContent = `Total Estimated Cost: ₹${total}`;
+    list.appendChild(totalLine);
+  }
+}
+
+function searchFestival() {
+  const query = document.getElementById("searchBox").value.toLowerCase();
+  const options = document.getElementById("festivalSelect").options;
+  for (let i = 0; i < options.length; i++) {
+    if (options[i].value.includes(query)) {
+      document.getElementById("festivalSelect").value = options[i].value;
+      showIngredients();
+      break;
+    }
+  }
+}
+
+function startVoice() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-IN';
+  recognition.onresult = function(event) {
+    const spoken = event.results[0][0].transcript.toLowerCase();
+    const options = document.getElementById("festivalSelect").options;
+    for (let i = 0; i < options.length; i++) {
+      if (spoken.includes(options[i].value)) {
+        document.getElementById("festivalSelect").value = options[i].value;
+        showIngredients();
+        break;
+      }
+    }
+  };
+  recognition.start();
+}
+</script>
+
+</body>
+</html>

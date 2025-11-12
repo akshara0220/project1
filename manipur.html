@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANIPUR FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MANIPUR FOOD</h1>
+    </header>
+
+    <section>
+        <h2>YASOSHANG FESTIVAL:EROMBA DISH</h2>
+        </P>Eromba is a traditional Manipuri dish commonly prepared during the Yaoshang festival, a vibrant five-day festival celebrated in Manipur. Yaoshang usually falls in March and marks the arrival of spring.
+        Eromba is a savory and spicy dish made primarily from boiled vegetables, particularly a variety of greens like spinach, mustard greens, and various herbs. The vegetables are mashed together with fermented fish, typically ngari, which adds a distinct umami flavor to the dish.Other ingredients such as red chili paste, garlic, ginger, and sometimes bamboo shoots are added to enhance the flavor and aroma of Eromba.The dish is typically served with steamed rice, providing a hearty and nutritious meal during the festive celebrations of Yaoshang.
+        Eromba holds cultural significance in Manipur, symbolizing unity and community as it is often prepared and shared among family and friends during the festival.
+        Its flavorful and aromatic profile reflects the culinary heritage of Manipur and adds to the festive spirit of Yaoshang.
+            </p>
+            <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </div>
+    </section>
+
+    <section>
+        <h2>EROMBA DISH ,YASOSHANG FESTIVAL</h2>
+        <div class="gallery">
+            <img src="https://bharatkasafar.files.wordpress.com/2015/03/eromba.jpg" alt="photo 1">
+            <img src="https://i.pinimg.com/736x/f3/9e/04/f39e043b6095caa94d3385165bb1e6ea.jpg"alt="photo 2">
+            <img src="https://festivalofmanipur.files.wordpress.com/2019/06/yaoshang2007_1-621574508.jpg?w=640" alt="Photo 3">
+            <img src="https://e-paolive.net/galleries/images/Festival/Yaoshang/2012/Imphal_02/Yaoshang_Imp_2012_2_6.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/2mFuOnFV6ZI?si=NqzfuYKLd7QGa7TB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+          background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+          <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+           <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+            <canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+          </div>
+        </div>
+        <script>
+// Base data for 100g
+const baseNutritionData ={
+    "photo 1": { labels: ["Calories(kcal)", "Protein", "Carbs", "Fat", "Fiber"], data: [80, 5, 15, 2, 3] },
+    "photo 2": { labels: ["Calories(kcal)", "Protein", "Carbs", "Fat", "Fiber"], data: [80, 5, 15, 2, 3] }
+  };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+    
+    </body>
+    </html>
+    
+
+</body>
+</html>
+
+<section>
+    <h2>Explore Manipur During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <div class="festival-block" data-type="place">
+            <h3>Yaoshang Festival, Imphal</h3>
+            <p>Five-day spring celebration in Manipur with sports, music, and cultural performances similar to Holi.</p>
+            <a href="https://www.google.com/maps?q=Imphal,+Manipur" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Kang Festival</h3>
+            <p>A major Manipuri festival celebrated by the Meitei Hindus, with colorful processions and religious devotion.</p>
+            <a href="https://www.google.com/maps?q=Shree+Govindajee+Temple,+Imphal" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Eromba</h3>
+            <p>A spicy and savory dish of boiled mashed vegetables mixed with fermented fish, red chilies, and herbs — enjoyed during Yaoshang.</p>
+            <img src="https://bharatkasafar.files.wordpress.com/2015/03/eromba.jpg" alt="Eromba" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Chamthong (Vegetable Stew)</h3>
+            <p>A nutritious and flavorful stew made with seasonal vegetables, herbs, and spices, often served with rice during festivals.</p>
+            <img src="data:image/jpeg;base64,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" alt="Chamthong" width="300">
+        </div>
+
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+

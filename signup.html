@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup Page</title>
+  <style>
+    body { font-family: Arial; background-color: #f0f0f0; }
+    .signup-container {
+      width: 300px; margin: 100px auto;
+      background-color: lightgreen; padding: 20px;
+      border-radius: 8px;
+    }
+    h1 { text-align: center; color: green; }
+  </style>
+</head>
+<body>
+
+<div class="signup-container">
+  <h1>Signup Page</h1>
+  <form onsubmit="return accessPage();">
+    <label>Full Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <input type="submit" value="Signup">
+    <input type="reset" value="Reset">
+  </form>
+</div>
+
+<script>
+function accessPage() {
+  // Allow everyone to proceed without validation
+  window.location.href = "dashboard.html"; // Replace with your target page
+  return false;
+}
+</script>
+
+</body>
+</html>

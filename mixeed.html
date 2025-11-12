@@ -1,0 +1,444 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KERALA FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <h1>KERALA FOOD</h1>
+    </header>
+
+    <section>
+        <h2>ONAM FESTIVAL:SADYA</h2>
+        <p>Sadya is the quintessential feast of the Onam festival in Kerala, celebrated with grandeur and fervor. This elaborate vegetarian meal is served on banana leaves, featuring an array of dishes meticulously arranged in a specific order. At the heart of Sadya is the fragrant rice, surrounded by an assortment of savory delights like curries, thoran, aviyal, olan, erissery, and sambar. Alongside these, pickles, pachadi, and papadum add bursts of flavor and texture. The grand finale of Sadya is the indulgent payasam, a traditional Kerala dessert made with rice, lentils, coconut milk, jaggery, and nuts. Sadya not only tantalizes the taste buds but also symbolizes unity, abundance, and the rich cultural heritage of Kerala.
+            </p>
+    </section>
+
+    <section>
+        <h2>SADYA,ONAM FESTIVAL</h2>
+        <div class="gallery">
+            <img src="https://mekosha.com/wp-content/uploads/2023/03/Onam-sadhya.jpg" alt="photo 1">
+            <img sRC="https://static.toiimg.com/photo/msid-102577941/102577941.jpg"alt="photo 2">
+            <img src="https://images.slurrp.com/prodarticles/wiexzxxiu3.webp" alt="Photo 3">
+            <img src="https://www.southtourism.in/blog/wp-content/uploads/2022/09/tripunithura-athachamayam.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/0l-XvQ89vYk?si=JwRMNaQpArXS_luG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section><!-- Modal for nutrition chart -->
+    <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+        background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+            <canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+        </div>
+    </div>
+    <script>
+        const nutritionData = {
+            "photo 1": {
+                labels: ["Calories", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [600, 10, 80, 20, 6]
+            },
+             
+            
+        };
+        
+        const chartModal = document.getElementById('nutritionModal');
+        let chart;
+        
+        function showNutritionChart(alt) {
+            const item = nutritionData[alt];
+            if (!item) return;
+        
+            if (chart) chart.destroy();
+        
+            const ctx = document.getElementById('nutritionChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: item.labels,
+                    datasets: [{
+                        label: 'Nutrition Facts',
+                        data: item.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        
+            chartModal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            chartModal.style.display = 'none';
+        }
+        
+        // Attach click event to all images in the gallery
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.gallery img');
+            images.forEach(img => {
+                img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+            });
+        });
+        </script>
+        
+    
+
+
+</body>
+</html>
+<section>
+    <h2>Explore Kerala During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <div class="festival-block" data-type="place">
+            <h3>Alleppey Backwaters</h3>
+            <p>Scenic boat races and Onam festivities set against the iconic Kerala backwaters.</p>
+            <a href="https://www.google.com/maps?q=Alleppey+Kerala" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Thrissur Pooram</h3>
+            <p>Mega temple festival with elephants, percussion and fireworks held around Onam.</p>
+            <a href="https://www.google.com/maps?q=Thrissur+Kerala" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Onam Sadya</h3>
+            <p>Lavish vegetarian feast served on a banana leaf—includes rice, sambar, avial, payasam, and more :contentReference[oaicite:2]{index=2}.</p>
+            <img src="https://example.com/onam_sadya.jpg" alt="Onam Sadya" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Palada Payasam</h3>
+            <p>Rice-and-milk kheer, a classic sweet served during Onam :contentReference[oaicite:3]{index=3}.</p>
+            <img src="https://example.com/palada_payasam.jpg" alt="Palada Payasam" width="300">
+        </div>
+
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    document.querySelectorAll(".festival-block").forEach(block => {
+        block.style.display = selected === "all" || block.getAttribute("data-type") === selected ? "block" : "none";
+    });
+}
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASSAM FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>ASSAM FOOD</h1>
+    </header>
+
+    <section>
+        <h2>BIHU FESTIVAL: PITA DISH</h2>
+        <p>
+            Pita is a traditional food prepared during the Bihu festival in Assam, particularly during Magh Bihu, also known as Bhogali Bihu, which is celebrated in January. Bihu is one of the most important festivals in Assam, celebrating the harvest season and marking the end of the harvesting period.
+
+            Pita is essentially a type of rice cake or pancake made from a mixture of rice flour, jaggery (unrefined cane sugar), and sometimes grated coconut. The ingredients are mixed together to form a smooth batter, which is then poured onto a hot griddle or tawa and cooked until golden brown and crispy on the outside.
+
+            Pita is typically enjoyed with various accompaniments, such as gur (date palm jaggery) or molasses, and sometimes with a sprinkle of sesame seeds for added flavor.
+
+            Pita holds a special place in the culinary traditions of Assam and is an integral part of the Bihu festival, symbolizing abundance, prosperity, and togetherness.
+        </p>
+    </section>
+
+    <section>
+        <h2>PITA DISH, BIHU FESTIVAL</h2>
+        <div class="gallery">
+            <img src="https://i0.wp.com/beextravegant.com/wp-content/uploads/2022/07/IMG_9072.jpg?resize=575%2C1024&ssl=1" alt="photo 1">
+            <img src="https://foodiestreasure.files.wordpress.com/2020/01/dsc_0029.jpg" alt="photo 2">
+            <img src="https://m.economictimes.com/thumb/msid-99483942,width-1200,height-900,resizemode-4,imgsize-165930/bihu-2.jpg" alt="photo 3">
+            <img src="https://assam.gov.in/sites/default/files/inline-images/Bihu_dance_0.jpg" alt="photo 4">
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/r0KCvJfLSCw?si=af1rwbu35dlrPeSe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Chart Modal -->
+    <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+            <canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const nutritionData = {
+            "photo 1": {
+                labels: ["Calories (kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [175, 6, 35, 2, 2.5]
+            },
+            "photo 2": {
+                labels: ["Calories (kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [175, 6, 35, 12, 2.5]
+            }
+        };
+
+        const chartModal = document.getElementById('nutritionModal');
+        let chart;
+
+        function showNutritionChart(alt) {
+            const key = alt.trim().toLowerCase();
+            const item = nutritionData[key];
+            if (!item) return;
+
+            if (chart) chart.destroy();
+
+            const ctx = document.getElementById('nutritionChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: item.labels,
+                    datasets: [{
+                        label: 'Nutrition Details',
+                        data: item.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            chartModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            chartModal.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.gallery img');
+            images.forEach(img => {
+                img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+            });
+        });
+    </script>
+
+</body>
+</html>
+<section>
+  <h2>Explore Assam During Festivals</h2>
+  <label for="festivalFilterAssam"><strong>Filter by:</strong></label>
+  <select id="festivalFilterAssam" onchange="filterFestival('Assam')">
+    <option value="all">-- Show All --</option>
+    <option value="place">Famous Places</option>
+    <option value="food">Famous Foods</option>
+  </select>
+
+  <div id="festivalContentAssam">
+    <!-- Places -->
+    <div class="festival-block" data-type="place">
+      <h3>Jamugurihat Bihu Festival</h3>
+      <p>Open-field Rongali Bihu celebration with folk dances :contentReference[oaicite:18]{index=18}.</p>
+      <a href="https://www.google.com/maps?q=Jamugurihat+Assam" target="_blank">View on Google Maps</a>
+    </div>
+    <div class="festival-block" data-type="place">
+      <h3>Community Meiji & Bhelaghar</h3>
+      <p>Much-loved Magh Bihu communal bonfires and feasts :contentReference[oaicite:19]{index=19}.</p>
+      <a href="https://www.google.com/maps?q=Assam+Meiji" target="_blank">View on Google Maps</a>
+    </div>
+
+    <!-- Foods -->
+    <div class="festival-block" data-type="food">
+      <h3>Sunga Pitha & Tekeli Pitha</h3>
+      <p>Steamed rice cakes, filled with coconut & jaggery :contentReference[oaicite:20]{index=20}.</p>
+      <img src="https://example.com/sunga_tekeli_pitha.jpg" alt="Sunga Tekeli Pitha" width="300">
+    </div>
+    <div class="festival-block" data-type="food">
+      <h3>Laru & Payokh</h3>
+      <p>Jaggery laddus & rice pudding for Magh Bihu feasts :contentReference[oaicite:21]{index=21}.</p>
+      <img src="https://example.com/laru_payokh.jpg" alt="Laru & Payokh" width="300">
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIPURA FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TRIPURA FOOD</h1>
+    </header>
+
+    <section>
+        <h2>Overview</h2>
+        </P>During the Kharchi Puja festival of Tripura, Muiborok is a traditional dish that holds special significance. Kharchi Puja is a week-long festival celebrated to honor the fourteen deities of Tripura. It usually falls in the month of July.
+        Muiborok is a unique fermented fish delicacy enjoyed during Kharchi Puja. It is prepared by fermenting small freshwater fish, typically rohu or mrigal, with a mixture of rice flour, salt, and various spices. The mixture is tightly packed into bamboo tubes or earthen pots and left to ferment for several days, allowing the flavors to develop and intensify.
+        After the fermentation process is complete, the Muiborok is ready to be consumed. It has a pungent aroma and a strong, tangy flavor, characteristic of fermented fish dishes. Muiborok is often served as a condiment or side dish, accompanying rice or other traditional Tripuri dishes during the Kharchi Puja festivities.
+        dish is deeply rooted in the cultural heritage of Tripura and is cherished by the locals as a symbol of their culinary tradition and religious customs. Enjoying Muiborok during Kharchi Puja is not only a gastronomic delight but also a way of honoring the age-old rituals and beliefs of the Tripuri community.
+            </p>
+            <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </div>
+    </section>
+    
+    <section>
+        <h2>MUIBOROK</h2>
+        <div class="gallery">
+            <img src="https://www.shutterstock.com/image-photo/mui-borok-tripuri-cuisinecalled-shidal-260nw-1294865299.jpg" alt="photo 1">
+            <img src="https://im.hunt.in/cg/trip/About/Profile/Culture/sample.jpg"alt="photo 2">
+            <img src="https://nationaltoday.com/wp-content/uploads/2022/06/19-Kharchi-Puja-1200x834.jpg" alt="Photo 3">
+            <img src="https://st.adda247.com/https://wpassets.adda247.com/wp-content/uploads/multisite/sites/5/2022/07/09081152/5c3f110fa5f64-kharchi-puja-Travel-Plan.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/-ML-787u66g?si=r86cBq70IyQPUkt3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+      <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+        <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select><canvas id="nutritionChart"></canvas>
+        <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+      </div>
+    </div>
+    <script>
+// Base data for 100g
+const baseNutritionData = {
+        "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [550, 45, 19, 9,6] },
+        "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [550, 45,19, 9, 6] }
+      };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body>
+</html>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<section>
+    <h2>Explore Tripura During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <!-- Famous Places -->
+        <div class="festival-block" data-type="place">
+            <h3>Tripura Sundari Temple</h3>
+            <p>Major pilgrimage site, especially crowded during Diwali when the Diwali Mela is held.</p>
+            <a href="https://www.google.com/maps?q=Tripura+Sundari+Temple" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Ujjayanta Palace</h3>
+            <p>A key heritage site lit up and visited during festivals like Durga Puja and Bihu.</p>
+            <a href="https://www.google.com/maps?q=Ujjayanta+Palace+Tripura" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Neermahal</h3>
+            <p>Hosts cultural events and boat festivals during fairs and religious celebrations.</p>
+            <a href="https://www.google.com/maps?q=Neermahal+Tripura" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Unakoti</h3>
+            <p>Ancient rock carvings and tribal festivals attract crowds during Ashokashtami and other tribal events.</p>
+            <a href="https://www.google.com/maps?q=Unakoti+Tripura" target="_blank">View on Google Maps</a>
+        </div>
+
+        <!-- Famous Foods -->
+        <div class="festival-block" data-type="food">
+            <h3>Mui Borok (Tripuri Traditional Cuisine)</h3>
+            <p>A staple at most tribal festivals including Garia Puja and Buisu. Made from bamboo shoots and dried fish.</p>
+            <img src="https://pbs.twimg.com/media/FB9LB1hUUAY4SBy.jpg" alt="Mui Borok" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Wahan Mosdeng</h3>
+            <p>A spicy pork dish enjoyed widely during Tripura's major tribal festivals like Garia Puja.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCTpbvuVmrJMbIB1bfOistLC1wG-AKuGm5jA&s" alt="Wahan Mosdeng" width="300">
+        </div>
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>

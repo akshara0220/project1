@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Festival Food Order</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .form-card {
+      background: #fffaf0;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      text-align: center;
+      color: #bf360c;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px #fff;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 14px;
+      margin: 14px 0;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #f4511e;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d84315;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+      color: #6a1b9a;
+    }
+
+    .sticker {
+      position: absolute;
+      font-size: 48px;
+      opacity: 0.75;
+      z-index: 1;
+    }
+    .sticker1 { top: 20px; left: 15px; }
+    .sticker2 { top: 20px; right: 15px; }
+    .sticker3 { bottom: 20px; left: 15px; }
+    .sticker4 { bottom: 20px; right: 15px; }
+  </style>
+</head>
+<body>
+
+<!-- Emoji Stickers -->
+<div class="sticker sticker1">🍱</div>
+<div class="sticker sticker2">🍛</div>
+<div class="sticker sticker3">🧁</div>
+<div class="sticker sticker4">🥘</div>
+
+
+  
+
+  <div class="form-card">
+    <h1>Festival Food Order</h1>
+    <form onsubmit="goToPayment(event)">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="text" id="address" placeholder="Delivery Address" required>
+
+      <label for="food">Choose Dish</label>
+      <select id="food" onchange="updateFilters()" required>
+        <option value="" disabled selected>-- Select Dish --</option>
+        <option value="andhra">Bobbatlu (Andhra Pradesh)</option>
+        <option value="arunachal">Thukpa (Arunachal Pradesh)</option>
+        <option value="assam">Khar (Assam)</option>
+        <option value="bihar">Litti Chokha (Bihar)</option>
+        <option value="chhattisgarh">Chana Samosa (Chhattisgarh)</option>
+        <option value="goa">Fish Curry Rice (Goa)</option>
+        <option value="gujarat">Dhokla (Gujarat)</option>
+        <option value="haryana">Baingan Bharta (Haryana)</option>
+        <option value="himachal">Madra (Himachal Pradesh)</option>
+        <option value="jharkhand">Khichdi (Jharkhand)</option>
+        <option value="jammu">Rogan Josh (Jammu and Kashmir)</option>
+        <option value="karnataka">Bisi Bele Bath (Karnataka)</option>
+        <option value="kerala">Sadhya (Kerala)</option>
+        <option value="maharashtra">Puran Poli (Maharashtra)</option>
+        <option value="madhya">Thali (Madhya Pradesh)</option>
+        <option value="manipur">Ngari (Manipur)</option>
+        <option value="meghalaya">Jadoh (Meghalaya)</option>
+        <option value="mizoram">Bamboo Shoot Curry (Mizoram)</option>
+        <option value="nagaland">Smoked Pork Curry (Nagaland)</option>
+        <option value="odisha">Pakhala Bhata (Odisha)</option>
+        <option value="punjab">Sarson da Saag (Punjab)</option>
+        <option value="rajasthan">Dal Bafla (Rajasthan)</option>
+        <option value="sikkim">Thukpa (Sikkim)</option>
+        <option value="tamilnadu">Pongal (Tamil Nadu)</option>
+        <option value="telangana">Sakinalu (Telangana)</option>
+        <option value="tripura">Chakhwi (Tripura)</option>
+        <option value="uttarakhand">Aloo Ke Gutke (Uttarakhand)</option>
+        <option value="westbengal">Rasgulla (West Bengal)</option>
+      </select>
+
+      <label for="restaurant">Select Restaurant</label>
+      <select id="restaurant" required></select>
+
+      <label for="price">Price</label>
+      <select id="price" required></select>
+
+      <button type="submit">Continue to Payment</button>
+    </form>
+  </div>
+
+
+
+<script>
+  const dishData = {
+    andhra: { name: "Bobbatlu (Andhra Pradesh)", price: "₹80", restaurants: ["Sri Venkateswara Sweets", "Andhra Tiffins", "Amaravathi Delights"] },
+    arunachal: { name: "Thukpa (Arunachal Pradesh)", price: "₹120", restaurants: ["Himalayan Bowl", "Tawang Treats", "NorthEast Kitchen"] },
+    assam: { name: "Khar (Assam)", price: "₹100", restaurants: ["Assam Spice Kitchen", "Guwahati Rasoi", "Axomiya Flavours"] },
+    bihar: { name: "Litti Chokha (Bihar)", price: "₹90", restaurants: ["Bhojpuri Rasoi", "Patna Thali House", "Ganga Bhojan"] },
+    chhattisgarh: { name: "Chana Samosa (Chhattisgarh)", price: "₹60", restaurants: ["Raipur Treats", "CG Snacks", "Bastar Junction"] },
+    goa: { name: "Fish Curry Rice (Goa)", price: "₹150", restaurants: ["Goan Waves", "Calangute Coast", "Beachside Bites"] },
+    gujarat: { name: "Dhokla (Gujarat)", price: "₹70", restaurants: ["Surati Delight", "Gujarati Zaika", "Kathiyawadi Bhavan"] },
+    haryana: { name: "Baingan Bharta (Haryana)", price: "₹80", restaurants: ["Desi Haveli", "Haryanvi Kitchen", "Rohtak Foods"] },
+    himachal: { name: "Madra (Himachal Pradesh)", price: "₹100", restaurants: ["Pahadi Zaika", "Shimla Flavours", "Kullu Curry"] },
+    jharkhand: { name: "Khichdi (Jharkhand)", price: "₹60", restaurants: ["Ranchi Thali", "Jharkhand Junction", "Simple Tiffins"] },
+    jammu: { name: "Rogan Josh (Jammu and Kashmir)", price: "₹180", restaurants: ["Kashmir Curry House", "Wazwan Express", "Srinagar Spice"] },
+    karnataka: { name: "Bisi Bele Bath (Karnataka)", price: "₹90", restaurants: ["Bengaluru Bites", "Karnataka Ruchi", "Udupi Express"] },
+    kerala: { name: "Sadhya (Kerala)", price: "₹160", restaurants: ["Coconut Leaf", "Kerala Sadya Spot", "Malabar Bhojanam"] },
+    maharashtra: { name: "Puran Poli (Maharashtra)", price: "₹75", restaurants: ["Marathi Tadka", "Pune Mithas", "Kolhapuri Kitchen"] },
+    madhya: { name: "Thali (Madhya Pradesh)", price: "₹130", restaurants: ["Indore Treat", "MP Bhojnalaya", "Bhopal Bites"] },
+    manipur: { name: "Ngari (Manipur)", price: "₹120", restaurants: ["Imphal Kitchen", "Manipuri Bites", "Loktak Lunches"] },
+    meghalaya: { name: "Jadoh (Meghalaya)", price: "₹110", restaurants: ["Northeast Diner", "Shillong Meals", "Khasi House"] },
+    mizoram: { name: "Bamboo Shoot Curry (Mizoram)", price: "₹100", restaurants: ["Mizo Spice", "Aizawl Rasoi", "Tribal Treats"] },
+    nagaland: { name: "Smoked Pork Curry (Nagaland)", price: "₹140", restaurants: ["Naga Spice", "Dimapur Diner", "Hornbill Meals"] },
+    odisha: { name: "Pakhala Bhata (Odisha)", price: "₹70", restaurants: ["Odia Rasoi", "Bhubaneswar Tiffins", "Jagannath Foods"] },
+    punjab: { name: "Sarson da Saag (Punjab)", price: "₹100", restaurants: ["Amritsari Rasoi", "Punjab Grill", "Golden Dhaba"] },
+    rajasthan: { name: "Dal Bafla (Rajasthan)", price: "₹110", restaurants: ["Rajasthani Zaika", "Jaipur Rasoda", "Thar Bhojnalaya"] },
+    sikkim: { name: "Thukpa (Sikkim)", price: "₹100", restaurants: ["Gangtok Bistro", "Sikkim Kitchen", "Northeast Bowl"] },
+    tamilnadu: { name: "Pongal (Tamil Nadu)", price: "₹70", restaurants: ["Chennai Tiffins", "Tamil Treat", "South Spice"] },
+    telangana: { name: "Sakinalu (Telangana)", price: "₹60", restaurants: ["Karimnagar Snacks", "Nizam Tiffins", "Telangana Tastes"] },
+    tripura: { name: "Chakhwi (Tripura)", price: "₹90", restaurants: ["Agartala Rasoi", "Tripura Thali", "Bamboo Plate"] },
+    uttarakhand: { name: "Aloo Ke Gutke (Uttarakhand)", price: "₹75", restaurants: ["Kumaoni Kitchen", "Pahadi Rasoi", "Devbhoomi Delights"] },
+    westbengal: { name: "Rasgulla (West Bengal)", price: "₹60", restaurants: ["Kolkata Sweets", "Roshogolla Bhavan", "Mishti Mahal"] }
+  };
+
+  function updateFilters() {
+    const dishKey = document.getElementById("food").value;
+    const restSelect = document.getElementById("restaurant");
+    const priceSelect = document.getElementById("price");
+
+    restSelect.innerHTML = '<option value="" disabled selected>-- Select Restaurant --</option>';
+    priceSelect.innerHTML = '<option value="" disabled selected>-- Select Price --</option>';
+
+    if (dishData[dishKey]) {
+      dishData[dishKey].restaurants.forEach(res => {
+        let option = document.createElement("option");
+        option.value = res;
+        option.textContent = res;
+        restSelect.appendChild(option);
+      });
+      let priceOption = document.createElement("option");
+      priceOption.value = dishData[dishKey].price;
+      priceOption.textContent = dishData[dishKey].price;
+      priceSelect.appendChild(priceOption);
+    }
+  }
+
+  function goToPayment(event) {
+    event.preventDefault();
+    const dishKey = document.getElementById("food").value;
+    localStorage.setItem("name", document.getElementById("name").value);
+    localStorage.setItem("address", document.getElementById("address").value);
+    localStorage.setItem("food", dishData[dishKey].name);
+    localStorage.setItem("restaurant", document.getElementById("restaurant").value);
+    localStorage.setItem("price", document.getElementById("price").value);
+    window.location.href = "payment.html";
+  }
+</script>
+
+</body>
+</html>

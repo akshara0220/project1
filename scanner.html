@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scanning...</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0f0;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 100px;
+    }
+    .scanner-box {
+      width: 220px;
+      height: 220px;
+      margin: 30px auto;
+      border: 4px solid #0f0;
+      position: relative;
+    }
+    .line {
+      width: 100%;
+      height: 4px;
+      background-color: #0f0;
+      position: absolute;
+      top: 0;
+      animation: scan 2s infinite linear;
+    }
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Scanning QR Code...</h1>
+  <div class="scanner-box">
+    <div class="line"></div>
+  </div>
+  <h2>Authenticating food portal...</h2>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "order-food.html";
+    }, 4000);
+  </script>
+</body>
+</html>

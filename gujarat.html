@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GUJARAT FOOD</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #333;
+    }
+    p {
+      color: #666;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .gallery img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+    .videos {
+      margin-top: 20px;
+    }
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      margin-bottom: 20px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #nutritionModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    #nutritionModal > div {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+    }
+    #nutritionModal button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>GUJARAT FOOD</h1>
+  </header>
+
+  <section>
+    <h2>DASARA FESTIVAL: DHOKLA</h2>
+    <p>Dhokla is one of Gujarat’s most iconic snacks, often enjoyed during festivals like Dasara. This steamed, soft, and spongy cake made of fermented rice and chickpea flour batter is both light and healthy. During Dasara celebrations, it is often served alongside chutneys and garnished with mustard seeds, green chilies, and fresh coriander.<br><br>
+    The festive atmosphere of Navratri and Dasara in Gujarat brings people together to enjoy Garba and Dandiya dances, while food stalls serve flavorful dishes like Dhokla, Khandvi, and Fafda-Jalebi. Dhokla remains a favorite because of its delicious taste and health benefits.</p>
+    <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </div>
+  </section>
+
+  <section>
+    <h2>DHOKLA</h2>
+    <div class="gallery">
+      <img src="https://t4.ftcdn.net/jpg/10/41/99/53/360_F_1041995329_Y948A29Hru2TXn8JgkWMwJmIVauyQ9jq.jpg" alt="pic 1">
+      <img src="https://media.istockphoto.com/id/1257017074/photo/gujarati-khaman-dhokla-or-steamed-gram-flour-puffy-snack-cake.jpg?s=612x612&w=0&k=20&c=Q3r6QeLYW0KeLBCBMfFwZmZ6Rx1N53Glu74sZqRqfo4=" alt="pic 2">
+    </div>
+  </section>
+
+  <section>
+    <h2>DASARA FESTIVAL</h2>
+    <div class="gallery">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqNE3qXXt4Aa-7sXNC0oAk8zX0u8Ad94Luzw&s" alt="pic 3">
+      <img src="https://indiablog.in/wp-content/uploads/2024/10/dussehra-2.png" alt="pic 4">
+    </div>
+  </section>
+ <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-containers">
+            <iframe width="413" height="232" src="https://www.youtube.com/embed/w_2eb9uaXns" title="Dhokla | How to Make Soft and Spongy Dhokla | Dhokla Recipe | Gujarati Snacks Recipes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section>
+        <!-- Add more video containers as needed -->
+
+  <section>
+    <h2>Explore Gujarat During Festivals</h2>
+    <label for="festivalFilterGujarat"><strong>Filter by:</strong></label>
+    <select id="festivalFilterGujarat" onchange="filterFestival('Gujarat')">
+      <option value="all">-- Show All --</option>
+      <option value="place">Famous Places</option>
+      <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContentGujarat">
+      <!-- Places -->
+      <div class="festival-block" data-type="place">
+        <h3>Ahmedabad Navratri Grounds</h3>
+        <p>Massive Garba nights and Dasara stalls across the city.</p>
+        <a href="https://www.google.com/maps?q=Ahmedabad" target="_blank">📍 View on Google Maps</a>
+      </div>
+      <div class="festival-block" data-type="place">
+        <h3>Vadodara's United Way Garba</h3>
+        <p>Known for the largest Garba celebrations during Navratri.</p>
+      </div>
+
+      <!-- Foods -->
+      <div class="festival-block" data-type="food">
+        <h3>Fafda-Jalebi</h3>
+        <p>Traditional Dasara combo dish enjoyed in Gujarat.</p>
+        <img src="https://i.ytimg.com/vi/NJ5Blr2oUu0/maxresdefault.jpg" alt="Fafda Jalebi" width="300">
+      </div>
+      <div class="festival-block" data-type="food">
+        <h3>Khandvi</h3>
+        <p>Soft gram flour rolls with a tangy-spicy taste.</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKwkuQrAbhZdaZVBrnWAiKcTOENUor1nXjTg&s" alt="Khandvi" width="300">
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h1>Gujarat Festival 2025</h1>
+    <p><strong>Festival:</strong> Dasara</p>
+    <p><strong>Date:</strong> October 2, 2025 (Thursday)</p>
+  </section>
+
+  <a href="order-food.html">
+    <button style="padding: 10px 20px; background-color: #ff5722; color: white; border: none; border-radius: 8px;">
+      🍽️ Order Gujarat Dhokla
+    </button>
+  </a>
+
+  <!-- Nutrition Modal -->
+  <div id="nutritionModal">
+    <div>
+      <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+      <canvas id="nutritionChart"></canvas>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+// Base data for 100g
+const baseNutritionData ={
+      "pic 1": {
+        labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"],
+        data: [160, 7, 28, 3, 2]
+      },
+      "pic 2": {
+        labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"],
+        data: [150, 6, 27, 2, 1]
+      }
+    };
+
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+
+</body>
+</html>

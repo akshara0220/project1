@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmed</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0fff0;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: green;
+    }
+    .box {
+      background: white;
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h1>✅ Order Confirmed!</h1>
+  <p>Thank you, <strong id="name"></strong>.</p>
+  <p>Your <strong id="food"></strong> will be delivered to:</p>
+  <p><em id="address"></em></p>
+  <p>Enjoy your meal! 🍽️</p>
+</div>
+
+<script>
+  document.getElementById("name").innerText = localStorage.getItem("name");
+  document.getElementById("address").innerText = localStorage.getItem("address");
+  document.getElementById("food").innerText = localStorage.getItem("food");
+</script>
+
+</body>
+</html>

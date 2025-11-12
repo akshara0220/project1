@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FoodBot 🍽️</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 30px; }
+    .chat-container { width: 400px; margin: auto; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 0 10px #ccc; }
+    h2 { text-align: center; color: #2e86de; }
+    .chatbox { margin-top: 20px; height: auto; background: #f9f9f9; border-radius: 8px; padding: 15px; min-height: 80px; }
+    .chat-message { margin-bottom: 10px; }
+    .user-msg { text-align: right; color: #333; }
+    .bot-msg { text-align: left; color: #2e86de; }
+    input[type="file"] { display: block; margin: 20px auto; }
+    button { display: block; margin: auto; padding: 10px 20px; background: #2e86de; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    img { max-width: 100%; border-radius: 10px; margin: 10px 0; display: none; }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>🤖 FoodBot</h2>
+    <div class="chatbox" id="chatbox">
+      <div class="chat-message bot-msg">Hello! Upload a food image and I'll tell you what it is! 🍱</div>
+    </div>
+    <input type="file" id="imageInput" accept="image/*">
+    <img id="preview" />
+    <button onclick="sendImage()">Send</button>
+  </div>
+
+  <script>
+    const chatbox = document.getElementById('chatbox');
+    const preview = document.getElementById('preview');
+
+    document.getElementById('imageInput').addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+      }
+    });
+
+    function appendMessage(message, sender) {
+      const div = document.createElement('div');
+      div.className = 'chat-message ' + (sender === 'bot' ? 'bot-msg' : 'user-msg');
+      div.textContent = message;
+      chatbox.appendChild(div);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function sendImage() {
+      const fileInput = document.getElementById('imageInput');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Please select an image");
+        return;
+      }
+
+      appendMessage("Uploading image...", "user");
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      fetch('/predict', {
+        method: 'POST',
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.food) {
+            appendMessage(`🍽️ I think this is *${data.food}* with ${data.confidence}% confidence!`, "bot");
+          } else {
+            appendMessage("😕 I couldn't recognize that. Try another image!", "bot");
+          }
+        })
+        
+    }
+  </script>
+</body>
+</html>

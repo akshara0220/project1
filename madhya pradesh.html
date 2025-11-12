@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADHYA PRADESH FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MADHYA PRADESH FOOD</h1>
+    </header>
+
+    <section>
+        <h2>KHAJURAHO DANCE FESTIVAL:POHA</h2>
+        </p>Poha is a popular dish enjoyed during the Khajuraho Dance Festival, a vibrant cultural celebration held annually in Madhya Pradesh. The festival typically takes place in February or March and showcases classical dance forms from across India against the backdrop of the stunning Khajuraho temples.
+        Poha, also known as flattened rice, is a light and nutritious dish made from flattened rice flakes that are dry-roasted or soaked and then stir-fried with various spices and ingredients.
+        In Madhya Pradesh, Poha is often prepared with onions, green chilies, mustard seeds, curry leaves, turmeric, and sometimes potatoes or peanuts, adding texture and flavor to the dish.
+        The result is a flavorful and aromatic delicacy that is both satisfying and easy to digest, making it an ideal choice for breakfast or as a snack during the Khajuraho Dance Festival.
+        Poha reflects the culinary diversity of Madhya Pradesh and is a favorite among locals and visitors alike, offering a delightful culinary experience amidst the cultural extravaganza of the Khajuraho Dance Festival.
+        <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </section>
+
+    <section>
+        <h2>POHA,KHAJURAHO DANCE FESTIVAL</h2>
+        <div class="gallery">
+            <img src="https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg" alt="photo 1">
+            <img src="https://shwetainthekitchen.com/wp-content/uploads/2021/04/Poha-Recipe.jpg"alt="photo 2">
+            <img src="https://wpassets.adda247.com/wp-content/uploads/multisite/sites/5/2022/02/22083138/Khajuraho-Dance-Festival-Guide.jpg" alt="Photo 3">
+            <img src="https://newsonair.gov.in/writereaddata/News_Pictures/STA/2022/Feb/NPIC-202222084835.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/7w-z1J6dpwI?si=ydZkACj6fN8K4mQN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+            <!-- Add more video containers as needed -->
+    </section>    
+    <a href="mppppppppppppppppp-2.html">back</a>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+   <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+    <canvas id="nutritionChart"></canvas>
+    <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+  </div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+    "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [220, 5, 40, 6, 2] },
+    "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [220, 5, 40, 6, 2] }
+  };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+
+</body>
+</html>
+
+<section>
+    <h2>Explore Madhya Pradesh During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <div class="festival-block" data-type="place">
+            <h3>Khajuraho Dance Festival, Khajuraho</h3>
+            <p>Celebrated near the UNESCO World Heritage temples, featuring classical dance performances.</p>
+            <a href="https://www.google.com/maps?q=Khajuraho+Temples" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Ujjain Simhastha Kumbh Mela, Ujjain</h3>
+            <p>Major pilgrimage and spiritual gathering on the banks of Shipra River every 12 years.</p>
+            <a href="https://www.google.com/maps?q=Ujjain+Shipra+River" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Bhagoria Festival, Jhabua</h3>
+            <p>Tribal festival celebrated with colors, music, and traditional attire in western Madhya Pradesh.</p>
+            <a href="https://www.google.com/maps?q=Jhabua,+Madhya+Pradesh" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Poha</h3>
+            <p>Flattened rice dish spiced with turmeric, mustard seeds, onions, and garnished with sev; a breakfast staple and street favorite.</p>
+            <img src="https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg" alt="Poha" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Bhutte Ka Kees</h3>
+            <p>Grated corn cooked with milk and spices, a unique Indori street delicacy popular during fairs and gatherings.</p>
+            <img src="data:image/jpeg;base64,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" alt="Bhutte Ka Kees" width="300">
+        </div>
+
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+
+

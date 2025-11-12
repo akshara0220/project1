@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HARYANA FOOD</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .videos {
+      margin-top: 20px;
+    }
+
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      margin-bottom: 20px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>HARYANA FOOD</h1>
+  </header>
+
+  <section>
+    <h2>BAISAKHI FESTIVAL: BHUTTE KA KEES</h2>
+    <p>In Haryana, Baisakhi is celebrated as a harvest festival, marking abundance and gratitude. One of the traditional festive dishes enjoyed is <strong>Bhutte Ka Kees</strong>, a unique and flavorful delicacy made from grated corn. Though more popular in Central India, this dish has found its place in Haryana’s festive thali due to its taste and texture.<br><br>
+    Bhutte Ka Kees is made by sautéing freshly grated corn kernels in ghee, tempered with cumin, mustard seeds, green chilies, and cooked with milk and spices until the flavors meld together. It’s garnished with coriander leaves and a sprinkle of lemon juice, giving it a rich yet refreshing taste.<br><br>
+    On Baisakhi, communities gather to cook, dance, and celebrate the harvest. Dishes like Bhutte Ka Kees, along with other Punjabi-Haryanvi favorites like kheer and kadhi pakora, are served as part of the traditional festive meal.</p>
+    <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+  </section>
+
+  <section>
+  <h2>BHUTTE KA KEES</h2>
+  <div class="gallery">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZXUu8W5s_Ew3YkRZpoKfxp3RUeYn237RA-w&s" alt="Bhutte ka Kees Photo 1">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX-onPP_3_72Ktnib-VxOIsNUEkfL5l-0BWg&s" alt="Bhutte ka Kees Photo 2">
+  </div>
+</section>
+
+<section>
+  <h2>BAISAKHI FESTIVAL</h2>
+  <div class="gallery">
+  <img src="https://www.india.com/wp-content/uploads/2017/04/baisakhi-4.jpg" alt="Baisakhi Food Fest Photo 1">
+    <img src="https://cdn11.bigcommerce.com/s-x49po/images/stencil/1500x1500/products/76881/256562/1637347800913_1C6BEA4E-F64A-4A64-9025-A39DB980C3FB__42495.1687163499.jpg?c=2" alt="Baisakhi Food Fest Photo 2">
+  </div>
+</section>
+
+
+  <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+             <iframe width="617" height="480" src="https://www.youtube.com/embed/GPfzvnabS_s" title="Bhutte Ka Kees Recipe | Indore Special | भुट्टे का कीस | Chef Sanjyot Keer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+         <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+        <canvas id="nutritionChart"></canvas>
+        <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+    </div>
+</div>
+
+<script>
+// Base data for 100g
+const baseNutritionData = {
+    "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [290, 6, 45, 20, 4] },
+    "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [290, 6, 45, 20, 4] }
+};
+
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body>
+</html>
+
+  <section>
+    <h2>Explore Haryana During Festivals</h2>
+    <label for="festivalFilterHaryana"><strong>Filter by:</strong></label>
+    <select id="festivalFilterHaryana" onchange="filterFestival('Haryana')">
+      <option value="all">-- Show All --</option>
+      <option value="place">Famous Places</option>
+      <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContentHaryana">
+      <!-- Places -->
+      <div class="festival-block" data-type="place">
+        <h3>Kurukshetra Mela Grounds</h3>
+        <p>Large Baisakhi fairs with folk performances, crafts, and food stalls.</p>
+        <a href="https://www.google.com/maps?q=Kurukshetra,+Haryana" target="_blank">📍 View on Google Maps</a>
+      </div>
+      <div class="festival-block" data-type="place">
+        <h3>Pinjore Gardens</h3>
+        <p>Spring fairs and cultural celebrations during Baisakhi time.</p>
+        <a href="https://www.google.com/maps?q=Pinjore+Gardens,+Haryana" target="_blank">📍 View on Google Maps</a>
+      </div>
+
+      <!-- Foods -->
+      <div class="festival-block" data-type="food">
+        <h3>Kadhi Pakora</h3>
+        <p>Spiced yogurt curry with gram flour fritters, a Baisakhi favorite.</p>
+        <img src="https://static.wixstatic.com/media/d0c9ff_4db30468d5b74723af3c414f3527714d~mv2.jpg/v1/fill/w_876,h_657,al_c,q_85/Yogurt%20and%20Gram%20Flour%20Curry%20Final%201.jpg" alt="Kadhi Pakora" width="300">
+      </div>
+      <div class="festival-block" data-type="food">
+        <h3>Meethe Chawal</h3>
+        <p>Sweet saffron rice dish made during festive occasions.</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4dGg5BivzUiHuEr246VXYJZf0aX4SVURbfQ&s" alt="Meethe Chawal" width="300">
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h1>Haryana Festival 2025</h1>
+    <p><strong>Festival:</strong> Baisakhi</p>
+    <p><strong>Date:</strong> April 13, 2025 (Sunday)</p>
+  </section>
+
+  <a href="order-food.html">
+    <button style="padding: 10px 20px; background-color: #ff5722; color: white; border: none; border-radius: 8px;">
+      🌽 Order Bhutte Ka Kees
+    </button>
+  </a>
+
+  <script>
+    function filterFestival(state) {
+      const select = document.getElementById('festivalFilter' + state);
+      const filterValue = select.value;
+      const blocks = document.querySelectorAll('#festivalContent' + state + ' .festival-block');
+      blocks.forEach(block => {
+        block.style.display = (filterValue === 'all' || block.dataset.type === filterValue) ? 'block' : 'none';
+      });
+    }
+  </script>
+  <script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+

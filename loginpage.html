@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <style>
+    body { font-family: Arial; background-color: #f0f0f0; }
+    .login-container {
+      width: 300px; margin: 100px auto;
+      background-color: pink; padding: 20px;
+      border-radius: 8px;
+    }
+    h1 { text-align: center; color: blue; }
+    #message { text-align: center; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <h1>Login Page</h1>
+  <form name="f1" onsubmit="return validate();">
+    <label>User ID:</label><br>
+    <input type="text" name="u" id="un" required><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="p" id="pw" required><br><br>
+
+    <input type="submit" value="Signin">
+    <input type="reset" value="Reset">
+  </form>
+  <p id="message"></p>
+</div>
+
+<script>
+function validate() {
+  var u = document.f1.u.value;
+  var p = document.f1.p.value;
+
+  if (u === "245122737137@mvsrec.edu.in" && p === "9381667653") {
+    // 👇 REPLACE this with your actual India Map file
+    window.location.href = "mppppppppppppppppp-2.html"; 
+  } else {
+    document.getElementById("message").style.color = "red";
+    document.getElementById("message").innerText = "Login Failed";
+  }
+  return false;
+}
+</script>
+
+</body>
+</html>

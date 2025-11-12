@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARNATAKA FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>KARNATAKA FOOD</h1>
+    </header>
+
+    <section>
+        <h2>DASARA: BISI BELE BATH</h2>
+        <p>
+            Bisi bele bath is a beloved dish in Karnataka, often prepared and enjoyed during the auspicious occasion of Dasara. This flavorful one-pot meal combines rice, lentils, assorted vegetables, and a unique blend of spices, creating a delicious and wholesome dish.
+
+            To make bisi bele bath, start by cooking rice and toor dal (split pigeon peas) separately until they are both soft and cooked through. In a large pot, heat ghee or oil and temper mustard seeds, cumin seeds, fenugreek seeds, curry leaves, and dried red chilies. Then, add diced vegetables like carrots, beans, peas, and potatoes, and sauté them until they are slightly tender.
+
+            Next, add tamarind paste, jaggery, and a special spice blend known as bisi bele bath masala. This masala typically includes ingredients like coriander seeds, fenugreek seeds, cinnamon, cloves, cardamom, and dried red chilies, roasted and ground together to create a fragrant and flavorful powder.
+
+            Once the vegetables are cooked, add the cooked rice and dal to the pot, along with water to achieve the desired consistency. Stir everything together well and let it simmer for a few minutes to allow the flavors to meld.
+
+            The name "bisi bele bath" translates to "hot lentil rice" in Kannada, reflecting the piping hot and comforting nature of this dish. It is traditionally served hot, garnished with freshly chopped coriander leaves and a dollop of ghee on top.
+
+            Bisi bele bath is not only a delicious and satisfying meal but also holds cultural significance during Dasara in Karnataka. It is often prepared as an offering to the deities and shared with family and friends as a symbol of togetherness and celebration during this festive time.
+        </p>
+        <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </section>
+
+    <section>
+        <h2>DASARA, BISI BELE BATH</h2>
+        <div class="gallery">
+            <img src="https://www.indianveggiedelight.com/wp-content/uploads/2017/08/bisi-bele-bath-pressure-cooker-featured.jpg" alt="photo 1">
+            <img src="https://maayeka.com/wp-content/uploads/2019/12/bisi-bele-bhath.jpg" alt="photo 2">
+            <img src="https://www.holidify.com/images/cmsuploads/compressed/shutterstock_650105845_20190822115759.jpg" alt="photo 3">
+            <img src="https://www.oyorooms.com/travel-guide/wp-content/uploads/2022/10/travelling-to-kolkata-this-durga-puja.jpg" alt="photo 4">
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/VEArdyBWvdw?si=k_Q00uPDupG2O1qC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+           <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+            <canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+        </div>
+    </div>
+
+    <script>
+// Base data for 100g
+const baseNutritionData ={
+            "photo 1": {
+                labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [350, 12, 55, 14, 8]
+            },
+            "photo 2": {
+                labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [330, 10, 60, 12, 6]
+            }
+        };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+
+</body>
+</html>
+<section>
+    <h2>Explore Karnataka During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <!-- Famous Places -->
+        <div class="festival-block" data-type="place">
+            <h3>Mysore Palace</h3>
+            <p>Center of grand Dasara celebrations with illuminated palace and processions.</p>
+            <a href="https://www.google.com/maps?q=Mysore+Palace+Karnataka" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Hampi</h3>
+            <p>Known for Hampi Utsav, a cultural and musical festival amidst ancient ruins.</p>
+            <a href="https://www.google.com/maps?q=Hampi+Karnataka" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Dharmasthala Temple</h3>
+            <p>Major pilgrimage site, vibrant during Laksha Deepotsava and other Hindu festivals.</p>
+            <a href="https://www.google.com/maps?q=Dharmasthala+Temple+Karnataka" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Chennakesava Temple, Belur</h3>
+            <p>Hosts traditional music and dance events during Ugadi and cultural festivals.</p>
+            <a href="https://www.google.com/maps?q=Belur+Chennakesava+Temple+Karnataka" target="_blank">View on Google Maps</a>
+        </div>
+
+        <!-- Famous Foods -->
+        <div class="festival-block" data-type="food">
+            <h3>Obbattu / Holige</h3>
+            <p>A sweet flatbread filled with jaggery and dal, made during Ugadi and other festivals.</p>
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAxgMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAMEBgcCAQj/xABAEAACAQMCAwYEAwYEBAcAAAABAgMABBEFIRIxQQYTIlFhcRSBkaEHMtEjQlJyscEzQ2LwFRaT4SREU4KSovH/xAAaAQADAQEBAQAAAAAAAAAAAAAAAQIDBAUG/8QAKBEAAgIBBAEDBAMBAAAAAAAAAAECEQMEEiExExQiQQVRUmFCcYEy/9oADAMBAAIRAxEAPwC1yWwPvXCW4BqWMZrzi9qRoNCLHLauhGfenK92FAhkxnoa5KeW1SQAaRQGgCOEFcmKpHBSKnyoAjiI9DiuhCT1p4DrXojycZC7ZPEcACk+BgvWb9dJsGu3iefhOyRrk1xo+onVbX4j4WWAcgJOZqfY/F6rdBLe2SK1jzmfi4hMOQPoPSiUnwGnuFKPdT42UDC1jPPjxq5OjWMG1tSt/cGCN22RSx8gM12lhctuLeX/AOJomuoXSBeLuLUMdkXAP1ri81CePJjuXZivLO3yrgn9XwxujRaWbB0tnMg8UEi+61FKDJB5jpRm21uZ41KmSQZwdgce/lT7XcUshS9hilXzAGVp4/quGTpqhy0k0VxotjTPc9asNxpK3Kd5p8hx/A29CJInRikylSvMYr0oTjNWjncXHsGTQq2cnFB5Xl+LkQwlYkAJlZsA55YqwyqNtudDdQsoLyRHuEJ7s5XflVjhKKfuQLkXIznOahzqR1opcxjfpQ6SNsnOMCgkGzYwcDeh7xsud+dFnTPSoskfPIoAFyo2BtmlUspmlQI2IE0hkmugBXVAHqqSK8Lb11k42+9c8L53xQAskGuwa8VCTjBJ9K7dI4hxzzRRL/qfek2kI8z5V0OWTvTSXNk7hVu1Y+iGpDoFjeUyx9wgy75PhHqDvSUkwPIYmlLElURd2dtgopqeFLiRc8RgQ5RH/eP8Tfp096kSOr8KoCsKnKoTgk/xH18vKm+Eddj6UdjQ9rV8uk6WCqkAKWcquSarT3mpfGRoyPIkmCqgbjPIGrXeImpWSOnDxxbMpGRQC61tbKAByHOcPIuwXfHLnXzP1Lc8tNHq6atnAD7VXl1b3MQnkQBvCqRDLZ8qiyR9rmuopJ/ho7JjwvEWHEq55kdNvKj0V5p8lx36or8C8IlIzxNt1qRqGh21zme5u3j8OWCPgLXJikoqtqv9m8nXYOk7T20cws4CoRNiVGMeuakNewXVoZYLgrDHGz971Zx60Gk7N2trDP8A8HnknadcMzuCpB/h6A17HY6YLPgnuCk/+GqxscKw/e4eX603DF8Nhy1dFm7Faq06mN+Myg/tCxyAfSrB2ks0ezN2F8ceOL1FVLs2DZ38VhEZJs5cTcIw+fPHLrzo92m1y3ghGnJIGuGwXAOeFfX1r2/p83to8/VRVpgGVWx7VDmVg2OdTUYSKDTUq5NeucYGuwCMeVQJFLnPKjM1vxZ2qBcwcC4agYOdAvqaiXCkDBABokqDBJOSDyqDfMGODQAKlIQjBpV5LDvyJpUCNhRPOnAjdafERxtXYjNADKx10I9/PHSngMcq9JONyAOtAjkWM97P8MjmKFADK683J35+X6UWttHsbdcLErH+JvEar47YaPp0yxXV2niPB3ieLBH8QG+3LNHYe0OjyoWj1OzYDn+2UEe4JyPnXNKLs0ace0SWs7UL4rZSv8ooQ0EN5ayPaDgiDHgg4cBiP3jnrttXV72s0aKNw2r2S454lDH5Ab1Wb38QLF2h0/RfD3h4TcSjG3XhB61KTvgXwWBwC7HIO/PFMykAfpSsknuUHcwvwdCRgfU1KfT/AA/t7mKP0B4j9q6V0QVDWdan01zNbScEg8uXsfOgF12x0HVXC9o7OS3mXYXNrk/UD/vVy1nR9GMTT6hdz90oyxXCAD3OazbU17OyXONL0o92p/x7mZ5Gf2QnhH0Nc2fw/wAy45nj6Zcl1js5Z6bHd2VzFdoyhIIhEwbON+fXzNVbU9Zm1ByJCEg6RLnA9+pqHdyuU4ojxKfsP7UOkLfvZPpyxXnLT409yROXVZMnFh/S9Zn0/wAFu4MbZzHIOJD/AL8xTrXvZ3TYBfave391PJu1ukHAqny4uWPXNVpHY8+X+/8AeafSd0GDgqDnxAHFOOKEZW0Tj1OTHwmSL78TrnuTadn7SPTbbkWHjkPrk8qY0XVZLq5LNIzu5yzsckmrPoc3ZrVmW11vRdMW5YgCZYBGJPcqRg/Y1aLbsJ2Yhbit7Ge2Lb5iuXI+jEivUxePb7C3klPtg6wmZogc9KlZ4hknFGE7L20aj4W9ZfSRP0pi40G/iUskYmUdYTxfbnW1iA8kmKhSgsScZqbJG2CXicY55HKoUxwdhkeVMqiBIyKSvI9ahzsmPDg+tSLgnA2+dRAxyfD9qAohufFy398V7XVwCWz/AGpUCNjFdV4DXQxikSeD2ridO8iZNvEMU6ATSODsOfligd0Y52q7Jap8ZczrPbCN24sqGHpyOarcNl2huLoWGnwz375wAkXER6k9B6mvoC50i2ccV87cP/pKcE+56V1Dad3D3VnDHa2/MhRwg+p6mplNJcmk5zyvkzTRvw2vWVZe0eqi36/D2IVn+bnYfIGrpo+haLozB9K0uJZcY+InzLKf/c3L5bUWaK1twpuJT4vJgM09ayJLj4eEBDyLbnNcz1UbpFLBKrZ4XuJ/8SRm+dRbj4jhb4G2NzMMjduCMH1b9AaIsZ1nWIqxDAnIwAKV3MlrCDcXAjXiCgsRuSfv7VPmlJcIrxfspGodkdc1ybi1XU7aOMbrDCrFF9geZ9TXcf4caSi4uL68kfHNXSMfQqata3jNLNDDItw8QDOqLyBOwJ89j9KZBsJJlkmBSQeHx5wK5cra7RUdPDtlUk/D+3+IHw2pSpB+8kihm+owPtQDtP2Yk0a/sza29zcWbECRuLj4mJ/LlR4cjlyrVJbcdw2HGSCc1BedopVjlcsjLnhwDxfpUxyvHK2rNsOLHGW6Ksrb9g9JlhDRSXkTNuAZFbh+oodL2CxxLa6lmQclkix8sgmr+FEqCQZjUDeM4I+RppyAAsTFTnmBkVLlLsz9Nil8GWy9lNWtpOF7GVidgYl41Ptj+9WDRdX1fQ+CDUbaeW25BZ0Ksn8rHmPQ/WrtCUbi7t8spAYE01qCyeJ2kAhAw8fDtn3qo5JR5Rl6RXSZMsbq11CHvLaUMBjiXkynyI6VMCNGwKkj+9UpxF3nxFk7QzR4wbXn81q1aBq0l4sMF/Hw3DIWEirhH9N+Teld2DVRm6fZnkwZMfMiVMsd2pju4wwYYLYwce9U++7KXWnxM9rM99bglgWH7SMeR88VoBhUjkK8WMqdq7DNSdUY3dqir4hk+QqGsLFOIAAHoa0bth2eWWCS+sYwJF3ljA2bzI9az15eIAEYX1oLTIdxEq4yRXtPvwORxAGlSA00cqcVgBTS10dutMgdUtI6pHuScYHWph4LPwJ4pzzbovt+tMrJDYW4knkjjnlHhDMAVFR7W9tppJTExfujhnweEHyz1rKeRRVjitzodnkjt0M0jEv9cVAa2uL6aKdr541f/LVgAwHQUFsvjbrWZ5roERSMWjQ7rjlVmmSG2t+JgsKgZyB+U+nrXl85Zbmeg4rEkl2RbnS9OvXAuv2sijhAG+KIQpBYRpFGCFAwPUV5pxtu5zGQ5AGWI3Y+vrTjyCaJpIlBKZ4TnaujbFdGW6T4ZHvZ57fMkEQkj7ssM5ySOgrN549R7Va6t2PiLaGBfE8i8Hd4zsGO3rtnn6Vp9lN38TFxyJBK7A4qDqZlLARWjzLtgo4C4PPf2H3pqco3RriybL4/0r2kRz6ZqTRWbPKsrDjZyxbOOeNgB9zVqMInfuXRWLJ45Mf0PnTPcs1m0McPXI8YAHtjnTIvIYVzLIAjIN0zxA1nJ2Lscx3LqJQxki8PER0I5/bNM6q5tYTLtKpUKAAMk5qZc6hBJplzc+Fo4oix98GgtvcTXtnZyrKqoEDSIV5jHn51zTikuC8d3yEIphF4nwA4xgjpioVj3rJcRhfHE+ADtUyNu+4WKBnxkHnjfn9KF2Us91cTXEE6/CtK5bbxHGBt86FzwO6CUNzFG0izyx8cbYYKeWeQNS5CncSYKkPGeuayvVrfXdJ7WXVxb95Pb3cquQVyh/0sDyOBjI6VaO1VyY9EkmS5a2AZWeRD+ZTsR9D/APvKtXjSkknwU4p/JO019Pe1RfDGzjiYDzrudGt7hbm1kctH4uAb8R6VnK9p5oraIWV5bBkRScRBuI5OSfoNhVv0O/fULb4+YskzA8UUanh9OZPSozYZ41cjVwpfc07TbxL+ziuIxjiG6nmD1FSaomh621ndw96n/hbhjG5APgbGVb57g/Krfp2q2OqQtNYXUdxGjFGaM5ww6H1r1dPk8uNSPIzYnCT44JLDiBU4OfOsY7QwLaatd2yjaOQ8Psdx/WthaQtJxchWLdqr9bntLftHhh3vB74AB+4rYziMRBcZyM0qh96MZ4cA8gKVBZo+o6udNkUTWkjRscLIjDB/Sgmpa/ez+C3cW8Q6qu/1q1XFvFcwGKdAyEcv7+9Um97vTtQeyumBxukhH5geR/tXLnc483wYTsDypPI7O87uWOeJjz+daN2Ojcdn445HY8TNgk7gZqnfDoVZ4CCDvleR96snZLVFSObTgM3EZ41U8ihPTyPMVyNl6Z+8KW1w0V1PFPKvcrjhZhg4P9ajarp95cyRCOGOSJc7pJwlvfflRLUbG3lTikmMIOAxB+g+tOxgQxhLYApgCPI2zzohDaei530QNF02eyJmuZe7JOFjUgjnyoqC8K8MCoSWOzbZGKjSd4LeMSuk8ow7DltnzrtLwxxsZl4ANzyJx05U7pk8yGJXfgaG6wTIhDAflA3pm24IrbuUlaMx7mMndR0H/aokWswtdm2a3kjbkrtIuDv5Df7VI7mG8zlgh48lWYOcHYH2qHZVcDFy8ECCW4uYSgPgZ8Lw55eVNWmlGRJJ4LiTgkbIAfI+XpRGKwSFVFzBFJEGz5589jXr3AWQughhjjQ4YnAj9/0qbaXJW77AvtLKmm9mHsXXxTYhjVTknPNjUPTI5JI44Y17uGNPG7Ltj9aFdo9UtNQvIoO/WO1tpBJNcyf5jAEBVHluTTGp63dX9m9polveNEq5e4dMDh81HnWbTkXEIavqiSSroeiSO0rnEs2dogRvv50d0izXTrFDhkSMheLZjgczVe7IaBcWtpBMzlH4jJIXXxP6GrVqctvFZ8VxwhFXLknyqZcdD/sF6hqkzXbcEaG2U471t8k9faq5qCT9qpPhraTFhC2WmGQHYdB6CvJdZudWnW00ewLxIcCaXYfIdatGj2xtbZYGjVUVfyqu2etTFSi7Zcmq4A0fYXTe7RQSXOM8J4c885x1PnRa10p7bvB3q8B8MYXoB61Lubi3tpFbhY5G5xsKBa3rltaI9xGDJMNgq/bYUpTcn92JcKyB2nZrfSpLZZIhJNIBHhcjnz3qyfh7JHLqF0VtksMxjMKPxd4c/mJ8xnHzqjWkV9q2oRS6igSRP8G3yC+fMgdathu4ux6y6hqjpFKsZVIVIY8R8/py616GlcopRR5+fUznJxj0H/xA7UW/Z3SJJeP9sw4YlB3JPKsPs72SXLucs54i3mTzod2r7R3faPUGubp2CAkxxk/lz196WkseAZJr0jnLJE5kXc8qVNQNgbZNKgs2hSuN6rPbXSP+J2AnhVTc2+WTGxK9R/vy9aNXN3Fbx5ldEB6swAoa+pwyIWhmSRPONuL+lTOO5URVozeC9vLVxw8Y9siilvrjC4huzAyzxE8XADiROqkff3FFp9XVrwxGUgscLjOCfKupLxgOHiJJ9eVeZkjKLpoxtwlaLdoOu2msW6YdDnHhc/mx5g0ckmSEZkwgyABtgVkU8LGb4mxkNvd8+NRs3uOtPwdru0tiAt3Zpdxg48LDcex5VEZuKo7IZ4T74L9fXGozSKtkqlDJlpMbBM7+/wB6Y1/VYNNUxjunkbhDCV+Eb/3wM4NALH8RrPvODULSe2Pm0ZwPmNqLzan2W1q3ctLaSh8d4sjbHHLIqo5Ip3I6LT6AOi2NhdKupvBby3PGcSCLLLucYJ25Y3z1o8s8Ma8NmnHPIpyw3xjbf0FDrntZoujROssUKW/F/kMGDHyA+lVbWfxTjaNo9KsSqYwOMBPqBmtHOWVexE7ow/6ZcNX1eaytxLe3MFpbBcGSRtz6AdTWf65+IdqYfg9JWUxZ8VxKMs3rjpVN1a+1LXLnv7+WWdx+UHOEHkBTMGlXMrACJh8qcdNjjzNmM9S/4hKLX7MXPeXcU1xv54A9h0q72n4j2cFnFFHbyCMDBU8Izt77VV9J7LzSRzJLEhSVQMsPEvXY9KlN2GiQglnw37vFRNad8ELVOP7D7dvr64Ii0yCKDi2XLbL9KftrW51w51rVWcE/4KnC/wDeq9bdkIkUsGdcHHhYiiNt2Zk/yrq9GOQicsx9hXM4wXEDSOsT7RerFLHSLRQncqRyANRbjtPZWgbvpw0jckQ5JoJB2Iv7jge8gaCBecl5euC3qQG+2KMxWHZbQIy00qTMOYjHdp82O5+tEdPKbNPV/igNeavrvaBvhtNs2toCfzyAlvko/vU/TexEdgwvdbvWicjILPxSe4UbA1B1T8ULGzRodGhRBjGYEx/9iP6Vn2s9qdW1hm724aKNuccZ5j1bma7oaVV7jnlOUu2aHrHbjSOz0T2nZ22UTkYaQHLn+Z+nsMn2rL9W1O91e5NxfTmRt+FeLwp7D/ZqGBgbDavBknYV1xioqkQcgcRxzo/p1uVTkfPNQbC0LvkgYqxW1viLA2pjQ5GCqbfXzpU+iHhA4OXrSoKoJ9s9M1LUdbLJYyXdssadzxShY0O/FtnmdqHPadp7aGSIPa2sDkBkjAY8IOcA42rSpsfMdaF6had5GcA4POnbqivPPZsXRnerSyK3EDh13yOho9pEy6jaJOjZkI/aLnBVvI1B1jTyC221Vjv7/TZJGsriSEsMMV6isMuLyIwlGzRe45k5JPPA6V0IXzngrNG7Wa8m3x7HH8Uan+1L/nTX+Xxcf/RX9K5fSN/Jn4zTfgjNs8YIPPNctoWm8XHcQW4x/EBWV3XafXLoES6jMF8kwo+wqImq6ghyLuUn/UeL+tUtG18lKBrot+z9uD+yhb/TFGDUaYaHLslmE35tBis0TtFqqf8AmAfdBTy9qNXHKWL/AKdL0k/yDYjTrfStPl3t4YyTsAKLQdmXiA40tbZcc5ZlH96x3/mnWc57+MfyxiuH7Q6tJ+e8b5KP0qo6P8mHjibO+n28I4V1nTYyOZAaU/IDA+tRXXRrc8d3rl5ceYSGONfuKxmTU7+TZ7yYj+cimGd3/M7N/MSf61otLjXaKUYo2ebtl2Y0/aG1gkI6yyNK2fYbUJ1D8V34GjsY2RRyEaCIfrWWjPmRXoxnkK2jjhHpFFl1PtvrF+TwzLED1A4m+poBc3FxdMXubiSVj1c5prApe1WOzwjHmaQNdpE78gfpU22092I4gaAIcaM7bDaillYljlloha6XgZIxRCG0K7EY9qAoYtbRUHKiCKoUDhrvuQvP7V2qg4xTGkNkg8xSruaPBGP6V5QM0CMtJgHffnUhosqRimo/CDg5NOISaRAC1eyEkbALg86oGr2LKSQOtatdpx1UdbsvzHH1oYGW3cBBO2DmoRFWnUbYAtQCeHB9akCLjalivSN6QFNCPK8604sZbkN6eW0mbkv2oGRxzroGiMOkzPjIPyqYmgNxAOrb0xgPNLNWAaDz8JqTDoWMZX7UCorSqxGyHNPJaTORhauNtoWCBwbUSh0VUz4QDQOilQ6RI+7A0QttEPVTVvh00AEEZ8hUo2fANgD7UAVmPR1QY4TUlbFYwMLvR8wFVO2+KiyREncfegZEWBcDiOD5U4Yl4Qc8udd8G+1cyZyADyoBDaxA7ZO+1cuFBHCDzpNLwOSSc03M3g413670xifJPUUqhTTsDw4O3SlQI0lWOakQk0qVBAm3O9BdXRTG+RSpUhlF1SNfFtVcuo14ztSpVLAgiJOI+9S4bWIkZFKlSEFrSyg28FFraxgJHhPPzrylTKDlpp9sABwfeiHwMA5KfrSpUxnAtYd/D1rtrWIKMDpSpUAS47aJVVgu+K9EakbilSoA9VFXOBTTMaVKmA1IgY5PniopAZCCOtKlQBEYZauX8CHHWlSoGRpVBTJG9QyAGOPPFKlTBjE48eaVKlQI/9k=" alt="Obbattu" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Ragi Mudde with Sambar</h3>
+            <p>Traditional Karnataka dish commonly served during temple festivals and feasts.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrQJGRTe9Tcjx4JpN9pFwbgDCBwopCHbNf0Q&s" alt="Ragi Mudde" width="300">
+        </div>
+
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>

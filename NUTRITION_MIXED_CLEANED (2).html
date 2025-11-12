@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Indian States Festival Food Gallery</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        #nutritionModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        #nutritionModal > div {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Indian States Festival Foods</h1>
+    </header>
+
+    <!-- Sections will be re-inserted by HTML processing if needed -->
+
+    <div id="nutritionModal">
+        <div>
+            <canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const nutritionData = {
+            "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [600, 10, 80, 20, 6] },
+            "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [540, 34, 15, 13, 7] },
+            "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [180, 6, 35, 7, 7] }
+        };
+        const chartModal = document.getElementById('nutritionModal');
+        let chart;
+        function showNutritionChart(alt) {
+            const key = alt.trim().toLowerCase();
+            const item = nutritionData[key];
+            if (!item) return;
+            if (chart) chart.destroy();
+            const ctx = document.getElementById('nutritionChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: item.labels,
+                    datasets: [{ label: 'Nutrition Facts', data: item.data, backgroundColor: 'rgba(75, 192, 192, 0.6)' }]
+                },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+            chartModal.style.display = 'flex';
+        }
+        function closeModal() {
+            chartModal.style.display = 'none';
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.gallery img').forEach(img =>
+                img.addEventListener('click', () => showNutritionChart(img.alt.trim()))
+            );
+        });
+    </script>
+</body>
+</html>

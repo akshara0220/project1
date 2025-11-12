@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ANDHRA PRADESH FOOD</title>
+<style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<header>
+<h1>ANDHRA PRADESH FOOD</h1>
+</header>
+<section>
+<h2>Explore Andhra Pradesh During Festivals</h2>
+<label for="festivalFilterAndhra"><strong>Filter by:</strong></label>
+<select id="festivalFilterAndhra" onchange="filterFestival('Andhra')">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContentAndhra">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Hyderabad Sankranti Food Fest</h3>
+<p>Celebrations with Pulihora, Rasam, &amp; Chicken Fry :contentReference[oaicite:14]{index=14}.</p>
+<a href="https://www.google.com/maps?q=Hyderabad" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Local Temples &amp; Community Grounds</h3>
+<p>Traditional Pongal rituals and cattle blessings during Sankranti.</p>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Ariselu &amp; Sunnundalu</h3>
+<p>Rice-jaggery deep-fried sweets and urad dal laddus :contentReference[oaicite:15]{index=15}.</p>
+<img alt="Ariselu &amp; Sunnundalu" src="https://www.sailusfood.com/wp-content/uploads/2012/01/ariselu.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Pulihora &amp; Medu Vada</h3>
+<p>Tamarind rice and crispy lentil fritters during festive meals :contentReference[oaicite:16]{index=16}.</p>
+<img alt="Pulihora &amp; Medu Vada" src="https://www.vegrecipesofindia.com/wp-content/uploads/2022/02/medu-vada-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>ASSAM FOOD</h1>
+</header>
+<section>
+<h2>Explore Assam During Festivals</h2>
+<label for="festivalFilterAssam"><strong>Filter by:</strong></label>
+<select id="festivalFilterAssam" onchange="filterFestival('Assam')">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContentAssam">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Jamugurihat Bihu Festival</h3>
+<p>Open-field Rongali Bihu celebration with folk dances :contentReference[oaicite:18]{index=18}.</p>
+<a href="https://www.google.com/maps?q=Jamugurihat+Assam" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Community Meiji &amp; Bhelaghar</h3>
+<p>Much-loved Magh Bihu communal bonfires and feasts :contentReference[oaicite:19]{index=19}.</p>
+<a href="https://www.google.com/maps?q=Assam+Meiji" target="_blank">View on Google Maps</a>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Sunga Pitha &amp; Tekeli Pitha</h3>
+<p>Steamed rice cakes, filled with coconut &amp; jaggery :contentReference[oaicite:20]{index=20}.</p>
+<img alt="Sunga Tekeli Pitha" src="https://www.ekplate.com/uploads/blog_image/2022/01/01/Sunga-Pitha-Assam.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Laru &amp; Payokh</h3>
+<p>Jaggery laddus &amp; rice pudding for Magh Bihu feasts :contentReference[oaicite:21]{index=21}.</p>
+<img alt="Laru &amp; Payokh" src="https://bongong.com/wp-content/uploads/2021/03/Payesh-Recipe.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>DELHI FOOD</h1>
+</header>
+<section>
+<h2>Explore Delhi During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<!-- Famous Places -->
+<div class="festival-block" data-type="place">
+<h3>Red Fort</h3>
+<p>Major site for Independence Day celebrations and Republic Day cultural programs.</p>
+<a href="https://www.google.com/maps?q=Red+Fort+Delhi" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>India Gate</h3>
+<p>Iconic war memorial, beautifully lit and crowded during national festivals like Republic Day.</p>
+<a href="https://www.google.com/maps?q=India+Gate+Delhi" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Akshardham Temple</h3>
+<p>Popular destination during Diwali and other Hindu festivals for its cultural exhibitions and light shows.</p>
+<a href="https://www.google.com/maps?q=Akshardham+Temple+Delhi" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Dilli Haat</h3>
+<p>Festival hub featuring cultural crafts, dance, and food fairs during national and regional celebrations.</p>
+<a href="https://www.google.com/maps?q=Dilli+Haat+Delhi" target="_blank">View on Google Maps</a>
+</div>
+<!-- Famous Foods -->
+<div class="festival-block" data-type="food">
+<h3>Chole Bhature</h3>
+<p>Delhi’s iconic street food, widely enjoyed during Holi and Lohri celebrations.</p>
+<img alt="Chole Bhature" src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/08/chole-bhature-recipe-1.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Daulat Ki Chaat</h3>
+<p>A delicate winter dessert, typically sold in Old Delhi during Diwali and other seasonal fairs.</p>
+<img alt="Daulat Ki Chaat" src="https://i.ytimg.com/vi/WEaQce08Heo/maxresdefault.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>GOA FOOD</h1>
+</header>
+<section>
+<h2>Explore Goa During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<!-- Famous Places -->
+<div class="festival-block" data-type="place">
+<h3>Basilica of Bom Jesus</h3>
+<p>Celebrated for its Christmas midnight mass and the Feast of St. Francis Xavier.</p>
+<a href="https://www.google.com/maps?q=Basilica+of+Bom+Jesus+Goa" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Fontainhas</h3>
+<p>Colorful Latin Quarter of Goa comes alive with music, lights, and art during the Fontainhas Festival and Carnival.</p>
+<a href="https://www.google.com/maps?q=Fontainhas+Goa" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Shree Shantadurga Temple</h3>
+<p>Famous for Navratri and Dussehra celebrations with traditional Goan rituals and festivities.</p>
+<a href="https://www.google.com/maps?q=Shree+Shantadurga+Temple+Goa" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Mapusa Market</h3>
+<p>Lively during Ganesh Chaturthi with festival shopping, sweets, and decorations.</p>
+<a href="https://www.google.com/maps?q=Mapusa+Market+Goa" target="_blank">View on Google Maps</a>
+</div>
+<!-- Famous Foods -->
+<div class="festival-block" data-type="food">
+<h3>Bebinca</h3>
+<p>Traditional Goan layered dessert, especially popular during Christmas and Easter feasts.</p>
+<img alt="Bebinca" src="https://www.archanaskitchen.com/images/archanaskitchen/1-Author/Nithya.Anand/Bebinca_Goan_Dessert_Recipe-1.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Fish Thali</h3>
+<p>Served in most households and restaurants during feasts and festive gatherings across Goa.</p>
+<img alt="Fish Thali" src="https://goanwiki.com/wp-content/uploads/2022/11/fish-thali-goa.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>KARNATAKA FOOD</h1>
+</header>
+<section>
+<h2>Explore Karnataka During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<!-- Famous Places -->
+<div class="festival-block" data-type="place">
+<h3>Mysore Palace</h3>
+<p>Center of grand Dasara celebrations with illuminated palace and processions.</p>
+<a href="https://www.google.com/maps?q=Mysore+Palace+Karnataka" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Hampi</h3>
+<p>Known for Hampi Utsav, a cultural and musical festival amidst ancient ruins.</p>
+<a href="https://www.google.com/maps?q=Hampi+Karnataka" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Dharmasthala Temple</h3>
+<p>Major pilgrimage site, vibrant during Laksha Deepotsava and other Hindu festivals.</p>
+<a href="https://www.google.com/maps?q=Dharmasthala+Temple+Karnataka" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Chennakesava Temple, Belur</h3>
+<p>Hosts traditional music and dance events during Ugadi and cultural festivals.</p>
+<a href="https://www.google.com/maps?q=Belur+Chennakesava+Temple+Karnataka" target="_blank">View on Google Maps</a>
+</div>
+<!-- Famous Foods -->
+<div class="festival-block" data-type="food">
+<h3>Obbattu / Holige</h3>
+<p>A sweet flatbread filled with jaggery and dal, made during Ugadi and other festivals.</p>
+<img alt="Obbattu" src="https://www.archanaskitchen.com/images/archanaskitchen/1-Author/sneha-archanaskitchen.com/Obbattu_Puran_Poli_Kannada_New_Year_Ugadi_Recipe.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Ragi Mudde with Sambar</h3>
+<p>Traditional Karnataka dish commonly served during temple festivals and feasts.</p>
+<img alt="Ragi Mudde" src="https://www.vegrecipesofindia.com/wp-content/uploads/2022/12/ragi-mudde-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>KERALA FOOD</h1>
+</header>
+<section>
+<h2>Explore Kerala During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Alleppey Backwaters</h3>
+<p>Scenic boat races and Onam festivities set against the iconic Kerala backwaters.</p>
+<a href="https://www.google.com/maps?q=Alleppey+Kerala" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Thrissur Pooram</h3>
+<p>Mega temple festival with elephants, percussion and fireworks held around Onam.</p>
+<a href="https://www.google.com/maps?q=Thrissur+Kerala" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Onam Sadya</h3>
+<p>Lavish vegetarian feast served on a banana leaf—includes rice, sambar, avial, payasam, and more :contentReference[oaicite:2]{index=2}.</p>
+<img alt="Onam Sadya" src="https://www.archanaskitchen.com/images/archanaskitchen/1-Author/shaheen_ali/Onam_Sadya_Feast_Kerala.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Palada Payasam</h3>
+<p>Rice-and-milk kheer, a classic sweet served during Onam :contentReference[oaicite:3]{index=3}.</p>
+<img alt="Palada Payasam" src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/03/palada-payasam-recipe.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>LADAK FOOD</h1>
+</header>
+<section>
+<h2>Explore Ladakh During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Sakadawa Festival, Leh</h3>
+<p>Celebration of Buddha’s birth, enlightenment, and death with deep spiritual traditions and acts of compassion.</p>
+<a href="https://www.google.com/maps?q=Leh+Ladakh+Jokhang+Monastery" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Thiksey Monastery Festival</h3>
+<p>One of Ladakh’s most vibrant monastery festivals with sacred rituals and masked Cham dances.</p>
+<a href="https://www.google.com/maps?q=Thiksey+Monastery+Ladakh" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Momos</h3>
+<p>Steamed or fried Tibetan dumplings filled with meat or vegetables; symbolic and popular during the Sakadawa festival.</p>
+<img alt="Momos" src="https://allchickenrecipe.com/wp-content/uploads/2020/05/Chicken-Momos.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Thukpa</h3>
+<p>Traditional Ladakhi noodle soup served hot during winter and festive times — hearty and nourishing.</p>
+<img alt="Thukpa" src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/01/thukpa-recipe-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>MADHYA PRADESH FOOD</h1>
+</header>
+<section>
+<h2>Explore Madhya Pradesh During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Khajuraho Dance Festival, Khajuraho</h3>
+<p>Celebrated near the UNESCO World Heritage temples, featuring classical dance performances.</p>
+<a href="https://www.google.com/maps?q=Khajuraho+Temples" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Ujjain Simhastha Kumbh Mela, Ujjain</h3>
+<p>Major pilgrimage and spiritual gathering on the banks of Shipra River every 12 years.</p>
+<a href="https://www.google.com/maps?q=Ujjain+Shipra+River" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Bhagoria Festival, Jhabua</h3>
+<p>Tribal festival celebrated with colors, music, and traditional attire in western Madhya Pradesh.</p>
+<a href="https://www.google.com/maps?q=Jhabua,+Madhya+Pradesh" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Poha</h3>
+<p>Flattened rice dish spiced with turmeric, mustard seeds, onions, and garnished with sev; a breakfast staple and street favorite.</p>
+<img alt="Poha" src="https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Bhutte Ka Kees</h3>
+<p>Grated corn cooked with milk and spices, a unique Indori street delicacy popular during fairs and gatherings.</p>
+<img alt="Bhutte Ka Kees" src="https://www.vegrecipesofindia.com/wp-content/uploads/2022/10/bhutte-ka-kees-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>MAHARASTRA FOOD</h1>
+</header>
+<section>
+<h2>Explore Maharashtra During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Siddhivinayak Temple, Mumbai</h3>
+<p>Spiritual site with vibrant celebrations and nearby street food.</p>
+<a href="https://www.google.com/maps?q=Siddhivinayak+Temple,Mumbai" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Lalbaugcha Raja, Mumbai</h3>
+<p>Famous Ganesh idol visited by lakhs of devotees; known for festive snacks and sweets.</p>
+<a href="https://www.google.com/maps?q=Lalbaugcha+Raja,Mumbai" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Dagdusheth Halwai Ganpati, Pune</h3>
+<p>Cultural hotspot for Ganesh Chaturthi and iconic for sweet shops serving Puran Poli.</p>
+<a href="https://www.google.com/maps?q=Dagadusheth+Halwai+Ganapati,Pune" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Ganpatipule Temple, Ratnagiri</h3>
+<p>Coastal temple with festive food stalls and Konkan delicacies.</p>
+<a href="https://www.google.com/maps?q=Ganpatipule+Temple" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Puran Poli</h3>
+<p>Stuffed sweet flatbread made with jaggery and chana dal, traditionally eaten during Ganesh Chaturthi.</p>
+<img alt="Puran Poli" src="https://i0.wp.com/kalimirchbysmita.com/wp-content/uploads/2019/04/Puran-Poli-02.jpg?fit=1024%2C682&amp;ssl=1" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Modak</h3>
+<p>Lord Ganesha’s favorite sweet; steamed or fried dumplings filled with coconut and jaggery.</p>
+<img alt="Modak" src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/09/modak-recipe-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>MANIPUR FOOD</h1>
+</header>
+<section>
+<h2>Explore Manipur During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Yaoshang Festival, Imphal</h3>
+<p>Five-day spring celebration in Manipur with sports, music, and cultural performances similar to Holi.</p>
+<a href="https://www.google.com/maps?q=Imphal,+Manipur" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Kang Festival</h3>
+<p>A major Manipuri festival celebrated by the Meitei Hindus, with colorful processions and religious devotion.</p>
+<a href="https://www.google.com/maps?q=Shree+Govindajee+Temple,+Imphal" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Eromba</h3>
+<p>A spicy and savory dish of boiled mashed vegetables mixed with fermented fish, red chilies, and herbs — enjoyed during Yaoshang.</p>
+<img alt="Eromba" src="https://bharatkasafar.files.wordpress.com/2015/03/eromba.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Chamthong (Vegetable Stew)</h3>
+<p>A nutritious and flavorful stew made with seasonal vegetables, herbs, and spices, often served with rice during festivals.</p>
+<img alt="Chamthong" src="https://i.pinimg.com/originals/b4/25/80/b42580f364e1e6f2eb6c9d7ff88cbe49.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>MEGHALAYA FOOD</h1>
+</header>
+<section>
+<h2>Explore Meghalaya During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Wangala Festival, Tura</h3>
+<p>Harvest festival of the Garo tribe celebrated with drumbeats, dances, and thanksgiving rituals.</p>
+<a href="https://www.google.com/maps?q=Tura,+Meghalaya" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Shillong Autumn Festival</h3>
+<p>Cultural event held near Umiam Lake with music, food, and traditional performances in Meghalaya's capital.</p>
+<a href="https://www.google.com/maps?q=Umiam+Lake,+Shillong" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Jadoh</h3>
+<p>Traditional Khasi/Garo rice dish with meat and spices, garnished with herbs — a highlight during Wangala festival.</p>
+<img alt="Jadoh" src="https://localbitesonline.com/wp-content/uploads/2023/03/Jadoh.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Dohneiiong</h3>
+<p>Pork cooked with black sesame seeds — a beloved Meghalayan delicacy served during many cultural events.</p>
+<img alt="Dohneiiong" src="https://www.archanaskitchen.com/images/archanaskitchen/1-Author/shaheen_ali/Doh_Nei_Iong_-_Meghalaya_Pork_Curry_With_Sesame_Seeds.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>MIZORAM FOOD</h1>
+</header>
+<section>
+<h2>Explore Mizoram During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<!-- Famous Places -->
+<div class="festival-block" data-type="place">
+<h3>Reiek Heritage Village</h3>
+<p>Scenic hilltop village that hosts cultural dances and festivals like Chapchar Kut.</p>
+<a href="https://www.google.com/maps?q=Reiek+Heritage+Village,Mizoram" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Solomon's Temple, Aizawl</h3>
+<p>Peaceful site known for festive gatherings and traditional choir performances during festivals.</p>
+<a href="https://www.google.com/maps?q=Solomon's+Temple,Aizawl" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Durtlang Hills, Aizawl</h3>
+<p>Great viewpoint during festivals; popular among trekkers and photographers.</p>
+<a href="https://www.google.com/maps?q=Durtlang+Hills,Aizawl" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Vantawng Falls, Serchhip</h3>
+<p>Mesmerizing waterfall often visited during seasonal festivals and local fairs.</p>
+<a href="https://www.google.com/maps?q=Vantawng+Falls,Mizoram" target="_blank">View on Google Maps</a>
+</div>
+<!-- Famous Foods -->
+<div class="festival-block" data-type="food">
+<h3>Bai</h3>
+<p>Traditional Mizo stew made with vegetables, bamboo shoots, and pork — commonly served during celebrations.</p>
+<img alt="Bai" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Bai_-Mizo_dish.jpg/800px-Bai-_Mizo_dish.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Arsa Buhchiar</h3>
+<p>Mizo-style chicken and sticky rice dish, often enjoyed during Chapchar Kut and Pawl Kut festivals.</p>
+<img alt="Arsa Buhchiar" src="https://mizoramtourism.gov.in/uploads/files/arsabuhchiar.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>NAGALAND FOOD</h1>
+</header>
+<section>
+<h2>Explore Nagaland During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Kisama Heritage Village</h3>
+<p>Main venue for the Hornbill Festival (Dec 1–10), featuring traditional dance, morungs, rock concerts &amp; crafts </p>
+<a href="https://www.google.com/maps?q=Kisama+Heritage+Village+Kohima,+Nagaland" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Smoked Pork with Bamboo Shoot &amp; Axone</h3>
+<p>Signature Naga dish—smoked pork flavored with bamboo shoot and fermented soybean paste (axone) </p>
+<img alt="Smoked Pork with Bamboo Shoot" src="https://nagalandtourism.com/wp-content/uploads/2021/10/Naga-smoked-pork-bamboo-shoot.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Rice Beer (Zutho/Galho)</h3>
+<p>Local rice beer varieties like zutho and galho are must-try festival drinks :contentReference[oaicite:3]{index=3}.</p>
+<img alt="Rice Beer" src="https://images.herzindagi.info/image/2022/May/zutho-rice-beer.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>ODISHA FOOD</h1>
+</header>
+<section>
+<h2>Explore Odisha During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<div class="festival-block" data-type="place">
+<h3>Ratha Yatra, Puri</h3>
+<p>World-famous chariot festival at Jagannath Temple where deities are pulled in grand wooden chariots.</p>
+<a href="https://www.google.com/maps?q=Jagannath+Temple,+Puri" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Konark Dance Festival</h3>
+<p>A cultural celebration held in the backdrop of the Sun Temple showcasing classical Indian dance forms.</p>
+<a href="https://www.google.com/maps?q=Konark+Sun+Temple" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Dalma</h3>
+<p>Traditional Odia lentil and vegetable dish made with toor dal, spices, and coconut — widely enjoyed during Ratha Yatra.</p>
+<img alt="Dalma" src="https://deepantripathy.files.wordpress.com/2020/07/dalma.jpg?w=840" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Chhena Poda</h3>
+<p>A burnt cheesecake-like sweet made from chhena (cottage cheese), a staple festive dessert in Odisha.</p>
+<img alt="Chhena Poda" src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/07/chhena-poda-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>PUNJAB FOOD</h1>
+</header>
+<section>
+<h2>Explore Punjab During Festivals</h2>
+<label for="festivalFilterPunjab"><strong>Filter by:</strong></label>
+<select id="festivalFilterPunjab" onchange="filterFestival('Punjab')">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContentPunjab">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Takht Sri Kesgarh Sahib, Anandpur Sahib</h3>
+<p>Centre for Baisakhi melas &amp; Sikh martial displays :contentReference[oaicite:5]{index=5}.</p>
+<a href="https://www.google.com/maps?q=Takht+Sri+Kesgarh+Sahib" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Golden Temple, Amritsar</h3>
+<p>Major Baisakhi gathering &amp; ritual dips :contentReference[oaicite:6]{index=6}.</p>
+<a href="https://www.google.com/maps?q=Golden+Temple+Amritsar" target="_blank">View on Google Maps</a>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Sarson da Saag &amp; Makki di Roti</h3>
+<p>Hearty greens and corn flatbread—classic Baisakhi fare .</p>
+<img alt="Sarson da Saag &amp; Makki di Roti" src="https://www.cookwithmanali.com/wp-content/uploads/2019/12/Sarson-ka-Saag-and-Makki-ki-Roti.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Gajak, Rewari &amp; Pinni</h3>
+<p>Sweets made of sesame, jaggery &amp; dry fruits—served at Lohri .</p>
+<img alt="Gajak &amp; Rewari" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Gajak_in_bowl.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>RAJASTHAN FOOD</h1>
+</header>
+<section>
+<h2>Explore Rajasthan During Festivals</h2>
+<label for="festivalFilterRajasthan"><strong>Filter by:</strong></label>
+<select id="festivalFilterRajasthan" onchange="filterFestival('Rajasthan')">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContentRajasthan">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Jaipur – Gangaur Processions</h3>
+<p>Colorful parades celebrating Goddess Gauri.</p>
+<a href="https://www.google.com/maps?q=Jaipur+Rajasthan" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Udaipur – Gangaur Ghat</h3>
+<p>Lakeside rituals on Gangaur day.</p>
+<a href="https://www.google.com/maps?q=Udaipur+Gangaur+Ghat" target="_blank">View on Google Maps</a>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Dal Baati Churma &amp; Ghevar</h3>
+<p>Heartwarming lentils with wheat dumplings and sweet disc—festival staples :contentReference[oaicite:9]{index=9}.</p>
+<img alt="Dal Baati Churma &amp; Ghevar" src="https://www.archanaskitchen.com/images/archanaskitchen/1-Author/Priya/Dal_Baati_Churma_Recipe_Rajasthani.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Laal Maas &amp; Gatte ki Sabzi</h3>
+<p>Fiery meat curry and gram-flour dumplings—royal festive dishes :contentReference[oaicite:10]{index=10}.</p>
+<img alt="Laal Maas &amp; Gatte ki Sabzi" src="https://www.spicypunch.com/wp-content/uploads/2020/07/Rajasthani-laal-maas.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>SIKKIM FOOD</h1>
+</header>
+<section>
+<h2>Explore Sikkim During Festivals</h2>
+<label for="festivalFilterSikkim"><strong>Filter by:</strong></label>
+<select id="festivalFilterSikkim" onchange="filterFestival('Sikkim')">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContentSikkim">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Rumtek Monastery, Gangtok</h3>
+<p>Center of Losar celebrations &amp; Cham dance rituals :contentReference[oaicite:1]{index=1}.</p>
+<a href="https://www.google.com/maps?q=Rumtek+Monastery+Sikkim" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Phodong Monastery, North Sikkim</h3>
+<p>Known for Losar prayer ceremonies :contentReference[oaicite:2]{index=2}.</p>
+<a href="https://www.google.com/maps?q=Phodong+Monastery+Sikkim" target="_blank">View on Google Maps</a>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Momos &amp; Thukpa</h3>
+<p>Iconic steamed dumplings and hearty noodle soup—festival staples </p>
+<img alt="Momos &amp; Thukpa" src="https://www.secondrecipe.com/wp-content/uploads/2020/12/chicken-momo.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Phagshapa &amp; Sel Roti</h3>
+<p>Pork-fat stew &amp; sweet ring-shaped rice bread—Losar favourites </p>
+<img alt="Phagshapa &amp; Sel Roti" src="https://www.thetakeiteasychef.com/wp-content/uploads/2017/10/Sel-Roti-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>TAMILNADU FOOD</h1>
+</header>
+<section>
+<h2>Explore Tamil Nadu During Festivals</h2>
+<label for="festivalFilterTamil"><strong>Filter by:</strong></label>
+<select id="festivalFilterTamil" onchange="filterFestival('Tamil')">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContentTamil">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Meenakshi Temple, Madurai</h3>
+<p>Grand celebrations during Pongal with special prayers and kolams.</p>
+<a href="https://www.google.com/maps?q=Meenakshi+Temple+Madurai" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Kapaleeshwarar Temple, Chennai</h3>
+<p>Karthigai Deepam in Tamil month Karthigai; Pongal rituals with community feasts.</p>
+<a href="https://www.google.com/maps?q=Kapaleeshwarar+Temple+Chennai" target="_blank">View on Google Maps</a>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Sakkarai Pongal</h3>
+<p>Sweet rice-and-lentil porridge flavoured with jaggery—essence of Pongal :contentReference[oaicite:1]{index=1}.</p>
+<img alt="Sakkarai Pongal" src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/06/sakkarai-pongal.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Medu Vada</h3>
+<p>Crispy lentil doughnuts, often served alongside pongal :contentReference[oaicite:2]{index=2}.</p>
+<img alt="Medu Vada" src="https://www.vegrecipesofindia.com/wp-content/uploads/2022/02/medu-vada-1.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>TELANGANA FOOD</h1>
+</header>
+<section>
+<h2>Explore Telangana During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Birla Mandir, Hyderabad</h3>
+<p>Popular spiritual destination during festivals like Diwali and Sankranti.</p>
+<a href="https://www.google.com/maps?q=Birla+Mandir,Hyderabad" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Yadagirigutta Temple, Yadadri</h3>
+<p>Renowned temple dedicated to Lord Narasimha; grand celebrations during Brahmotsavam.</p>
+<a href="https://www.google.com/maps?q=Yadagirigutta+Temple,Yadadri" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Thousand Pillar Temple, Warangal</h3>
+<p>Architectural wonder and cultural site for festival visits and local rituals.</p>
+<a href="https://www.google.com/maps?q=Thousand+Pillar+Temple,Warangal" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Bonalu Festival, Hyderabad</h3>
+<p>Vibrant celebration dedicated to Goddess Mahankali, with colorful processions and music.</p>
+<a href="https://www.google.com/maps?q=Bonalu+Festival,Hyderabad" target="_blank">View on Google Maps</a>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Sakinalu</h3>
+<p>Traditional crunchy snack prepared during Sankranti, made with rice flour and sesame seeds.</p>
+<img alt="Sakinalu" src="https://cdn.telanganatoday.com/wp-content/uploads/2022/01/Sakinalu.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Hyderabadi Biryani</h3>
+<p>Iconic festive dish, especially popular during Eid and special occasions in Telangana.</p>
+<img alt="Hyderabadi Biryani" src="https://www.cookwithmanali.com/wp-content/uploads/2018/09/Hyderabadi-Biryani-Restaurant-Style.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>TRIPURA FOOD</h1>
+</header>
+<section>
+<h2>Explore Tripura During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<!-- Famous Places -->
+<div class="festival-block" data-type="place">
+<h3>Tripura Sundari Temple</h3>
+<p>Major pilgrimage site, especially crowded during Diwali when the Diwali Mela is held.</p>
+<a href="https://www.google.com/maps?q=Tripura+Sundari+Temple" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Ujjayanta Palace</h3>
+<p>A key heritage site lit up and visited during festivals like Durga Puja and Bihu.</p>
+<a href="https://www.google.com/maps?q=Ujjayanta+Palace+Tripura" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Neermahal</h3>
+<p>Hosts cultural events and boat festivals during fairs and religious celebrations.</p>
+<a href="https://www.google.com/maps?q=Neermahal+Tripura" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Unakoti</h3>
+<p>Ancient rock carvings and tribal festivals attract crowds during Ashokashtami and other tribal events.</p>
+<a href="https://www.google.com/maps?q=Unakoti+Tripura" target="_blank">View on Google Maps</a>
+</div>
+<!-- Famous Foods -->
+<div class="festival-block" data-type="food">
+<h3>Mui Borok (Tripuri Traditional Cuisine)</h3>
+<p>A staple at most tribal festivals including Garia Puja and Buisu. Made from bamboo shoots and dried fish.</p>
+<img alt="Mui Borok" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Mui_Borok.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Wahan Mosdeng</h3>
+<p>A spicy pork dish enjoyed widely during Tripura's major tribal festivals like Garia Puja.</p>
+<img alt="Wahan Mosdeng" src="https://i.ytimg.com/vi/s7XKtDfKyvQ/maxresdefault.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header>
+<h1>UP FOOD</h1>
+</header>
+<section>
+<h2>Explore Uttar Pradesh During Festivals</h2>
+<label for="festivalFilterUP"><strong>Filter by:</strong></label>
+<select id="festivalFilterUP" onchange="filterFestival('UP')">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContentUP">
+<!-- Places -->
+<div class="festival-block" data-type="place">
+<h3>Mathura &amp; Vrindavan</h3>
+<p>Epicentre of Holi, with historic celebrations :contentReference[oaicite:4]{index=4}.</p>
+<a href="https://www.google.com/maps?q=Mathura+Vrindavan" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Ayodhya (Deepotsav, Diwali)</h3>
+<p>Millions of diyas lit along the Saryu River during Deepotsav :contentReference[oaicite:5]{index=5}.</p>
+<a href="https://www.google.com/maps?q=Ayodhya" target="_blank">View on Google Maps</a>
+</div>
+<!-- Foods -->
+<div class="festival-block" data-type="food">
+<h3>Gujiya</h3>
+<p>Sweet dumplings filled with khoya, especially popular during Holi :contentReference[oaicite:6]{index=6}.</p>
+<img alt="Gujiya" src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/03/gujiya-recipe-1.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Peda &amp; Thandai</h3>
+<p>Rich milk sweets from Mathura and cooling festive drink :contentReference[oaicite:7]{index=7}.</p>
+<img alt="Peda &amp; Thandai" src="https://www.whiskaffair.com/wp-content/uploads/2020/03/Thandai-2-3.jpg" width="300"/>
+</div>
+</div>
+</section>
+<header><h1>UTTARAKHAND FOOD</h1></header>
+<section>
+<h2>Explore Uttarakhand During Festivals</h2>
+<label for="festivalFilter"><strong>Filter by:</strong></label>
+<select id="festivalFilter" onchange="filterFestival()">
+<option value="all">-- Show All --</option>
+<option value="place">Famous Places</option>
+<option value="food">Famous Foods</option>
+</select>
+<div id="festivalContent">
+<!-- Famous Places -->
+<div class="festival-block" data-type="place">
+<h3>Kedarnath Temple</h3>
+<p>Major pilgrimage destination, especially during Char Dham Yatra and Shivratri festivals.</p>
+<a href="https://www.google.com/maps?q=Kedarnath+Temple" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Har Ki Pauri, Haridwar</h3>
+<p>Spiritual ghat famous for Ganga Aarti, especially vibrant during Kumbh Mela and Kartik Purnima.</p>
+<a href="https://www.google.com/maps?q=Har+Ki+Pauri,Haridwar" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Badrinath Temple</h3>
+<p>One of the Char Dham pilgrimage sites, visited during Akshaya Tritiya and Diwali celebrations.</p>
+<a href="https://www.google.com/maps?q=Badrinath+Temple" target="_blank">View on Google Maps</a>
+</div>
+<div class="festival-block" data-type="place">
+<h3>Nanda Devi Raj Jat Yatra</h3>
+<p>Once-in-12-years spiritual procession with deep cultural roots and traditional food stalls.</p>
+<a href="https://www.google.com/maps?q=Nanda+Devi+Raj+Jat+Yatra" target="_blank">View on Google Maps</a>
+</div>
+<!-- Famous Foods -->
+<div class="festival-block" data-type="food">
+<h3>Aloo Ke Gutke</h3>
+<p>Spicy dry potato dish with jakhiya seeds, commonly enjoyed during fairs and local festivals.</p>
+<img alt="Aloo Ke Gutke" src="https://i0.wp.com/uttarakhandmeethas.com/wp-content/uploads/2022/01/aloo-ke-gutke.jpg" width="300"/>
+</div>
+<div class="festival-block" data-type="food">
+<h3>Arsa</h3>
+<p>Traditional deep-fried sweet made from rice flour and jaggery, especially during weddings and Diwali.</p>
+<img alt="Arsa Sweet" src="https://img-global.cpcdn.com/recipes/5c9b2b66c79fbbeb/680x482cq70/arsa-uttarakhandi-recipe-main-photo.jpg" width="300"/>
+</div>
+</div>
+</section></body></html>

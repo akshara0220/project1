@@ -1,0 +1,21 @@
+/* ----- style.css ----- */
+*  {
+    margin: 0;
+    padding: 0;
+}
+body {
+  background-color: rgb(240, 236, 237);
+  background-image: url("https://png.pngtree.com/background/20230528/original/pngtree-an-arrangement-of-various-indian-food-picture-image_2778221.jpg");
+  background-size: contain;
+}
+svg path {
+   fill: rgba(245, 184, 184, 0.805);
+   stroke:rgb(33, 31, 31);
+   stroke-width: .25;
+}
+svg path:hover {
+   fill: rgb(214, 235, 212);
+   transition: 0.6s;
+   cursor:pointer;
+   scale: calc(1.01);
+}

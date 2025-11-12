@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>India Map Voice Assistant</title>
+</head>
+<body>
+    <h1>Say a state name</h1>
+
+    <script>
+        const statePages = {
+            "andhra pradesh": "andhra pradesh 2.html",
+            "arunachal pradesh": "arunachal pradesh.html",
+            "assam": "assam.html",
+            "bihar": "bihar.html",
+            "chhattisgarh": "chattisgarh.html",
+            "delhi": "delhi.html",
+            "goa": "goa.html",
+            "gujarat": "gujarat.html",
+            "haryana": "haryana.html",
+            "himachal pradesh": "himachal pradesh.html",
+            "jharkhand": "jharkhand.html",
+            "jammu and kashmir": "jk.html",
+            "karnataka": "karnataka.html",
+            "kerala": "kerala.html",
+            "ladakh": "ladak.html",
+            "madhya pradesh": "madhya pradesh.html",
+            "maharashtra": "maharastra.html",
+            "manipur": "manipur.html",
+            "meghalaya": "meghalaya.html",
+            "mizoram": "mizoram.html",
+            "nagaland": "nagaland.html",
+            "odisha": "odisha.html",
+            "punjab": "punjab.html",
+            "rajasthan": "rajasthan.html",
+            "sikkim": "sikkim.html",
+            "tamil nadu": "tamilnadu.html",
+            "telangana": "ts.html",
+            "tripura": "tripura.html",
+            "uttar pradesh": "up.html",
+            "uttarakhand": "uttarkhand.html",
+            "west bengal": "westbengal.html"
+        };
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+        }
+
+        function startListening() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-IN';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.start();
+            speak("Listening for a state name");
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript.toLowerCase();
+                console.log("Heard:", transcript);
+                for (let state in statePages) {
+                    if (transcript.includes(state)) {
+                        speak(`Opening ${state}`);
+                        window.location.href = statePages[state];
+                        return;
+                    }
+                }
+                speak("State not recognized. Please try again.");
+            };
+
+            recognition.onerror = function() {
+                speak("Sorry, I didn't catch that. Please try again.");
+            };
+        }
+
+        // Create mic button
+        const micBtn = document.createElement("button");
+        micBtn.textContent = "🎤 Speak State";
+        micBtn.style.position = "fixed";
+        micBtn.style.bottom = "20px";
+        micBtn.style.right = "20px";
+        micBtn.style.padding = "10px 15px";
+        micBtn.style.fontSize = "16px";
+        micBtn.style.borderRadius = "8px";
+        micBtn.style.border = "none";
+        micBtn.style.background = "#4CAF50";
+        micBtn.style.color = "white";
+        micBtn.style.cursor = "pointer";
+        micBtn.onclick = startListening;
+
+        document.body.appendChild(micBtn);
+    </script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOA FOOD</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .videos {
+      margin-top: 20px;
+    }
+
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      margin-bottom: 20px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .tts-controls {
+      margin-top: 10px;
+    }
+
+    .tts-controls button {
+      margin: 5px 5px 0 0;
+      padding: 8px 16px;
+      background-color: #009688;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .tts-controls button:hover {
+      background-color: #00796b;
+    }
+
+    .festival-block {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>GOA FOOD</h1>
+</header>
+
+<section>
+  <h2>SHIGOMA FESTIVAL: BEBINCA</h2>
+  <p id="ttsText">
+    Shigmo is a lively Hindu festival celebrated in Goa, marking the arrival of spring and the harvest season. It features colorful processions, traditional folk dances like Ghode Modni and Fugdi, and vibrant parades, fostering a sense of community and joy. The festival lasts around two weeks and is a time for seeking blessings and celebrating abundance. Bebinca, a renowned Goan dessert with Portuguese influence, is a multi-layered pudding-like cake made from coconut milk, sugar, eggs, and flour. Each layer is individually baked, resulting in a rich and flavorful delicacy. Bebinca holds significance in Goan cuisine and is savored during festive occasions such as Christmas and Easter, symbolizing the region's culinary heritage and the spirit of togetherness. Both Shigmo and Bebinca represent the cultural richness and traditions of Goa, bringing people together in celebration and gratitude.
+  </p>
+
+  <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </div>
+</section>
+
+<section>
+  <h2>BEBINCA, SHIGOMA FESTIVAL</h2>
+  <div class="gallery">
+    <img src="https://images.slurrp.com/prod/articles/8y3lyiz5oqs.webp" alt="photo 1">
+    <img src="https://i2.wp.com/www.zingbus.com/blog/wp-content/uploads/2023/03/shigmo-festival-dance.jpg?ssl=1" alt="photo 2">
+    <img src="https://i.ndtvimg.com/i/2016-06/bebinca_625x350_51465814153.jpg" alt="photo 3">
+    <img src="https://i2.wp.com/www.zingbus.com/blog/wp-content/uploads/2023/03/shigmo-festival.jpg?ssl=1" alt="photo 4">
+  </div>
+</section>
+
+<section class="videos">
+  <h2>Videos</h2>
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/NqR5VVtE44o?si=9BPxmsc0izTfjdtV" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+    <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+    <select id="quantitySelect" onchange="updateQuantity()">
+      <option value="100">100g</option>
+      <option value="200">200g</option>
+      <option value="300">300g</option>
+    </select>
+    <canvas id="nutritionChart"></canvas>
+    <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+  </div>
+</div>
+
+<script>
+// Nutrition Chart
+const baseNutritionData = {
+  "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [420, 6, 65, 18, 1] },
+  "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [410, 7, 62, 17, 2] }
+};
+
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+  const key = alt.trim().toLowerCase();
+  if (!baseNutritionData[key]) return;
+  currentItemKey = key;
+  const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+  drawChartForQuantity(currentItemKey, quantity);
+  chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+  const baseItem = baseNutritionData[key];
+  if (!baseItem) return;
+  const scaledData = baseItem.data.map(value => value * quantity / 100);
+  const maxValue = Math.max(...scaledData);
+  const ctx = document.getElementById('nutritionChart').getContext('2d');
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: baseItem.labels,
+      datasets: [{
+        label: `Nutrition for ${quantity}g`,
+        data: scaledData,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMax: maxValue + 10
+        }
+      }
+    }
+  });
+}
+
+function updateQuantity() {
+  const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+  if (currentItemKey) {
+    drawChartForQuantity(currentItemKey, quantity);
+  }
+}
+
+function closeModal() {
+  chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const images = document.querySelectorAll('.gallery img');
+  images.forEach(img => {
+    img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+  });
+});
+</script>
+
+<section>
+  <h2>Explore Goa During Festivals</h2>
+  <label for="festivalFilter"><strong>Filter by:</strong></label>
+  <select id="festivalFilter" onchange="filterFestival()">
+    <option value="all">-- Show All --</option>
+    <option value="place">Famous Places</option>
+    <option value="food">Famous Foods</option>
+  </select>
+
+  <div id="festivalContent">
+    <div class="festival-block" data-type="place">
+      <h3>Basilica of Bom Jesus</h3>
+      <p>Celebrated for its Christmas midnight mass and the Feast of St. Francis Xavier.</p>
+      <a href="https://www.google.com/maps?q=Basilica+of+Bom+Jesus+Goa" target="_blank">View on Google Maps</a>
+    </div>
+
+    <div class="festival-block" data-type="place">
+      <h3>Fontainhas</h3>
+      <p>Colorful Latin Quarter of Goa comes alive with music, lights, and art during the Fontainhas Festival and Carnival.</p>
+      <a href="https://www.google.com/maps?q=Fontainhas+Goa" target="_blank">View on Google Maps</a>
+    </div>
+
+    <div class="festival-block" data-type="place">
+      <h3>Shree Shantadurga Temple</h3>
+      <p>Famous for Navratri and Dussehra celebrations with traditional Goan rituals and festivities.</p>
+      <a href="https://www.google.com/maps?q=Shree+Shantadurga+Temple+Goa" target="_blank">View on Google Maps</a>
+    </div>
+
+    <div class="festival-block" data-type="place">
+      <h3>Mapusa Market</h3>
+      <p>Lively during Ganesh Chaturthi with festival shopping, sweets, and decorations.</p>
+      <a href="https://www.google.com/maps?q=Mapusa+Market+Goa" target="_blank">View on Google Maps</a>
+    </div>
+
+    <div class="festival-block" data-type="food">
+      <h3>Bebinca</h3>
+      <p>Traditional Goan layered dessert, especially popular during Christmas and Easter feasts.</p>
+      <img src="data:image/jpeg;base64,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" alt="Bebinca" width="300">
+    </div>
+
+    <div class="festival-block" data-type="food">
+      <h3>Fish Thali</h3>
+      <p>Served in most households and restaurants during feasts and festive gatherings across Goa.</p>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi_Oa5WqWi4CbVMQcv0xt6VYSFwtOOpT7fxA&s" alt="Fish Thali" width="300">
+    </div>
+  </div>
+</section>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Profiles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2e86de;
+    }
+
+    .section {
+      margin: 15px 0;
+    }
+
+    .section h3 {
+      margin: 0;
+      padding: 10px;
+      background-color: #2e86de;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .content {
+      padding: 10px;
+      display: none;
+      background: #f9f9f9;
+      border-radius: 5px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .section.active .content {
+      display: block;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>🌟 Meet Our Team 🌟</h2>
+
+<div class="team-container">
+
+  <!-- Member 1 -->
+  <div class="card">
+    <h2>SAHITHI POLISETTI</h2>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">👤 Basic Info</h3>
+      <div class="content">
+        <p><strong>Age:</strong> 21</p>
+        <p><strong>Gender:</strong> Female</p>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">🎓 Education</h3>
+      <div class="content">
+        <p><strong>College:</strong> MVSR College</p>
+        <p><strong>Branch:</strong> IT</p>
+        <p><strong>Year:</strong> 3rd Year</p>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">💻 Skills</h3>
+      <div class="content">
+        <ul>
+          <li>C</li>
+          <li>Python</li>
+          <li>Java</li>
+          <li>HTML</li>
+          <li>Artificial Intelligence (AI)</li>
+          <li>Machine Learning (ML)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">📞 Contact</h3>
+      <div class="content">
+        <p><strong>Email:</strong> 245122737137@mvsrec.edu.in</p>
+        <p><strong>Phone:</strong> +91 9381667653</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Member 2 -->
+  <div class="card">
+    <h2>AKSHAYA KESHAMPET</h2>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">👤 Basic Info</h3>
+      <div class="content">
+        <p><strong>Age:</strong> 21</p>
+        <p><strong>Gender:</strong> Female</p>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">🎓 Education</h3>
+      <div class="content">
+        <p><strong>College:</strong> MVSR College</p>
+        <p><strong>Branch:</strong> IT</p>
+        <p><strong>Year:</strong> 3rd Year</p>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">💻 Skills</h3>
+      <div class="content">
+        <ul>
+          <li>C</li>
+          <li>Python</li>
+          <li>Java</li>
+          <li>HTML</li>
+          <li>Artificial Intelligence (AI)</li>
+          <li>Machine Learning (ML)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">📞 Contact</h3>
+      <div class="content">
+        <p><strong>Email:</strong> 245122737138@mvsrec.edu.in</p>
+        <p><strong>Phone:</strong> +91 9949178496</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Member 3 -->
+  <div class="card">
+    <h2>AKSHARA CHALLAMALA</h2>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">👤 Basic Info</h3>
+      <div class="content">
+        <p><strong>Age:</strong> 21</p>
+        <p><strong>Gender:</strong> Female</p>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">🎓 Education</h3>
+      <div class="content">
+        <p><strong>College:</strong> MVSR College</p>
+        <p><strong>Branch:</strong> IT</p>
+        <p><strong>Year:</strong> 3rd Year</p>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">💻 Skills</h3>
+      <div class="content">
+        <ul>
+          <li>C</li>
+          <li>Python</li>
+          <li>Java</li>
+          <li>HTML</li>
+          <li>Artificial Intelligence (AI)</li>
+          <li>Machine Learning (ML)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <h3 onclick="toggleSection(this)">📞 Contact</h3>
+      <div class="content">
+        <p><strong>Email:</strong> 245122737141@mvsrec.edu.in</p>
+        <p><strong>Phone:</strong> +91 9652190220</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleSection(header) {
+    const section = header.parentElement;
+    section.classList.toggle('active');
+  }
+</script>
+
+</body>
+</html>

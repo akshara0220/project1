@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festival Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .festival-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .festival-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .error-box {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-800 mb-4">Festival Finder</h1>
+            <p class="text-lg text-gray-600">Discover information about 
+                cultural festivals India wide</p>
+        </div>
+
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6 mb-8">
+            <div class="flex items-center border-2 border-indigo-200 rounded-full px-4 py-2 focus-within:border-indigo-500 transition duration-300">
+                <i class="fas fa-search text-gray-400 mr-2"></i>
+                <input type="text" id="searchInput" placeholder="Search for a festival (e.g. Coachella, Sundance)" 
+                       class="flex-grow outline-none text-gray-700 placeholder-gray-400">
+                <button id="searchButton" class="ml-2 bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition duration-300">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <!-- Error Box (hidden by default) -->
+        <div id="errorBox" class="max-w-2xl mx-auto bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8 hidden error-box">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <p id="errorMessage">Festival not found. Please try another name.</p>
+            </div>
+        </div>
+
+        <!-- Festival Info Container -->
+        <div id="festivalInfo" class="max-w-2xl mx-auto hidden">
+            <div class="festival-card rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="h-48 bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
+                     
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-800" id="festivalName"></h2>
+                        <a id="festivalUrl" href="#" target="_blank" class="text-indigo-600 hover:underline">Visit Website</a>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-gray-500 text-sm">Location</p>
+                            <p class="font-medium" id="festivalLocation"></p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-sm">Date</p>
+                            <p class="font-medium" id="festivalDate"></p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-500 text-sm">Description</p>
+                        <p class="text-gray-700" id="festivalDescription"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample festival database
+        const festivals = {
+            "Andhra Pradhesh": {
+                name: "Ugadi",
+                url: "andhra pradesh 2.html",
+                location: "Andhra Pradhesh, India",
+                date: "March (annual)",
+                description: "Ugadi is the Telugu New Year, celebrated with great enthusiasm and fervor in Andhra Pradesh."
+            },
+            "Arunachal Pradesh": {
+                name: "Losar",
+                url: "arunachal pradesh.html",
+                location: "Arunachal Pradesh, India",
+                date: "February (annual)",
+                description: "Losar is the New Year festival celebrated by the Monpa tribe of Arunachal Pradesh, as well as by other Himalayan communities like the Sherpas, Tibetans, and Bhutanese."
+            },
+            "Assam": {
+                name: "Bihu Festival",
+                url: "assam.html",
+                location: "Assam, India",
+                date: "April (annual)",
+                description: "Bihu is one of the most important festivals in Assam, celebrating the harvest season and marking the end of the harvesting period."
+            },
+            "Bihar": {
+                name: "Chhath puja",
+                url: "bihar.html",
+                location: "Bihar, India",
+                date: "October (annual)",
+                description: "During Chhath Puja in Bihar, Thekua holds a significant place as a traditional sweet offering."
+            },
+            "Chhatisghar": {
+                name: "Dasara",
+                url: "https://www.tomorrowland.com",
+                location: "Boom, Belgium",
+                date: "July (annual)",
+                description: "One of the world's most notable electronic music festivals held in Belgium. It features the most popular DJs from around the globe."
+            },
+            "burning man": {
+                name: "Burning Man",
+                url: "https://www.burningman.org",
+                location: "Black Rock Desert, Nevada, USA",
+                date: "Late August to early September",
+                description: "An event focused on community, art, self-expression, and self-reliance. Participants create a temporary city with interactive art, theme camps, and other creative expressions."
+            }
+        };
+
+        // DOM elements
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const errorBox = document.getElementById('errorBox');
+        const festivalInfo = document.getElementById('festivalInfo');
+        const suggestionButtons = document.querySelectorAll('.suggestion-btn');
+
+        // Event listeners
+        searchButton.addEventListener('click', searchFestival);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchFestival();
+        });
+        
+        suggestionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                searchInput.value = this.textContent;
+                searchFestival();
+            });
+        });
+
+        // Search function
+        function searchFestival() {
+            const query = searchInput.value.trim().toLowerCase();
+            
+            // Hide previous results and errors
+            festivalInfo.classList.add('hidden');
+            errorBox.classList.add('hidden');
+            
+            if (!query) return;
+            
+            // Find festival (using some simple fuzzy matching)
+            let foundFestival = null;
+            for (const key in festivals) {
+                if (query === key || festivals[key].name.toLowerCase().includes(query)) {
+                    foundFestival = festivals[key];
+                    break;
+                }
+            }
+            
+            if (foundFestival) {
+                displayFestival(foundFestival);
+            } else {
+                showError();
+            }
+        }
+
+        // Display festival info
+        function displayFestival(festival) {
+            document.getElementById('festivalName').textContent = festival.name;
+            document.getElementById('festivalUrl').href = festival.url;
+            document.getElementById('festivalLocation').textContent = festival.location;
+            document.getElementById('festivalDate').textContent = festival.date;
+            document.getElementById('festivalDescription').textContent = festival.description;
+            
+            festivalInfo.classList.remove('hidden');
+        }
+
+        // Show error
+        function showError() {
+            document.getElementById('errorMessage').textContent = 
+                `"${searchInput.value}" not found. Please try another name.`;
+            errorBox.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

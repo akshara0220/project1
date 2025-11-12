@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEST BENGAL FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>WEST BENGAL FOOD</h1>
+    </header>
+
+    <section>
+        <h2>DURGA POOJA:RASAGULLAS</h2>
+        <P>west bengal:Rasagullas are made during Durga Puja, West Bengal's grand festival, celebrates Goddess Durga's victory over evil with elaborate pandals and fervent worship over nine days. Rasgulla, a beloved Bengali sweet made of soft cheese curds cooked in sugar syrup, holds special significance during the festivities, symbolizing purity and sweetness. Its preparation requires skill and precision, and during Durga Puja, it becomes a staple offering in puja rituals and a must-have delicacy. Sharing Rasgulla fosters community bonds, as it's enjoyed with loved ones, embodying the joy and unity that Durga Puja brings to millions in West Bengal and beyond. The festival is marked by vibrant processions, cultural performances, and intricate pandal decorations depicting various themes and mythological stories. Families come together to worship Goddess Durga, seeking her blessings for prosperity and well-being. Rasgulla, with its melt-in-your-mouth texture and burst of sweetness, adds to the festive spirit, delighting palates and symbolizing the essence of Bengali culture and tradition.
+            </p>
+            <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+           
+    </section>
+
+    <section>
+        <h2>RASAGULLAS ON DURGA PUJA</h2>
+        <div class="gallery">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/%E0%A6%AC%E0%A6%BE%E0%A6%97%E0%A6%AC%E0%A6%BE%E0%A6%9C%E0%A6%BE%E0%A6%B0_%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AC%E0%A6%9C%E0%A6%A8%E0%A7%80%E0%A6%A8_%E0%A6%A6%E0%A7%81%E0%A6%B0%E0%A7%8D%E0%A6%97%E0%A7%8B%E0%A7%8E%E0%A6%B8%E0%A6%AC_%E0%A7%A8%E0%A7%A6%E0%A7%A7%E0%A7%AE.jpg" alt="photo 1">
+            <img src="https://as2.ftcdn.net/v2/jpg/03/86/55/41/1000_F_386554133_2UiemBZ69bQO6UUhVy593jmfrViBeLTX.jpg"alt="photo 2">
+            <img src="https://images.hindustantimes.com/rf/image_size_960x540/HT/p2/2017/11/14/Pictures/_ee20d284-c90f-11e7-855e-d08d9ee048bd.jpg" alt="Photo 3">
+            <img src="https://img.etimg.com/photo/msid-72082588,imgsize-1190438/InOdisha%2C%E2%80%98Rasagola%E2%80%99(theOdianame)%2Cisbelievedtohaveoriginatedbackin11thcentury..jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-containers">
+<iframe width="617" height="480" src="https://www.youtube.com/embed/dd9_YZdQS0c" title="Rasgulla Recipe | Tips for Soft Roshogullas | पर्फ़ेक्ट नरम रसगुल्ला की रेसिपी | Chef Sanjyot Keer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>         </div>
+        <!-- Add more video containers as needed -->
+    </section>
+    <!-- Add more video containers as needed -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+          background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+          <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+            <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+            <canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+          </div>
+        </div>
+      <script>
+// Base data for 100g
+const baseNutritionData = {
+      "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [210, 3, 40, 6, 1] },
+      "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [210, 3, 40, 6, 1] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>  
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+    
+    </body>
+    </html>
+  

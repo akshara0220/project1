@@ -1,0 +1,2666 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All States Nutrition Festival Food</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f8f8; margin: 0; padding: 0; }
+        section { margin: 20px auto; padding: 20px; background: white; max-width: 900px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        header { background: #333; color: white; padding: 20px; text-align: center; }
+        .gallery { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .gallery img { max-width: 100%; height: auto; border-radius: 5px; cursor: pointer; }
+        .gallery img:hover { transform: scale(1.05); transition: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>All Indian States Festival Foods </h1>
+    </header>
+    <body>
+<header>
+<h1>KERALA FOOD</h1>
+</header>
+<section>
+<h2>SADYA,ONAM FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://mekosha.com/wp-content/uploads/2023/03/Onam-sadhya.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<!-- Modal for nutrition chart -->
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+        background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart">
+</canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+  <script>
+// Base data for 100g
+const baseNutritionData ={
+            "photo 1": {
+                labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [600, 30, 80, 20, 6]
+            }
+            
+        };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body>
+<body>
+<header>
+<h1>WEST BENGAL FOOD</h1>
+</header>
+<section>
+<h2>RASAGULLAS ON DURGA PUJA</h2>
+<div class="gallery">
+<img alt="west_bengal" src="https://img.etimg.com/photo/msid-72082588,imgsize-1190438/InOdisha%2C%E2%80%98Rasagola%E2%80%99(theOdianame)%2Cisbelievedtohaveoriginatedbackin11thcentury..jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<!-- Add more video containers as needed -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+          background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+ <script>
+// Base data for 100g
+const baseNutritionData = {
+      "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [210, 3, 40, 6, 1] },
+      "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [210, 3, 40, 6, 1] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>  
+</body>
+<body>
+<header><h1>UTTARAKHAND FOOD</h1></header>
+<a href="mppppppppppppppppp-2.html">back</a>
+<section>
+<h2>DUSSEHRA: ALOO KE GUTKE</h2>
+</section>
+<section>
+<h2>ALOO KE GUTKE</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://img-global.cpcdn.com/recipes/45ade9cf1d8be01d/1200x630cq70/photo.jpg"/>
+</div>
+</section>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData = {
+      "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [180, 3, 28, 7, 3] },
+      "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [180, 3, 28, 7, 3] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body>
+</html></body><body>
+<header>
+<h1>TRIPURA FOOD</h1>
+</header>
+<section>
+<h2>MUIBOROK</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://www.shutterstock.com/image-photo/mui-borok-tripuri-cuisinecalled-shidal-260nw-1294865299.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData = {
+        "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [550, 45, 19, 9,6] },
+        "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [550, 45,19, 9, 6] }
+      };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>TELANGANA FOOD</h1>
+</header>
+<section>
+<h2>BATHUKAMMA FESTIVAL AND SAKINALU FOOD </h2>
+<div class="gallery">
+<img alt="photo 3" src="https://assets.thehansindia.com/h-upload/2022/07/16/1303244-sakinalu.webp"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+        background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+ <script>
+// Base data for 100g
+const baseNutritionData = {
+        "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [220, 5, 25, 10, 2] },
+        "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [220, 5, 25, 10, 2] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+    
+</body><body>
+<header>
+<h1>TAMILNADU FOOD</h1>
+</header>
+<section>
+<h2>CHAKKARI PONGALI ON PONGAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://x9s2d6a3.rocketcdn.me/wp-content/uploads/2018/01/chakkara-pongal-10-1.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData = {
+      "photo 1":{
+            labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+            data: [350, 8, 65, 14, 4]
+        } };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>SIKKIM FOOD</h1>
+</header>
+<section>
+<h2>PHAGSHAPA FOOD ON LOSAR</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://clubmahindra.gumlet.io/blog/images/Phagshapa-1-resized.jpg?w=376&amp;dpr=2.6"/>
+</div>
+</section>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData = {
+      "photo 1": {
+        labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+        data: [350, 25, 15, 25, 5]
+      }};
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>RAJASTHAN FOOD</h1>
+</header>
+<section>
+<h2>DAL BATTI CHURMA DISH,GANGUAR FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 3" src="https://miro.medium.com/v2/resize:fit:1400/0*DA7vvZOD621LlZju.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<!-- Add more video containers as needed -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+ <script>
+// Base data for 100g
+const baseNutritionData ={
+      "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [400, 8, 45, 20, 5] },
+      "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [400, 8, 45, 20, 5] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>PUNJAB FOOD</h1>
+</header>
+<section>
+<h2>SARSO KA SAAG ON HARVEST FESTIVAL OF PUNJAB</h2>
+<div class="gallery">
+<img alt="photo 3" src="https://img.freepik.com/premium-photo/makki-ki-roti-sarson-ka-sag-is-basically-corn-floor-flat-bread-curry-using-mustard-greens-respectively-popular-punjabi-food_466689-21964.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+        background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+      "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [450, 15, 35, 9, 3] },
+      "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [450, 15, 35, 9, 3] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>ODISHA FOOD</h1>
+</header>
+<section>
+<h2>DALMA FOOD ON RATA YATRA</h2>
+<div class="gallery">
+<img alt="photo 4" src="https://www.bhubaneswarbuzz.com/wp-content/uploads/2015/11/dalma-the-typical-odia-thali-a-divine-affair-recipe.1024x1024.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+        background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+      "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [180, 6, 35, 7, 7] },
+      "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [180, 6, 35, 7, 7] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>NAGALAND FOOD</h1>
+</header>
+<section>
+<h2>SMOKED PORK,HORNBILLFESTIVAL </h2>
+<div class="gallery">
+<img alt="photo 4" src="https://northeastlive.s3.amazonaws.com/media/uploads/2023/05/1-7.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+    "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [300, 25, 2, 25, 0] },
+    "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [300, 25, 2, 25, 0] }
+  };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>MIZORAM FOOD</h1>
+</header>
+<section>
+<h2>KIT-BAMBOO SHOOT CURRY ON SHAPCHUR FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://untolddelicacy.com/wp-content/uploads/2021/09/Jadoh-or-Khasi-from-Meghalaya.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+    "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [110, 3, 15, 4, 6] },
+    "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [110, 3, 15, 4, 6] }
+  };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>MEGHALAYA FOOD</h1>
+</header>
+<section>
+<h2>JADOH DISH, WANGALA FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://gayathriscookspot.com/wp-content/uploads/2018/11/Khasi-Pulao-2.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+        background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+        "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [400, 15, 35, 20, 2] },
+        "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [400, 15, 35, 20, 2] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>MANIPUR FOOD</h1>
+</header>
+<section>
+<h2>EROMBA DISH ,YASOSHANG FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://bharatkasafar.files.wordpress.com/2015/03/eromba.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+          background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+ <script>
+// Base data for 100g
+const baseNutritionData ={
+    "photo 1": { labels: ["Calories(kcal)", "Protein", "Carbs", "Fat", "Fiber"], data: [80, 5, 15, 2, 3] },
+    "photo 2": { labels: ["Calories(kcal)", "Protein", "Carbs", "Fat", "Fiber"], data: [80, 5, 15, 2, 3] }
+  };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>MAHARASTRA FOOD</h1>
+</header>
+<section>
+<h2>PURAN POLI,GANESH CHATURTHI</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://i0.wp.com/kalimirchbysmita.com/wp-content/uploads/2019/04/Puran-Poli-02.jpg?fit=1024%2C682&amp;ssl=1"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+  "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [320, 6, 45, 10, 4] },
+  "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [320, 6, 45, 10, 4] }
+};
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>MADHYA PRADESH FOOD</h1>
+</header>
+<section>
+<h2>POHA,KHAJURAHO DANCE FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<a href="mppppppppppppppppp-2.html">back</a>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+    "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [220, 5, 40, 6, 2] },
+    "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [220, 5, 40, 6, 2] }
+  };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>LADAK FOOD</h1>
+</header>
+<section>
+<h2>MOMOS,SAKADAWA FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 4" src="https://www.thespruceeats.com/thmb/UnVh_-znw7ikMUciZIx5sNqBtTU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/steamed-momos-wontons-1957616-hero-01-1c59e22bad0347daa8f0dfe12894bc3c.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+            "photo 4": {
+                labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [200, 12, 25, 6, 3]
+            },
+            "photo 3": {
+                labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [200, 10, 25, 6, 3]
+            }
+        };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>KARNATAKA FOOD</h1>
+</header>
+<section>
+<h2>DASARA, BISI BELE BATH</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://www.indianveggiedelight.com/wp-content/uploads/2017/08/bisi-bele-bath-pressure-cooker-featured.jpg"/>
+</div>
+</section>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+ <script>
+// Base data for 100g
+const baseNutritionData ={
+            "photo 1": {
+                labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [350, 12, 55, 14, 8]
+            },
+            "photo 2": {
+                labels: ["Calories(kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"],
+                data: [330, 10, 60, 12, 6]
+            }
+        };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>JAMMU AND KASHMIR FOOD</h1>
+</header>
+<section>
+<h2>ROGAN JOSH</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://www.recipetineats.com/wp-content/uploads/2020/02/Rogan-Josh_4.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+      "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [350, 25, 6, 25, 2] },
+      "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [370, 28, 8, 22, 3] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>HIMACHAL PRADESH FOOD</h1>
+</header>
+<a href="mppppppppppppppppp-2.html">back</a>
+<section>
+<h2>SIDHU DISH, DASARA FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://images.news18.com/ibnkhabar/uploads/2021/09/Siddu.jpg"/>
+</div>
+</section>
+<!-- Chart Modal -->
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+ <script>
+// Base data for 100g
+const baseNutritionData ={
+      "photo 1": {
+        labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"],
+        data: [290, 7, 50, 9, 5]
+      },
+      "photo 2": {
+        labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"],
+        data: [290, 7, 50, 9, 5]
+      }
+    };
+
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>HARYANA FOOD</h1>
+</header>
+<section>
+<h2>BHUTTE KA KEES ,BISAKHI FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://x9s2d6a3.rocketcdn.me/wp-content/uploads/2021/04/Bhutte-ka-kees-_1200x1200.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData = {
+    "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [290, 6, 45, 20, 4] },
+    "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [290, 6, 45, 20, 4] }
+};
+
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+</body><body>
+<header>
+<h1>GUJARAT FOOD</h1>
+</header>
+<section>
+<h2>DHOKLA,DASARA</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://1.bp.blogspot.com/-tkrZxDsl8hI/YG8s1uBUv0I/AAAAAAAAII8/UIMBM9v3iSsXjzQ4UtkGb-lv525zJtZ1wCLcBGAsYHQ/s2048/Phoolkopir%2BDhokar%2BDalna.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+  const nutritionData = {
+    "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [170, 8, 22, 5, 2] },
+    };
+  const chartModal = document.getElementById('nutritionModal');
+  let chart;
+  function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    const item = nutritionData[key];
+    if (!item) return;
+    if (chart) chart.destroy();
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: item.labels,
+        datasets: [{ label: 'Nutrition Details', data: item.data, backgroundColor: 'rgba(75, 192, 192, 0.6)' }]
+      },
+      options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+    chartModal.style.display = 'flex';
+  }
+  function closeModal() { chartModal.style.display = 'none'; }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.gallery img').forEach(img =>
+      img.addEventListener('click', () => showNutritionChart(img.alt.trim()))
+    );
+  });
+</script>
+</body><body>
+<header>
+<h1>GOA FOOD</h1>
+</header>
+<section>
+<h2>BEBINCA,SHIGOMA FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://images.slurrp.com/prod/articles/8y3lyiz5oqs.webp"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+// Nutrition Chart
+const baseNutritionData = {
+  "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [420, 6, 65, 18, 1] },
+  "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [410, 7, 62, 17, 2] }
+};
+
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+  const key = alt.trim().toLowerCase();
+  if (!baseNutritionData[key]) return;
+  currentItemKey = key;
+  const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+  drawChartForQuantity(currentItemKey, quantity);
+  chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+  const baseItem = baseNutritionData[key];
+  if (!baseItem) return;
+  const scaledData = baseItem.data.map(value => value * quantity / 100);
+  const maxValue = Math.max(...scaledData);
+  const ctx = document.getElementById('nutritionChart').getContext('2d');
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: baseItem.labels,
+      datasets: [{
+        label: `Nutrition for ${quantity}g`,
+        data: scaledData,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMax: maxValue + 10
+        }
+      }
+    }
+  });
+}
+
+function updateQuantity() {
+  const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+  if (currentItemKey) {
+    drawChartForQuantity(currentItemKey, quantity);
+  }
+}
+
+function closeModal() {
+  chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const images = document.querySelectorAll('.gallery img');
+  images.forEach(img => {
+    img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+  });
+});
+</script>
+</body><body>
+<header>
+<h1>DELHI FOOD</h1>
+</header>
+<section>
+<h2>HOLI:CHOLE BHATURE</h2>
+<div class="gallery">
+<img alt="photo 4" src="https://bakingo.com/blog/wp-content/uploads/2021/12/famous-foods-of-delhi.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+    // TTS Functions
+    let utterance;
+
+    function speakText() {
+      const text = document.getElementById("ttsText").innerText;
+      stopText(); // Cancel any existing speech
+      utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-IN';
+      utterance.rate = 1;
+      speechSynthesis.speak(utterance);
+    }
+
+    function pauseText() {
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+        speechSynthesis.pause();
+      }
+    }
+
+    function resumeText() {
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+      }
+    }
+
+    function stopText() {
+      speechSynthesis.cancel();
+    }
+  </script>
+</body><body>
+<header>
+<h1>CHATTISGARH FOOD</h1>
+</header>
+<section>
+<h2>CHANNA SAMOSA,DASARA FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://images.hindustantimes.com/img/2022/09/04/1600x900/Collage_Maker-04-Sep-2022-01.21-PM_1662277878723_1662277893704_1662277893704.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+  // Nutrition Chart Logic
+  const baseNutritionData = {
+    "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [450, 14, 50, 18, 8] },
+    "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [450, 14, 50, 18, 8] }
+  };
+
+  let currentItemKey = '';
+  let chart;
+  const chartModal = document.getElementById('nutritionModal');
+
+  function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return;
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+  }
+
+  function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: baseItem.labels,
+        datasets: [{
+          label: `Nutrition for ${quantity}g`,
+          data: scaledData,
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            suggestedMax: maxValue + 10
+          }
+        }
+      }
+    });
+  }
+
+  function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+      drawChartForQuantity(currentItemKey, quantity);
+    }
+  }
+
+  function closeModal() {
+    chartModal.style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+      img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+  });
+
+  // Text-to-Speech
+  let utterance;
+
+  function speakText() {
+    const text = document.getElementById("ttsText").innerText;
+    stopText(); // Stop previous utterance if any
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-IN';
+    utterance.rate = 1;
+    speechSynthesis.speak(utterance);
+  }
+
+  function pauseText() {
+    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+      speechSynthesis.pause();
+    }
+  }
+
+  function resumeText() {
+    if (speechSynthesis.paused) {
+      speechSynthesis.resume();
+    }
+  }
+
+  function stopText() {
+    speechSynthesis.cancel();
+  }
+</script>
+
+</body><body>
+<header>
+<h1>BIHAR FOOD</h1>
+</header>
+<section>
+<h2>THEKUA ,CHHATH PUJA</h2>
+<div class="gallery">
+<img alt="photo 1" src="https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2020/11/thekua-1605597157.jpg"/>
+</div>
+</section>
+<!-- Chart Modal -->
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+  // Nutrition Logic
+  const baseNutritionData = {
+    "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [420, 6, 55, 22, 3] },
+    "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [420, 6, 55, 22, 3] }
+  };
+
+  let currentItemKey = '';
+  let chart;
+  const chartModal = document.getElementById('nutritionModal');
+
+  function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return;
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+  }
+
+  function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: baseItem.labels,
+        datasets: [{
+          label: `Nutrition for ${quantity}g`,
+          data: scaledData,
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            suggestedMax: maxValue + 10
+          }
+        }
+      }
+    });
+  }
+
+  function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+      drawChartForQuantity(currentItemKey, quantity);
+    }
+  }
+
+  function closeModal() {
+    chartModal.style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+      img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+  });
+
+  // Text-to-Speech Logic
+  let utterance;
+
+  function speakText() {
+    const text = document.getElementById("ttsText").innerText;
+    stopText(); // Clear previous
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-IN';
+    utterance.rate = 1;
+    speechSynthesis.speak(utterance);
+  }
+
+  function pauseText() {
+    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+      speechSynthesis.pause();
+    }
+  }
+
+  function resumeText() {
+    if (speechSynthesis.paused) {
+      speechSynthesis.resume();
+    }
+  }
+
+  function stopText() {
+    speechSynthesis.cancel();
+  }
+</script>
+</body><body>
+<section>
+<h2>ANDHRA:BOBBATLLU</h2>
+</section>
+<section>
+<h2>BOBBATLLU,UGADHI FESTIVAL</h2>
+<div class="gallery">
+<img alt="photo 4" src="https://www.sailusfood.com/wp-content/uploads/2014/01/pesarapappu-bobbatlu-recipe.jpg"/>
+<!-- Add more images as needed -->
+</div>
+</section>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+<div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+  <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+<canvas id="nutritionChart"></canvas>
+<button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+</div>
+</div>
+<script>
+const baseNutritionData = {
+      "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [290, 6, 45, 20, 4] },
+      "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [290, 6, 45, 20, 4] }
+    };
+
+    let currentItemKey = '';
+    let chart;
+    const chartModal = document.getElementById('nutritionModal');
+
+    function showNutritionChart(alt) {
+      const key = alt.trim().toLowerCase();
+      if (!baseNutritionData[key]) return;
+      currentItemKey = key;
+      const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+      drawChartForQuantity(currentItemKey, quantity);
+      chartModal.style.display = 'flex';
+    }
+
+    function drawChartForQuantity(key, quantity) {
+      const baseItem = baseNutritionData[key];
+      if (!baseItem) return;
+      const scaledData = baseItem.data.map(value => value * quantity / 100);
+      const maxValue = Math.max(...scaledData);
+      const ctx = document.getElementById('nutritionChart').getContext('2d');
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: baseItem.labels,
+          datasets: [{
+            label: `Nutrition for ${quantity}g`,
+            data: scaledData,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              suggestedMax: maxValue + 10
+            }
+          }
+        }
+      });
+    }
+
+    function updateQuantity() {
+      const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+      if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+      }
+    }
+
+    function closeModal() {
+      chartModal.style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const images = document.querySelectorAll('.gallery img');
+      images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+      });
+    });
+  </script>
+
+</body>
+
+    <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+         background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+            <canvas id="nutritionChart"></canvas>
+            <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+        </div>
+    </div>
+
+    <script>
+    const nutritionData = {};
+    const chartModal = document.getElementById('nutritionModal');
+    let chart;
+
+    function showNutritionChart(alt) {
+        const key = alt.trim().toLowerCase();
+        const item = nutritionData[key];
+        if (!item) return;
+
+        if (chart) chart.destroy();
+
+        const ctx = document.getElementById('nutritionChart').getContext('2d');
+        chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: item.labels,
+                datasets: [{
+                    label: 'Nutrition Details',
+                    data: item.data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        chartModal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        chartModal.style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.gallery img').forEach(img =>
+            img.addEventListener('click', () => showNutritionChart(img.alt.trim()))
+        );
+    });
+    </script>
+</body>
+</html>

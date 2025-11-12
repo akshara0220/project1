@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Festival Foods of India</title>
+  <style>
+    body { font-family: Arial; background: #fff8f0; padding: 20px; }
+    h1 { text-align: center; color: #a52a2a; }
+    .food-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      background: #fff;
+      width: 300px;
+    }
+    .food-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .order-form {
+      margin-top: 10px;
+    }
+    .order-form input, .order-form select {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+    .order-btn {
+      background: green;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .thank-you {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Order Your Favorite Festival Foods</h1>
+
+<div class="container">
+  <!-- Puran Poli -->
+  <div class="food-card">
+    <h3>Puran Poli (Maharashtra)</h3>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Puran_Poli_Maharashtra.JPG/800px-Puran_Poli_Maharashtra.JPG" alt="Puran Poli">
+    <form class="order-form" onsubmit="return showThankYou(event, 'Puran Poli')">
+      <input type="text" placeholder="Your Name" required>
+      <input type="text" placeholder="Delivery Address" required>
+      <select required>
+        <option value="">Select Quantity</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3+</option>
+      </select>
+      <button class="order-btn">Order Now</button>
+    </form>
+  </div>
+
+  <!-- Sadhya -->
+  <div class="food-card">
+    <h3>Sadhya (Kerala)</h3>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Kerala_Sadya.jpg" alt="Sadhya">
+    <form class="order-form" onsubmit="return showThankYou(event, 'Sadhya')">
+      <input type="text" placeholder="Your Name" required>
+      <input type="text" placeholder="Delivery Address" required>
+      <select required>
+        <option value="">Select Quantity</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3+</option>
+      </select>
+      <button class="order-btn">Order Now</button>
+    </form>
+  </div>
+
+  <!-- Rasgulla -->
+  <div class="food-card">
+    <h3>Rasgulla (West Bengal)</h3>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Rasgulla.jpg/800px-Rasgulla.jpg" alt="Rasgulla">
+    <form class="order-form" onsubmit="return showThankYou(event, 'Rasgulla')">
+      <input type="text" placeholder="Your Name" required>
+      <input type="text" placeholder="Delivery Address" required>
+      <select required>
+        <option value="">Select Quantity</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3+</option>
+      </select>
+      <button class="order-btn">Order Now</button>
+    </form>
+  </div>
+</div>
+
+<div id="thankYouMessage" class="thank-you"></div>
+
+<script>
+  function showThankYou(event, foodName) {
+    event.preventDefault();
+    document.getElementById("thankYouMessage").textContent =
+      "🎉 Thank you for ordering " + foodName + "! Your order will be delivered soon.";
+    return false;
+  }
+</script>
+
+</body>
+</html>

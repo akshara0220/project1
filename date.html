@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festival Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .calendar-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .calendar-day:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .festival-day {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .modal {
+            transition: all 0.3s ease;
+        }
+        
+        .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 640px) {
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 0.25rem;
+            }
+            
+            .calendar-day {
+                padding: 0.25rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Festival Calendar</h1>
+            <p class="text-lg text-gray-600">Explore cultural celebrations throughout the year</p>
+        </header>
+        
+        <!-- Calendar Controls -->
+        <div class="flex justify-between items-center mb-6">
+            <button id="prev-year" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition">
+                &lt;&lt; Previous Year
+            </button>
+            <h2 id="current-year" class="text-2xl font-semibold text-gray-700">2025</h2>
+            <button id="next-year" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition">
+                Next Year &gt;&gt;
+            </button>
+        </div>
+        
+        <!-- Year Navigation -->
+        <div class="mb-6 overflow-x-auto">
+            <div class="flex space-x-2 pb-2">
+                <button class="year-btn px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition" data-year="2025">2025</button>
+                <!-- Add more year buttons as needed -->
+            </div>
+        </div>
+        
+        <!-- Calendar Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Months will be dynamically inserted here -->
+        </div>
+        
+        <!-- Festival Modal -->
+        <div id="festival-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden modal">
+            <div class="bg-white rounded-lg shadow-xl w-11/12 md:w-2/3 lg:w-1/2 modal-content">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="modal-title" class="text-2xl font-bold text-gray-800"></h3>
+                        <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="modal-content" class="text-gray-700">
+                        <!-- Festival content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample festival data (replace with actual data from the zip file)
+        const festivalData = {
+            "2025": {
+                "1": { // January
+                    "14": { // 1st
+                        "title": "Pongal Festival",
+                        "description": "Pongal is a traditional harvest festival celebrated with immense joy and fervor in Tamil Nadu",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Tamil Nadu celebration",
+                                "url": "tamilnadu 2.html"
+                            }
+                        ]
+                    }
+                },
+                "2": { // February
+                    "3": {
+                        "title": "Shapchur Festival",
+                        "description": "Shapchur is a harvest festival celebrated by the Mizo community, marking the end of the agricultural season.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Mizoram celebration",
+                                "url": "mizoram.html"
+                            }
+                        ]
+                    },
+                    "20": {
+                        "title": "Khajuraho Dance Festival",
+                        "description": " The festival typically takes place in February or March and showcases classical dance forms from across India against the backdrop of the stunning Khajuraho temples",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Madhya Pradhesh celebration",
+                                "url": "madhya pradhes.html"
+                            }
+                        ]
+                    },
+                    "28": {
+                        "title": "Losar Festival",
+                        "description": "Losar is the New Year festival celebrated by the Monpa tribe of Arunachal Pradesh and Sikkim.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Arunachal Pradesh celebration",
+                                "url": "arunachal pradesh.html"
+                            },
+                            {
+                                "name": "Sikkim celebration",
+                                "url": "sikkim.html"
+                            }
+                        ]
+                    }
+                },
+                "3": { // March
+                    "14": {
+                        "title": "Yasoshang Festival",
+                        "description": "Yaoshang usually falls in March and marks the arrival of spring.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Manipur celebration",
+                                "url": "manipur.html"
+                            }
+                                ]               
+                                 },
+                                 "15": { 
+                        "title": "Shigoma And Ganguar Festivals",
+                        "description": "Shigmo is a lively Hindu festival celebrated in Goa, marking the arrival of spring and the harvest season.Gangaur festival in Rajasthan is one can savor the delightful culinary tradition.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Goa celebration",
+                                "url": "goa.html"
+                            },
+                            {
+                                "name": "Rajasthan celebration",
+                                "url": "rajasthan.html"
+                            }
+                                ]               
+                                 },
+                                 "30": { 
+                        "title": "Ugadi Festivals",
+                        "description": "Ugadi is the Telugu New Year, celebrated with great enthusiasm and fervor in Andhra Pradesh.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Andhra Pradhes celebration",
+                                "url": "andhra pradesh2.html"
+                            }
+                                ]               
+                                 }
+
+                },
+                "4": { // April
+                    "1": {
+                        "title": "Sarhul Festival",
+                        "description": "Sarhul is a vibrant spring festival primarily celebrated by tribal communities in Jharkhand, India, including the Munda, Oraon, and Ho tribes.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Jharkhand celebration",
+                                "url": "jarkhand.html"
+                            }
+                                ] 
+                    },
+                    "14": {
+                        "title": "Baisakhi Festival",
+                        "description": "Baisakhi, also known as Vaisakhi, is a vibrant festival celebrated on April 13th or 14th each year, primarily in Punjab and Haryana",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Harayana celebration",
+                                "url": "haryana.html"
+                            },
+                             {
+                                "name": "Punjab celebration",
+                                "url": "punjab.html"
+                            }
+                                ] 
+                    },
+                     "15": {
+                        "title": "Bihu Festival",
+                        "description": "Bihu is one of the most important festivals in Assam, celebrating the harvest season and marking the end of the harvesting period.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Assam celebration",
+                                "url": "assam.html"
+                            }
+                                ] 
+                    }
+
+
+                },
+                "5": { // May
+                    "28": {
+                        "title": "Sakadawa Festival",
+                        "description": "Saka Dawa, also known as Saga Dawa, is a significant Buddhist festival, particularly important in Tibet and Ladakh, commemorating the birth, enlightenment, and parinirvana (passing away) of Buddha Shakyamuni according to Tibetan Guide",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "ladakh celebration",
+                                "url": "ladak.html"
+                            }
+                                ] 
+                    }
+                },
+                
+                "6": { // June
+                    "27": {
+                        "title": "Ratayatra",
+                        "description": "The Rath Yatra festival is primarily celebrated in the state of Odisha, particularly in the city of Puri.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Oddisa celebration",
+                                "url": "odisha.html"
+                            }
+                                ] 
+                    }
+                },
+                "7": { // July
+                    "3": {
+                        "title": "Kharchi Puja",
+                        "description": " Kharchi Puja is a week-long festival celebrated to honor the fourteen deities of Tripura.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Tripura celebration",
+                                "url": "tripura.html"
+                            }
+                                ] 
+                    }
+                },
+                "8": { // August
+                    "26":{
+                        "title": "Onam Festival",
+                        "description": "The festival commemorates the Vamana avatar of Vishnu, the subsequent homecoming of the legendary Emperor Mahabali and mythologies of Hinduism related to Kashyapa and Parashurama.",
+                        "type": "",
+                         "urls": [
+                            {
+                                "name": "Kerala celebration",
+                                "url": "kerala.html"
+                            }
+                                ] 
+                    }
+                },
+                "9": { // September
+                    "6":{
+                        "title": "Hermit Festival",
+                        "description": "The Hermit Festival, or Amarnath Yatra, in Jammu and Kashmir, is a revered pilgrimage to the Amarnath Cave, dedicated to Lord Shiva.",
+                        "type": "",
+                         "urls": [
+                            {
+                                "name": "Jammu and Kashmir celebration",
+                                "url": "jk.html"
+                            }
+                                ] 
+                    },
+                    "22":{
+                        "title": "Bathukamma Festival",
+                        "description": "During dusshera bathukamma is celebrated in telangana and beloved snack during this festival is Sakinalu.",
+                        "type": "",
+                         "urls": [
+                            {
+                                "name": "Telangana celebration",
+                                "url": "telangana.html"
+                            }
+                                ] 
+                    },
+                    "28":{
+                        "title": "Durga Pooja",
+                        "description": "West Bengal's grand festival, celebrates Goddess Durga's victory over evil with elaborate pandals and fervent worship over nine days.",
+                        "type": "",
+                         "urls": [
+                            {
+                                "name": "West bengal celebration",
+                                "url": "westbengal.html"
+                            }
+                                ] 
+                    }
+                },
+                
+                "10": { // October
+                    "2": {
+                        "title": "Dasara Festival",
+                        "description": "Dasara 2025 will be celebrated on 2nd October 2025, marking the victory of good over evil.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Chhatisghar celebration",
+                                "url": "chattisgarh.html"
+                            },
+                             {
+                                "name": "Gujarat celebration",
+                                "url": "gujarat.html"
+                            },
+                             {
+                                "name": "Himachal Pradhesh celebration",
+                                "url": "himachal pradesh.html"
+                            },
+                             {
+                                "name": "Karnataka celebration",
+                                "url": "karnataka.html"
+                            },
+                             {
+                                "name": "Uttarakhand celebration",
+                                "url": "uttarkhand.html"
+                            }
+                                ] 
+                    },
+                    "18": {
+                        "title": "Diwali",
+                        "description": "Festival of lights celebrating the victory of light over darkness.",
+                        "type": "",
+                         "urls": [
+                            {
+                                "name": "Uttar Pradhesh celebration",
+                                "url": "up.html"
+                            }
+                        ]
+                    },
+                    "25": {
+                        "title": "Chhath puja",
+                        "description": "Festival of lights celebrating the victory of light over darkness.",
+                        "type": "",
+                         "urls": [
+                            {
+                                "name": "Bihar celebration",
+                                "url": "bihar.html"
+                            }
+                        ]
+                    }
+                },
+                "11": { // November
+                    "7": {
+                        "title": "Wangala",
+                        "description": "a harvest festival celebrated by the Garo tribe in Meghalaya.",
+                        "type": "",
+                        "urls": [
+                            {
+                                "name": "Meghalaya celebration",
+                                "url": "meghalaya.html"
+                            }
+                        ]
+                    }
+                },
+                "12": { // December
+                    "1": {
+                        "title": "HornBill festival",
+                        "description": "This delicacy embodies the rich cultural heritage and culinary prowess of the Naga tribes.",
+                        "type": "",
+                         "urls": [
+                            {
+                                "name": "Nagaland celebration",
+                                "url": "nagaland.html"
+                            }
+                        ]
+
+                    }
+                }
+            },
+           
+        };
+
+        // Current year
+        let currentYear = 2025;
+
+        // Month names
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        // Days of the week
+        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        // Initialize the calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCalendar(currentYear);
+            
+            // Event listeners for navigation
+            document.getElementById('prev-year').addEventListener('click', function() {
+                currentYear--;
+                renderCalendar(currentYear);
+            });
+            
+            document.getElementById('next-year').addEventListener('click', function() {
+                currentYear++;
+                renderCalendar(currentYear);
+            });
+            
+            // Year navigation buttons
+            document.querySelectorAll('.year-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    currentYear = parseInt(this.dataset.year);
+                    renderCalendar(currentYear);
+                    
+                    // Update active state
+                    document.querySelectorAll('.year-btn').forEach(btn => {
+                        btn.classList.remove('bg-blue-100', 'font-medium');
+                        btn.classList.add('bg-gray-200');
+                    });
+                    this.classList.remove('bg-gray-200');
+                    this.classList.add('bg-blue-100', 'font-medium');
+                });
+            });
+            
+            // Close modal
+            document.getElementById('close-modal').addEventListener('click', function() {
+                document.getElementById('festival-modal').classList.add('hidden');
+            });
+        });
+
+        // Render the calendar for a specific year
+        function renderCalendar(year) {
+            document.getElementById('current-year').textContent = year;
+            
+            const calendarContainer = document.querySelector('.grid');
+            calendarContainer.innerHTML = '';
+            
+            for (let month = 0; month < 12; month++) {
+                const monthElement = createMonthElement(year, month);
+                calendarContainer.appendChild(monthElement);
+            }
+        }
+
+        // Create a month element
+        function createMonthElement(year, monthIndex) {
+            const monthDiv = document.createElement('div');
+            monthDiv.className = 'bg-white rounded-lg shadow-md overflow-hidden';
+            
+            // Month header
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'calendar-header px-4 py-3';
+            headerDiv.innerHTML = `<h3 class="text-xl font-semibold text-white">${monthNames[monthIndex]}</h3>`;
+            
+            // Days of week header
+            const daysHeaderDiv = document.createElement('div');
+            daysHeaderDiv.className = 'grid grid-cols-7 gap-1 bg-gray-100 px-2 py-2 border-b';
+            
+            dayNames.forEach(day => {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'text-center text-sm font-medium text-gray-600';
+                dayDiv.textContent = day;
+                daysHeaderDiv.appendChild(dayDiv);
+            });
+            
+            // Calendar grid
+            const calendarGridDiv = document.createElement('div');
+            calendarGridDiv.className = 'grid grid-cols-7 gap-1 p-2';
+            
+            // Get first day of month and total days in month
+            const firstDay = new Date(year, monthIndex, 1).getDay();
+            const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'h-10';
+                calendarGridDiv.appendChild(emptyDiv);
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day text-center p-1 rounded-lg cursor-pointer transition h-10 flex flex-col items-center justify-center';
+                
+                // Check if this day has a festival
+                const hasFestival = festivalData[year] && 
+                                    festivalData[year][monthIndex + 1] && 
+                                    festivalData[year][monthIndex + 1][day];
+                
+                if (hasFestival) {
+                    dayDiv.classList.add('festival-day');
+                    
+                    // Add festival indicator
+                    const festivalIndicator = document.createElement('div');
+                    festivalIndicator.className = 'w-1 h-1 rounded-full bg-white mt-0.5';
+                    dayDiv.innerHTML = `${day}`;
+                    dayDiv.appendChild(festivalIndicator);
+                } else {
+                    dayDiv.textContent = day;
+                    dayDiv.classList.add('hover:bg-gray-100');
+                }
+                
+                // Add click event to show festival details
+                dayDiv.addEventListener('click', function() {
+                    if (hasFestival) {
+                        showFestivalDetails(year, monthIndex + 1, day);
+                    }
+                });
+                
+                calendarGridDiv.appendChild(dayDiv);
+            }
+            
+            // Assemble the month element
+            monthDiv.appendChild(headerDiv);
+            monthDiv.appendChild(daysHeaderDiv);
+            monthDiv.appendChild(calendarGridDiv);
+            
+            return monthDiv;
+        }
+
+        // Show festival details in modal
+        function showFestivalDetails(year, month, day) {
+            const festival = festivalData[year][month][day];
+            
+            document.getElementById('modal-title').textContent = festival.title;
+            
+            // Create festival details content
+            const contentDiv = document.getElementById('modal-content');
+            contentDiv.innerHTML = `
+                <div class="mb-4">
+                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold 
+                        ${getTypeColorClass(festival.type)}">
+                        ${festival.type}
+                    </span>
+                    <span class="ml-2 text-gray-600">${monthNames[month - 1]} ${day}, ${year}</span>
+                </div>
+                <p class="mb-4">${festival.description}</p>
+            `;
+            
+            // Check if there are multiple URLs
+            if (festival.urls && festival.urls.length > 0) {
+                const urlsList = document.createElement('div');
+                urlsList.className = 'mt-4';
+                urlsList.innerHTML = '<h4 class="font-semibold">Related Links:</h4>';
+                
+                festival.urls.forEach(urlObj => {
+                    const link = document.createElement('a');
+                    link.href = urlObj.url;
+                    link.target = "_blank";
+                    link.className = 'block text-blue-600 hover:underline';
+                    link.textContent = urlObj.name;
+                    urlsList.appendChild(link);
+                });
+                
+                contentDiv.appendChild(urlsList);
+            }
+            
+            // Show modal
+            document.getElementById('festival-modal').classList.remove('hidden');
+        }
+
+        // Get color class based on festival type
+        function getTypeColorClass(type) {
+            switch(type.toLowerCase()) {
+                case 'international':
+                    return 'bg-blue-100 text-blue-800';
+                case 'national':
+                    return 'bg-green-100 text-green-800';
+                case 'hindu':
+                    return 'bg-orange-100 text-orange-800';
+                case 'christian':
+                    return 'bg-purple-100 text-purple-800';
+                case 'regional':
+                    return 'bg-red-100 text-red-800';
+                default:
+                    return 'bg-gray-100 text-gray-800';
+            }
+        }
+    </script>
+</body>
+</html>

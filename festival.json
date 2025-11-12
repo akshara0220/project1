@@ -1,0 +1,39 @@
+{
+  "Andhra Pradesh": {
+    "food": { "name": "Bobbatlu", "image": "images/andhra_pradesh_food.jpg" },
+    "festival": { "name": "Ugadi", "image": "images/andhra_pradesh_festival.jpg" }
+  },
+  "Arunachal Pradesh": {
+    "food": { "name": "Thukpa", "image": "images/arunachal_pradesh_food.jpg" },
+    "festival": { "name": "Losar", "image": "images/arunachal_pradesh_festival.jpg" }
+  },
+  "Assam": {
+    "food": { "name": "Khar", "image": "images/assam_food.jpg" },
+    "festival": { "name": "Bihu", "image": "images/assam_festival.jpg" }
+  },
+  "Bihar": {
+    "food": { "name": "Litti Chokha", "image": "images/bihar_food.jpg" },
+    "festival": { "name": "Chhath Puja", "image": "images/bihar_festival.jpg" }
+  },
+  "Chhattisgarh": {
+    "food": { "name": "Chana Samosa", "image": "images/chhattisgarh_food.jpg" },
+    "festival": { "name": "Hareli", "image": "images/chhattisgarh_festival.jpg" }
+  },
+  "Goa": {
+    "food": { "name": "Fish Curry Rice", "image": "images/goa_food.jpg" },
+    "festival": { "name": "Carnival", "image": "images/goa_festival.jpg" }
+  },
+  "Gujarat": {
+    "food": { "name": "Dhokla", "image": "images/gujarat_food.jpg" },
+    "festival": { "name": "Navratri", "image": "images/gujarat_festival.jpg" }
+  },
+  "Haryana": {
+    "food": { "name": "Bajra Khichdi", "image": "images/haryana_food.jpg" },
+    "festival": { "name": "Teej", "image": "images/haryana_festival.jpg" }
+  },
+  "Himachal Pradesh": {
+    "food": { "name": "Siddu", "image": "images/himachal_pradesh_food.jpg" },
+    "festival": { "name": "Dussehra (Kullu)", "image": "images/himachal_pradesh_festival.jpg" }
+  }
+ 
+}

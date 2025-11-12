@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Indian Festival Chatbot + Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #chatLog {
+      max-width: 600px;
+      margin: 80px auto 20px;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    #searchContainer {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+    #searchInput, #searchButton, #monthFilter {
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #searchInput {
+      width: 200px;
+    }
+    #searchButton {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    #monthFilter {
+      margin-top: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">🎉 Festival Explorer & Quiz</h1>
+  <div id="searchContainer">
+    <input type="text" id="searchInput" placeholder="Ask about a festival or state...">
+    <button id="searchButton">🔍 Search</button>
+    <select id="monthFilter">
+      <option value="">-- Filter by Month --</option>
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+  </div>
+  <div id="chatLog"></div>
+
+  <script>
+    const localAnswers = {
+      pongal: { en: "Tamil Nadu celebrates Pongal, a harvest festival.", hi: "तमिलनाडु में पोंगल मनाया जाता है।", te: "తమిళనాడులో పొంగల్ పండుగ జరుపుకుంటారు." },
+      tamilnadu: { en: "Tamil Nadu is famous for Pongal and Onam.", hi: "तमिलनाडु पोंगल और ओणम के लिए प्रसिद्ध है।", te: "తమిళనాడు పొంగల్ మరియు ఓనం కొరకు ప్రసిద్ధి చెందింది." },
+      holi: { en: "Delhi celebrates Holi with vibrant colors and fun.", hi: "दिल्ली में होली रंगों और मस्ती के साथ मनाई जाती है।", te: "ఢిల్లీ హోలీని రంగులతో జరుపుకుంటారు." },
+      odisha: { en: "Odisha celebrates Rath Yatra in July.", hi: "ओडिशा में जुलाई में रथ यात्रा होती है।", te: "ఒడిశాలో జూలైలో రథ యాత్ర జరుపుతారు." },
+      onam: { en: "Onam is a major festival celebrated in Kerala in August.", hi: "ओणम अगस्त में केरल में मनाया जाता है।", te: "ఓనం ఆగష్టులో కేరళలో జరుపుకుంటారు." },
+      kerala: { en: "Kerala is known for Onam and boat races.", hi: "केरल ओणम और नाव दौड़ के लिए जाना जाता है।", te: "కేరళ ఓనం మరియు పడవ పందెమ్మల కోసం ప్రసిద్ధి చెందింది." },
+      dussehra: { en: "Dussehra is celebrated across India in October to mark the victory of good over evil.", hi: "दशहरा भारत में अक्टूबर में मनाया जाता है।", te: "దసరా అక్టోబర్‌లో భారతదేశంలో జరుపుకుంటారు." }
+    };
+
+    const festivalMonths = {
+      January: ["pongal"],
+      March: ["holi"],
+      July: ["odisha"],
+      August: ["onam", "kerala"],
+      October: ["dussehra"]
+    };
+
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+    const chatLog = document.getElementById("chatLog");
+    const monthFilter = document.getElementById("monthFilter");
+
+    function respondToQuery(query) {
+      const lang = navigator.language.startsWith("hi") ? "hi" : navigator.language.startsWith("te") ? "te" : "en";
+      const matchedKey = Object.keys(localAnswers).find(key => query.toLowerCase().includes(key));
+      if (matchedKey) {
+        const reply = localAnswers[matchedKey][lang];
+        chatLog.innerHTML += `<div style='margin: 10px 0; padding: 10px; background: #e7f3ff; border-radius: 10px;'>🤖 <strong>${matchedKey.toUpperCase()}:</strong> ${reply}</div>`;
+        const speak = new SpeechSynthesisUtterance(reply);
+        speak.lang = lang === 'hi' ? 'hi-IN' : lang === 'te' ? 'te-IN' : 'en-IN';
+        speechSynthesis.speak(speak);
+      } else {
+        chatLog.innerHTML += `<div style='margin: 10px 0; padding: 10px; background: #fff0f0; border-radius: 10px;'>❌ Sorry, I couldn't find information about "${query}".</div>`;
+      }
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function handleMonthFilter(month) {
+      chatLog.innerHTML += `<div style='margin: 10px 0; padding: 10px; background: #e0ffe0; border-radius: 10px;'>📅 <strong>Festivals in ${month}</strong></div>`;
+      const keys = festivalMonths[month] || [];
+      keys.forEach(k => respondToQuery(k));
+    }
+
+    searchButton.onclick = () => {
+      const query = searchInput.value.trim();
+      if (query) respondToQuery(query);
+      searchInput.value = "";
+    };
+
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") searchButton.click();
+    });
+
+    monthFilter.addEventListener("change", (e) => {
+      if (e.target.value) handleMonthFilter(e.target.value);
+    });
+  </script>
+</body>
+</html>

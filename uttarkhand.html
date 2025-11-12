@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UTTARAKHAND FOOD</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+    header { background-color: #333; color: white; text-align: center; padding: 20px; }
+    section { max-width: 800px; margin: 20px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+    h2 { color: #333; }
+    p { color: #666; }
+    .gallery { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+    .gallery img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px; transition: transform 0.2s; cursor: pointer; }
+    .gallery img:hover { transform: scale(1.1); }
+    .videos { margin-top: 20px; }
+    .video-container { position: relative; overflow: hidden; padding-bottom: 56.25%; margin-bottom: 20px; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header><h1>UTTARAKHAND FOOD</h1></header>
+  <a href="mppppppppppppppppp-2.html">back</a>
+  <section>
+    <h2>DUSSEHRA: ALOO KE GUTKE</h2>
+    <p>Dussehra, celebrated across Uttarakhand, signifies the victory of good over evil, featuring vibrant processions and folk performances. Effigies of Ravana are burned amidst cheers and fireworks, symbolizing righteousness prevailing. Aloo ke Gutke, a traditional dish of Uttarakhand, boasts rustic flavors and simplicity. Consisting of boiled potatoes sautéed with spices like cumin, mustard, and turmeric, it's enhanced with onions, tomatoes, and green chilies. Often served as a side dish with rice or roti, it's accompanied by yogurt or pickle. Aloo ke Gutke embodies the warmth of Uttarakhand's cuisine, reflecting the hospitality of its people. During festivals like Dussehra, it takes center stage, adding to the joyous spirit of celebration and togetherness..</p>
+    <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+  </section>
+  <section>
+    <h2>ALOO KE GUTKE</h2>
+    <div class="gallery">
+      <img src="https://img-global.cpcdn.com/recipes/45ade9cf1d8be01d/1200x630cq70/photo.jpg" alt="photo 1">
+      <img src="https://www.whiskaffair.com/wp-content/uploads/2022/03/Aloo-ke-Gutke-2-3.jpg" alt="photo 2">
+    </div>
+  </section>
+  <section class="videos">
+    <h2>Videos</h2>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/6X5tRjZg-Dg" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+  <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+      <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+      <canvas id="nutritionChart"></canvas>
+      <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+    </div>
+  </div>
+  <script>
+// Base data for 100g
+const baseNutritionData = {
+      "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [180, 3, 28, 7, 3] },
+      "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [180, 3, 28, 7, 3] }
+    };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+
+</body>
+</html>
+<section>
+    <h2>Explore Uttarakhand During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <!-- Famous Places -->
+        <div class="festival-block" data-type="place">
+            <h3>Kedarnath Temple</h3>
+            <p>Major pilgrimage destination, especially during Char Dham Yatra and Shivratri festivals.</p>
+            <a href="https://www.google.com/maps?q=Kedarnath+Temple" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Har Ki Pauri, Haridwar</h3>
+            <p>Spiritual ghat famous for Ganga Aarti, especially vibrant during Kumbh Mela and Kartik Purnima.</p>
+            <a href="https://www.google.com/maps?q=Har+Ki+Pauri,Haridwar" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Badrinath Temple</h3>
+            <p>One of the Char Dham pilgrimage sites, visited during Akshaya Tritiya and Diwali celebrations.</p>
+            <a href="https://www.google.com/maps?q=Badrinath+Temple" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Nanda Devi Raj Jat Yatra</h3>
+            <p>Once-in-12-years spiritual procession with deep cultural roots and traditional food stalls.</p>
+            <a href="https://www.google.com/maps?q=Nanda+Devi+Raj+Jat+Yatra" target="_blank">View on Google Maps</a>
+        </div>
+
+        <!-- Famous Foods -->
+        <div class="festival-block" data-type="food">
+            <h3>Aloo Ke Gutke</h3>
+            <p>Spicy dry potato dish with jakhiya seeds, commonly enjoyed during fairs and local festivals.</p>
+            <img src="https://www.whiskaffair.com/wp-content/uploads/2022/03/Aloo-ke-Gutke-2-3.jpg" alt="Aloo Ke Gutke" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Arsa</h3>
+            <p>Traditional deep-fried sweet made from rice flour and jaggery, especially during weddings and Diwali.</p>
+            <img src="https://www.uttarakhandi.com/wp-content/uploads/arsa-uttarakhand-1140x445.jpg" alt="Arsa Sweet" width="300">
+        </div>
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+
+

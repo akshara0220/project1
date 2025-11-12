@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAHARASTRA FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MAHARASTRA FOOD</h1>
+    </header>
+
+    <section>
+        <h2>GANESH CHATURTHI:PURAN POLI</h2>
+        <P>Puran Poli, a cherished treat during Ganesh Chaturthi in Maharashtra, embodies the essence of sweetness and festivity. This traditional delicacy consists of a soft, flatbread filled with a sweet and aromatic mixture called "puran." To prepare the puran, chana dal is cooked until tender and then combined with jaggery, ghee, and spices like cardamom and nutmeg, resulting in a rich and flavorful filling.Meanwhile, a dough is made using whole wheat flour, water, and a hint of oil. Portions of this dough are flattened and filled with the puran mixture before being carefully sealed and rolled out into thin discs. These stuffed discs are then cooked on a griddle with a drizzle of ghee until golden brown and cooked through, releasing a tantalizing aroma that wafts through the kitchen.Once ready, Puran Poli is served warm, often accompanied by an extra drizzle of ghee or a sprinkle of powdered sugar for added indulgence. Its consumption during Ganesh Chaturthi symbolizes sweetness, prosperity, and the joyous celebration of Lord Ganesha's arrival.Families across Maharashtra eagerly anticipate the preparation and enjoyment of Puran Poli during this auspicious festival, as it brings loved ones together and fills homes with warmth and happiness. Its timeless appeal and rich flavors make it an integral part of the cultural tapestry of Ganesh Chaturthi celebrations in the region.
+            </p>
+            <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </section>
+
+    <section>
+        <h2>PURAN POLI,GANESH CHATURTHI</h2>
+        <div class="gallery">
+            <img src="https://i0.wp.com/kalimirchbysmita.com/wp-content/uploads/2019/04/Puran-Poli-02.jpg?fit=1024%2C682&ssl=1" alt="photo 1">
+            <img src="https://images.slurrp.com/prod/recipe_images/transcribe/dinner/Puran-Poli.webp?impolicy=slurrp-20210601&width=1200&height=675"alt="photo 2">
+            <img src="https://m.economictimes.com/thumb/msid-103752199,width-1200,height-900,resizemode-4,imgsize-243834/ganesh-chaturthi-is-celebrated-by-making-idols-of-lord-ganesha-decorating-them-and-immersing-them-in-water-.jpg" alt="Photo 3"> 
+            <img src="https://www.nativeplanet.com/img/2023/08/ganesh-chaturthi-celebration_1692778396196-1200x675-20230823135001.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/l7Efb-HjDPU?si=a2fDYp0Bh2fd28l5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+       <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+ <canvas id="nutritionChart"></canvas>
+        <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+    </div>
+</div>
+
+<script>
+// Base data for 100g
+const baseNutritionData ={
+  "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [320, 6, 45, 10, 4] },
+  "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [320, 6, 45, 10, 4] }
+};
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+
+
+</body>
+</html>
+
+<section>
+    <h2>Explore Maharashtra During Festivals</h2>
+    <label for="festivalFilter"><strong>Filter by:</strong></label>
+    <select id="festivalFilter" onchange="filterFestival()">
+        <option value="all">-- Show All --</option>
+        <option value="place">Famous Places</option>
+        <option value="food">Famous Foods</option>
+    </select>
+
+    <div id="festivalContent">
+
+        <div class="festival-block" data-type="place">
+            <h3>Siddhivinayak Temple, Mumbai</h3>
+            <p>Spiritual site with vibrant celebrations and nearby street food.</p>
+            <a href="https://www.google.com/maps?q=Siddhivinayak+Temple,Mumbai" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Lalbaugcha Raja, Mumbai</h3>
+            <p>Famous Ganesh idol visited by lakhs of devotees; known for festive snacks and sweets.</p>
+            <a href="https://www.google.com/maps?q=Lalbaugcha+Raja,Mumbai" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Dagdusheth Halwai Ganpati, Pune</h3>
+            <p>Cultural hotspot for Ganesh Chaturthi and iconic for sweet shops serving Puran Poli.</p>
+            <a href="https://www.google.com/maps?q=Dagadusheth+Halwai+Ganapati,Pune" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="place">
+            <h3>Ganpatipule Temple, Ratnagiri</h3>
+            <p>Coastal temple with festive food stalls and Konkan delicacies.</p>
+            <a href="https://www.google.com/maps?q=Ganpatipule+Temple" target="_blank">View on Google Maps</a>
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Puran Poli</h3>
+            <p>Stuffed sweet flatbread made with jaggery and chana dal, traditionally eaten during Ganesh Chaturthi.</p>
+            <img src="https://i0.wp.com/kalimirchbysmita.com/wp-content/uploads/2019/04/Puran-Poli-02.jpg?fit=1024%2C682&ssl=1" alt="Puran Poli" width="300">
+        </div>
+
+        <div class="festival-block" data-type="food">
+            <h3>Modak</h3>
+            <p>Lord Ganesha’s favorite sweet; steamed or fried dumplings filled with coconut and jaggery.</p>
+            <img src="data:image/jpeg;base64,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" alt="Modak" width="300">
+        </div>
+    </div>
+</section>
+
+<script>
+function filterFestival() {
+    const selected = document.getElementById("festivalFilter").value;
+    const blocks = document.querySelectorAll(".festival-block");
+
+    blocks.forEach(block => {
+        if (selected === "all" || block.getAttribute("data-type") === selected) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+</script>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>
+<a href="orderfood.html">
+  <button style="padding: 10px 20px; background-color: #3f51b5; color: white; border: none; border-radius: 8px;">
+    🫓 Order Puran Poli
+  </button>
+</a>
+

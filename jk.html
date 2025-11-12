@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>JAMMU AND KASHMIR FOOD</h1>
+    </header>
+
+    <section>
+        <h2>HERMIT FESTIVAL:ROGAN JOSH</h2>
+        </P>The Hermit Festival, or Amarnath Yatra, in Jammu and Kashmir, is a revered pilgrimage to the Amarnath Cave, dedicated to Lord Shiva. It occurs during the Hindu month of Shravan (July-August), drawing devotees from across India for a challenging trek through the Himalayas. Pilgrims seek blessings from the naturally formed ice lingam inside the cave, symbolizing Lord Shiva.
+        Rogan Josh, a staple of Kashmiri cuisine, is a flavorful dish featuring tender lamb or goat meat cooked in a rich sauce of Kashmiri spices. Its name translates to "red meat," reflecting its vibrant color from Kashmiri red chili powder. The dish boasts a complex blend of cloves, cinnamon, cardamom, and fennel seeds, slow-cooked to perfection.
+        Prepared in copper pots, Rogan Josh is known for its tender meat and velvety gravy, complemented by aromatic spices. It is often served with steamed rice or naan, garnished with coriander leaves or a dollop of yogurt. Rogan Josh embodies the culinary heritage and cultural richness of Kashmir, offering a delightful sensory experience to those who savor it.
+            </p>
+    </section>
+
+    <section>
+        <h2>ROGAN JOSH</h2>
+        <div class="gallery">
+            <img src="https://www.recipetineats.com/wp-content/uploads/2020/02/Rogan-Josh_4.jpg" alt="photo 1">
+            <img src="https://hips.hearstapps.com/hmg-prod/images/rogan-josh-wide-1572547980.jpg?crop=0.8888888888888888xw:1xh;center,top&resize=1200:*"alt="photo 2">
+            <H2>HERMIT FESTIVAL</H2>
+            <img src="https://rgyan-flutter200503-dev.s3.ap-south-1.amazonaws.com/web/pg/eblogs/2018/05/Hemis-Festival.jpg" alt="Photo 3">
+            <img src="https://newsonair.gov.in/writereaddata/News_Pictures/STA/2023/Jun/NPIC-2023628135112.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/vRkg-gDW3AU?si=CicZTgn4s07CGlGY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+         </div>
+        <!-- Add more video containers as needed -->
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+      <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+        <canvas id="nutritionChart"></canvas>
+        <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+      </div>
+    </div>
+    <script>
+      const nutritionData = {
+        "photo 1": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [350, 25, 6, 25, 2] },
+        "photo 2": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [350, 25, 6, 25, 2] }
+      };
+      const chartModal = document.getElementById('nutritionModal');
+      let chart;
+      function showNutritionChart(alt) {
+        const key = alt.trim().toLowerCase();
+        const item = nutritionData[key];
+        if (!item) return;
+        if (chart) chart.destroy();
+        const ctx = document.getElementById('nutritionChart').getContext('2d');
+        chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: item.labels,
+            datasets: [{ label: 'Nutrition Details', data: item.data, backgroundColor: 'rgba(75, 192, 192, 0.6)' }]
+          },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+        chartModal.style.display = 'flex';
+      }
+      function closeModal() { chartModal.style.display = 'none'; }
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.gallery img').forEach(img =>
+          img.addEventListener('click', () => showNutritionChart(img.alt.trim()))
+        );
+      });
+    </script>
+
+</body>
+</html>

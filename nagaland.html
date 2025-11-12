@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAGALAND FOOD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .videos {
+            margin-top: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NAGALAND FOOD</h1>
+    </header>
+
+    <section>
+        <h2>HORNBILL FESTIVAL-SMOKED PORK</h2>
+        </P>Smoked pork holds a revered place in the culinary traditions of Nagaland, particularly during the vibrant celebrations of the Hornbill Festival. This delicacy embodies the rich cultural heritage and culinary prowess of the Naga tribes. 
+        The preparation of smoked pork begins with the selection of high-quality pork, typically sourced locally. The meat is then marinated with a blend of indigenous spices and herbs, which may include ginger, garlic, bamboo shoot, fermented soybeans, and traditional Naga chili varieties like bhut jolokia or raja mirchi. 
+        Once marinated, the pork is traditionally smoked over an open fire or in a makeshift smoker using local hardwoods such as bamboo or banana leaves, imparting a distinct smoky flavor to the meat. This smoking process can take several hours, during which the pork slowly cooks and absorbs the aromatic essence of the wood.
+        The result is tender, flavorful smoked pork with a tantalizing combination of spicy, smoky, and savory notes. It is often served as a centerpiece dish during the Hornbill Festival, accompanied by traditional Naga staples like rice, fermented soybean chutney (akuni), and various locally grown vegetables.
+        Smoked pork not only satisfies culinary cravings but also serves as a symbol of communal feasting and cultural pride during the Hornbill Festival. Its preparation and consumption foster a sense of camaraderie and connection among the diverse Naga tribes, highlighting the importance of food as a unifying force in Nagaland's rich tapestry of traditions.
+        </p>
+            <div class="controls">
+      <button onclick="speakText()">🔊 Play</button>
+      <button onclick="pauseText()">⏸️ Pause</button>
+      <button onclick="resumeText()">▶️ Resume</button>
+      <button onclick="stopText()">⏹️ Stop</button>
+      <br>
+      <label class="speed-label">Speed:</label>
+      <input type="range" min="0.5" max="2" step="0.1" value="1" id="rateSlider" oninput="updateRateLabel()" />
+      <span id="rateValue">1</span>x
+    </section>
+
+    </section>
+
+    <section>
+        <h2>SMOKED PORK,HORNBILLFESTIVAL </h2>
+        <div class="gallery">
+            <img src="https://www.savaari.com/blog/wp-content/uploads/2019/11/Hornbill-Festival-Feature.jpg" alt="photo 1">
+            <img src="https://121clicks.com/wp-content/uploads/2021/01/hornbill_festival_photos_nilesh_kumar_01.jpg"alt="photo 2">
+            <img src="https://media-cdn.tripadvisor.com/media/photo-s/1c/b9/13/cf/smoked-pork-axone-a-famous.jpg" alt="Photo 3">
+            <img src="https://northeastlive.s3.amazonaws.com/media/uploads/2023/05/1-7.jpg" alt="photo 4">
+            <!-- Add more images as needed -->
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/tXI2wDSlar8?si=2WcGsaVEiyvk4rUO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <!-- Add more video containers as needed -->
+    </section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="nutritionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; position:relative;">
+    <label for="quantitySelect"><strong>Select Quantity:</strong></label>
+<select id="quantitySelect" onchange="updateQuantity()">
+    <option value="100">100g</option>
+    <option value="200">200g</option>
+    <option value="300">300g</option>
+</select>
+    <canvas id="nutritionChart"></canvas>
+    <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">Close</button>
+  </div>
+</div>
+<script>
+// Base data for 100g
+const baseNutritionData ={
+    "photo 3": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [300, 25, 2, 25, 0] },
+    "photo 4": { labels: ["Calories", "Protein", "Carbs", "Fat", "Fiber"], data: [300, 25, 2, 25, 0] }
+  };
+let currentItemKey = '';
+let chart;
+const chartModal = document.getElementById('nutritionModal');
+
+function showNutritionChart(alt) {
+    const key = alt.trim().toLowerCase();
+    if (!baseNutritionData[key]) return; // Only photo 2 and 4 allowed
+
+    currentItemKey = key;
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    drawChartForQuantity(currentItemKey, quantity);
+    chartModal.style.display = 'flex';
+}
+
+function drawChartForQuantity(key, quantity) {
+    const baseItem = baseNutritionData[key];
+    if (!baseItem) return;
+
+    const scaledData = baseItem.data.map(value => value * quantity / 100);
+    const maxValue = Math.max(...scaledData);
+
+    const ctx = document.getElementById('nutritionChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: baseItem.labels,
+            datasets: [{
+                label: `Nutrition for ${quantity}g`,
+                data: scaledData,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: maxValue + 10 // Add padding above max value
+                }
+            }
+        }
+    });
+}
+
+function updateQuantity() {
+    const quantity = parseInt(document.getElementById("quantitySelect").value || "100");
+    if (currentItemKey) {
+        drawChartForQuantity(currentItemKey, quantity);
+    }
+}
+
+function closeModal() {
+    chartModal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.gallery img');
+    images.forEach(img => {
+        img.addEventListener('click', () => showNutritionChart(img.alt.trim()));
+    });
+});
+</script>
+
+</body>
+</html>
+
+<section>
+  <h2>Explore Nagaland During Festivals</h2>
+  <label for="festivalFilter"><strong>Filter by:</strong></label>
+  <select id="festivalFilter" onchange="filterFestival()">
+    <option value="all">-- Show All --</option>
+    <option value="place">Famous Places</option>
+    <option value="food">Famous Foods</option>
+  </select>
+
+  <div id="festivalContent">
+    <div class="festival-block" data-type="place">
+      <h3>Kisama Heritage Village</h3>
+      <p>Main venue for the Hornbill Festival (Dec 1–10), featuring traditional dance, morungs, rock concerts & crafts </p>
+      <a href="https://www.google.com/maps?q=Kisama+Heritage+Village+Kohima,+Nagaland" target="_blank">View on Google Maps</a>
+    </div>
+
+    <div class="festival-block" data-type="food">
+      <h3>Smoked Pork with Bamboo Shoot & Axone</h3>
+      <p>Signature Naga dish—smoked pork flavored with bamboo shoot and fermented soybean paste (axone) </p>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwmWGub6SunMyaX0z--2cy-iksOGAPEF9qBg&s" alt="Smoked Pork with Bamboo Shoot" width="300">
+    </div>
+
+    <div class="festival-block" data-type="food">
+      <h3>Rice Beer (Zutho/Galho)</h3>
+      <p>Local rice beer varieties like zutho and galho are must-try festival drinks :contentReference[oaicite:3]{index=3}.</p>
+      <img src="data:image/jpeg;base64,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" alt="Rice Beer" width="300">
+    </div>
+  </div>
+</section>
+<script>
+
+    let utterance = new SpeechSynthesisUtterance();
+
+    let rateSlider = document.getElementById('rateSlider');
+
+    let rateValue = document.getElementById('rateValue');
+
+
+
+    rateSlider.addEventListener('input', () => {
+
+      rateValue.textContent = rateSlider.value;
+
+    });
+
+
+
+    function speakText() {
+
+      speechSynthesis.cancel();
+
+      utterance = new SpeechSynthesisUtterance();
+
+      const text = Array.from(document.querySelectorAll('p')).map(p => p.textContent).join(' ');
+
+      utterance.text = text;
+
+      utterance.rate = parseFloat(rateSlider.value);
+
+      speechSynthesis.speak(utterance);
+
+    }
+
+
+
+    function pauseText() {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+
+        speechSynthesis.pause();
+
+      }
+
+    }
+
+
+
+    function resumeText() {
+
+      if (speechSynthesis.paused) {
+
+        speechSynthesis.resume();
+
+      }
+
+    }
+
+
+
+    function stopText() {
+
+      speechSynthesis.cancel();
+
+    }
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Festival Calendar</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+  h1 { text-align: center; }
+  label, select, button { font-size: 1rem; margin: 10px 0; }
+  ul { list-style-type: none; padding: 0; }
+  li { padding: 6px 0; border-bottom: 1px solid #ddd; }
+</style>
+</head>
+<body>
+
+<h1>Festival Calendar</h1>
+
+<label for="yearSelect">Select Year:</label>
+<select id="yearSelect"></select>
+
+<button id="fetchBtn">Show Festivals</button>
+
+<h2>Festivals</h2>
+<ul id="festivalsList"></ul>
+
+<script>
+  const apiKey = 'OdkU2tfQHPsrbJp9gSsGWaDW5nXIcneA';  // <-- Put your Calendarific API key here
+  const country = 'IN'; // Change this to your country code, e.g., 'IN' for India
+
+  // Populate year dropdown (2000 to current year + 5)
+  const yearSelect = document.getElementById('yearSelect');
+  const currentYear = new Date().getFullYear();
+  for(let year = 2000; year <= currentYear + 5; year++) {
+    let option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+  }
+  yearSelect.value = currentYear;
+
+  const fetchBtn = document.getElementById('fetchBtn');
+  const festivalsList = document.getElementById('festivalsList');
+
+  fetchBtn.addEventListener('click', () => {
+    const year = yearSelect.value;
+    festivalsList.innerHTML = 'Loading...';
+
+    fetch(https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=${country}&year=${year})
+      .then(res => res.json())
+      .then(data => {
+        festivalsList.innerHTML = '';
+        if (data && data.response && data.response.holidays.length > 0) {
+          data.response.holidays.forEach(holiday => {
+            const li = document.createElement('li');
+            li.textContent = ${holiday.date.iso} - ${holiday.name} (${holiday.type.join(', ')});
+            festivalsList.appendChild(li);
+          });
+        } else {
+          festivalsList.innerHTML = '<li>No festivals found for this year.</li>';
+        }
+      })
+      .catch(err => {
+        festivalsList.innerHTML = '<li>Error loading festivals. Try again later.</li>';
+        console.error(err);
+      });
+  });
+
+  // Optionally, load festivals for the current year on page load
+  fetchBtn.click();
+</script>
+
+</body>
+</html>
